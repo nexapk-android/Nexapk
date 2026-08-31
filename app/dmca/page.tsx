@@ -1,1 +1,1 @@
-
+export default function DMCA(){return <main className="simplePage"><section className="content pageContent"><h1>DMCA</h1><p>DMCA/contact process will be finalized before launch.</p></section></main>}
