@@ -1,1 +1,1 @@
-
+export default function Privacy(){return <main className="simplePage"><section className="content pageContent"><h1>Privacy</h1><p>Privacy policy will be finalized before launch.</p></section></main>}
