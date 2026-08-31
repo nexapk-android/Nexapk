@@ -1,1 +1,1 @@
-
+export default function Terms(){return <main className="simplePage"><section className="content pageContent"><h1>Terms</h1><p>Terms and conditions will be finalized before launch.</p></section></main>}
