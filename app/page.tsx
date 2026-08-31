@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
 
 const apps = [
   {
@@ -10,6 +13,7 @@ const apps = [
     downloads: "5M+",
     badge: "MOD",
     icon: "W",
+    iconClass: "whatsapp",
   },
   {
     name: "Instagram Pro",
@@ -20,6 +24,7 @@ const apps = [
     downloads: "10M+",
     badge: "MOD",
     icon: "◎",
+    iconClass: "instagram",
   },
   {
     name: "BGMI",
@@ -30,6 +35,7 @@ const apps = [
     downloads: "20M+",
     badge: "POPULAR",
     icon: "B",
+    iconClass: "bgmi",
   },
   {
     name: "Spotify Premium",
@@ -40,6 +46,7 @@ const apps = [
     downloads: "5M+",
     badge: "NEW",
     icon: "S",
+    iconClass: "spotify",
   },
   {
     name: "CapCut Pro",
@@ -50,39 +57,112 @@ const apps = [
     downloads: "15M+",
     badge: "TRENDING",
     icon: "C",
+    iconClass: "capcut",
   },
   {
-    name: "YouTube Vanced",
-    category: "Entertainment",
-    version: "18.23.39",
-    size: "95 MB",
-    rating: "4.3",
+    name: "Telegram",
+    category: "Social",
+    version: "11.8.0",
+    size: "72 MB",
+    rating: "4.6",
     downloads: "8M+",
-    badge: "TRENDING",
+    badge: "NEW",
+    icon: "➤",
+    iconClass: "telegram",
+  },
+  {
+    name: "YouTube Pro",
+    category: "Video",
+    version: "19.5.2",
+    size: "92 MB",
+    rating: "4.5",
+    downloads: "12M+",
+    badge: "MOD",
     icon: "▶",
+    iconClass: "youtube",
+  },
+  {
+    name: "Netflix",
+    category: "Entertainment",
+    version: "8.120.0",
+    size: "80 MB",
+    rating: "4.3",
+    downloads: "6M+",
+    badge: "NEW",
+    icon: "N",
+    iconClass: "netflix",
   },
 ];
 
-function AppIcon({
-  icon,
-  name,
-}: {
-  icon: string;
-  name: string;
-}) {
+function slugify(value: string) {
+  return value.toLowerCase().replace(/\s+/g, "-");
+}
+
+function SearchIcon() {
   return (
-    <div className={`app-icon icon-${name.toLowerCase().replace(/\s+/g, "-")}`}>
-      {icon}
-    </div>
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="11" cy="11" r="7" />
+      <path d="m20 20-4-4" />
+    </svg>
+  );
+}
+
+function DownloadIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 3v12" />
+      <path d="m7 10 5 5 5-5" />
+      <path d="M5 21h14" />
+    </svg>
+  );
+}
+
+function ArrowIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M5 12h14" />
+      <path d="m13 6 6 6-6 6" />
+    </svg>
   );
 }
 
 export default function Home() {
+  const [scrolled, setScrolled] = useState(false);
+  const [search, setSearch] = useState("");
+  const [visibleApps, setVisibleApps] = useState(6);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 15);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const filteredApps = useMemo(() => {
+    const query = search.trim().toLowerCase();
+
+    if (!query) return apps;
+
+    return apps.filter((app) =>
+      `${app.name} ${app.category} ${app.version}`
+        .toLowerCase()
+        .includes(query)
+    );
+  }, [search]);
+
+  const displayedApps = filteredApps.slice(0, visibleApps);
+
   return (
     <main className="site">
 
-      {/* HEADER */}
-      <header className="header">
+      {/* ================= HEADER ================= */}
+
+      <header className={`header ${scrolled ? "header-scrolled" : ""}`}>
         <div className="header-inner">
 
           <button className="menu-btn" aria-label="Open menu">
@@ -93,6 +173,7 @@ export default function Home() {
 
           <Link href="/" className="logo">
             <span className="logo-symbol">N</span>
+
             <span className="logo-text">
               Nex<span>APK</span>
             </span>
@@ -100,16 +181,20 @@ export default function Home() {
 
           <nav className="desktop-nav">
             <Link href="/">Home</Link>
-            <Link href="/latest">Latest</Link>
+            <Link href="/latest">Latest APKs</Link>
           </nav>
 
           <div className="header-actions">
-            <button className="icon-btn" aria-label="Toggle theme">
-              ☼
-            </button>
-
-            <button className="icon-btn search-icon" aria-label="Search">
-              ⌕
+            <button
+              className="icon-btn"
+              aria-label="Search"
+              onClick={() => {
+                document
+                  .getElementById("search")
+                  ?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
+              <SearchIcon />
             </button>
           </div>
 
@@ -117,15 +202,16 @@ export default function Home() {
       </header>
 
 
-      {/* HERO */}
+      {/* ================= HERO ================= */}
+
       <section className="hero-section">
         <div className="hero">
 
           <div className="hero-content">
 
             <div className="platform-badge">
-              <span>🔥</span>
-              #1 APK Platform
+              <span className="status-dot" />
+              NexAPK • APK Platform
             </div>
 
             <h1>
@@ -135,95 +221,107 @@ export default function Home() {
             </h1>
 
             <p>
-              Discover useful apps, games and tools — all in one place.
-              Fast, simple and easy to explore.
+              Discover apps, games and useful tools in one simple place.
+              Browse the latest APKs with a clean and fast experience.
             </p>
 
-            <div className="hero-search">
-              <span className="search-symbol">⌕</span>
+            <div className="hero-search" id="search">
+
+              <span className="search-symbol">
+                <SearchIcon />
+              </span>
 
               <input
                 type="search"
-                placeholder="Search for apps, games, or categories..."
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  setVisibleApps(6);
+                }}
+                placeholder="Search apps, games or categories..."
                 aria-label="Search APKs"
               />
 
               <button aria-label="Search">
-                ⌕
+                <SearchIcon />
               </button>
+
             </div>
 
             <div className="popular">
               <strong>Popular:</strong>
 
-              <Link href="/latest?search=whatsapp">
+              <button onClick={() => setSearch("WhatsApp")}>
                 WhatsApp
-              </Link>
+              </button>
 
-              <Link href="/latest?search=instagram">
+              <button onClick={() => setSearch("Instagram")}>
                 Instagram
-              </Link>
+              </button>
 
-              <Link href="/latest?search=games">
-                Games
-              </Link>
-
-              <Link href="/latest?search=spotify">
+              <button onClick={() => setSearch("Spotify")}>
                 Spotify
-              </Link>
+              </button>
 
-              <Link href="/latest?search=telegram">
+              <button onClick={() => setSearch("Telegram")}>
                 Telegram
-              </Link>
+              </button>
             </div>
 
           </div>
 
 
-          {/* PHONE VISUAL */}
+          {/* HERO VISUAL */}
+
           <div className="hero-visual">
 
             <div className="floating-app floating-one">W</div>
             <div className="floating-app floating-two">◎</div>
             <div className="floating-app floating-three">➤</div>
-            <div className="floating-app floating-four">S</div>
 
             <div className="phone">
+
               <div className="phone-notch" />
 
               <div className="phone-screen">
+
                 <div className="phone-logo">
                   <span className="mini-n">N</span>
-                  <b>Nex<span>APK</span></b>
+
+                  <b>
+                    Nex<span>APK</span>
+                  </b>
                 </div>
 
-                <div className="phone-line" />
-                <div className="phone-line short" />
+                <div className="phone-search">
+                  <span />
+                </div>
 
                 <div className="phone-card">
-                  <div className="mini-icon">A</div>
+                  <div className="mini-icon">W</div>
+
                   <div>
-                    <b>Latest APKs</b>
+                    <b>WhatsApp Plus</b>
+                    <small>Latest version</small>
+                  </div>
+                </div>
+
+                <div className="phone-card">
+                  <div className="mini-icon">S</div>
+
+                  <div>
+                    <b>Spotify Premium</b>
                     <small>Updated today</small>
                   </div>
                 </div>
 
-                <div className="phone-card">
-                  <div className="mini-icon">N</div>
-                  <div>
-                    <b>Discover Apps</b>
-                    <small>Fast downloads</small>
-                  </div>
+                <div className="phone-download">
+                  <DownloadIcon />
+                  Download APK
                 </div>
 
               </div>
-            </div>
 
-            <div className="download-note">
-              Download
-              <br />
-              Now!
-              <span>↙</span>
             </div>
 
           </div>
@@ -232,165 +330,204 @@ export default function Home() {
       </section>
 
 
-      {/* FEATURED */}
-      <section className="featured-section">
+      {/* ================= APK SECTION ================= */}
+
+      <section className="featured-section" id="latest">
 
         <div className="section-heading">
 
           <div className="section-title">
-            <div className="fire">🔥</div>
+
+            <div className="section-icon">
+              ✦
+            </div>
 
             <div>
-              <h2>Featured APKs</h2>
-              <p>Handpicked apps you&apos;ll love</p>
+              <h2>Latest APKs</h2>
+              <p>Fresh apps and updates for you</p>
             </div>
+
           </div>
 
           <Link href="/latest" className="view-all">
-            View All <span>→</span>
+            View All
+            <span>→</span>
           </Link>
 
         </div>
 
 
-        <div className="apk-grid">
+        {displayedApps.length > 0 ? (
 
-          {apps.map((app) => (
-            <article className="apk-card" key={app.name}>
+          <div className="apk-grid">
 
-              <Link
-                href={`/apk/${app.name
-                  .toLowerCase()
-                  .replace(/\s+/g, "-")}`}
-                className="apk-main"
-              >
+            {displayedApps.map((app) => {
 
-                <AppIcon
-                  icon={app.icon}
-                  name={app.name}
-                />
+              const slug = slugify(app.name);
 
-                <div className="apk-info">
+              return (
+                <article className="apk-card" key={app.name}>
 
-                  <div className="apk-name-row">
-                    <h3>{app.name}</h3>
-                    <span
-                      className={`apk-badge badge-${app.badge.toLowerCase()}`}
-                    >
-                      {app.badge}
+                  <Link
+                    href={`/apk/${slug}`}
+                    className="apk-main"
+                  >
+
+                    <div className={`app-icon ${app.iconClass}`}>
+                      {app.icon}
+                    </div>
+
+                    <div className="apk-info">
+
+                      <div className="apk-name-row">
+
+                        <h3>{app.name}</h3>
+
+                        <span
+                          className={`apk-badge badge-${app.badge.toLowerCase()}`}
+                        >
+                          {app.badge}
+                        </span>
+
+                      </div>
+
+                      <div className="apk-version">
+                        v{app.version}
+                        <span>•</span>
+                        {app.category}
+                      </div>
+
+                      <p>
+                        Latest version with useful features
+                        and a smooth experience.
+                      </p>
+
+                    </div>
+
+                    <span className="card-arrow">
+                      <ArrowIcon />
                     </span>
+
+                  </Link>
+
+
+                  <div className="apk-bottom">
+
+                    <div className="apk-stats">
+
+                      <span>
+                        <b className="star">★</b>
+                        {app.rating}
+                      </span>
+
+                      <span>
+                        <b>⇩</b>
+                        {app.downloads}
+                      </span>
+
+                      <span>
+                        <b>◷</b>
+                        {app.size}
+                      </span>
+
+                    </div>
+
+                    <Link
+                      href={`/apk/${slug}`}
+                      className="download-btn"
+                    >
+                      <DownloadIcon />
+                      <span>Download</span>
+                    </Link>
+
                   </div>
 
-                  <div className="apk-version">
-                    v{app.version}
-                    <span>•</span>
-                    {app.category}
-                  </div>
+                </article>
+              );
+            })}
 
-                  <p>
-                    Discover the latest version with useful features
-                    and a smooth experience.
-                  </p>
+          </div>
 
-                </div>
+        ) : (
 
-                <span className="card-arrow">
-                  →
-                </span>
+          <div className="no-results">
+            <div>⌕</div>
+            <h3>No APK found</h3>
+            <p>Try searching with another app name.</p>
 
-              </Link>
+            <button onClick={() => setSearch("")}>
+              Clear Search
+            </button>
+          </div>
 
-
-              <div className="apk-bottom">
-
-                <div className="apk-stats">
-
-                  <span>
-                    <b>★</b>
-                    {app.rating}
-                  </span>
-
-                  <span>
-                    <b>⇩</b>
-                    {app.downloads}
-                  </span>
-
-                  <span>
-                    <b>◷</b>
-                    {app.size}
-                  </span>
-
-                </div>
-
-                <Link
-                  href={`/apk/${app.name
-                    .toLowerCase()
-                    .replace(/\s+/g, "-")}`}
-                  className="download-btn"
-                >
-                  ⇩
-                  Download APK
-                </Link>
-
-              </div>
-
-            </article>
-          ))}
-
-        </div>
+        )}
 
 
         {/* LOAD MORE */}
-        <div className="load-more-wrap">
-          <Link href="/latest" className="load-more">
-            <span>▦</span>
-            Load More APKs
-            <b>→</b>
-          </Link>
-        </div>
+
+        {visibleApps < filteredApps.length && (
+
+          <div className="load-more-wrap">
+
+            <button
+              className="load-more"
+              onClick={() =>
+                setVisibleApps((current) => current + 4)
+              }
+            >
+              Load More APKs
+
+              <ArrowIcon />
+            </button>
+
+          </div>
+
+        )}
 
       </section>
 
 
-      {/* BENEFITS */}
-      <section className="benefits">
+      {/* ================= SIMPLE TRUST BAR ================= */}
 
-        <div className="benefit">
-          <div className="benefit-icon">✓</div>
-          <div>
-            <b>Verified Apps</b>
-            <small>Carefully reviewed</small>
-          </div>
-        </div>
+      <section className="trust-bar">
 
-        <div className="benefit">
-          <div className="benefit-icon">ϟ</div>
+        <div className="trust-item">
+          <span>✓</span>
           <div>
-            <b>Fast Download</b>
-            <small>High speed delivery</small>
-          </div>
-        </div>
-
-        <div className="benefit">
-          <div className="benefit-icon">↻</div>
-          <div>
-            <b>Regular Updates</b>
+            <b>Updated</b>
             <small>Latest versions</small>
           </div>
         </div>
 
-        <div className="benefit">
-          <div className="benefit-icon">✓</div>
+        <div className="trust-item">
+          <span>ϟ</span>
           <div>
-            <b>No Registration</b>
-            <small>Simple access</small>
+            <b>Fast</b>
+            <small>Quick browsing</small>
+          </div>
+        </div>
+
+        <div className="trust-item">
+          <span>↻</span>
+          <div>
+            <b>Regular</b>
+            <small>New APK updates</small>
+          </div>
+        </div>
+
+        <div className="trust-item">
+          <span>✓</span>
+          <div>
+            <b>Simple</b>
+            <small>Easy access</small>
           </div>
         </div>
 
       </section>
 
 
-      {/* FOOTER */}
+      {/* ================= FOOTER ================= */}
+
       <footer className="footer">
 
         <div className="footer-inner">
@@ -398,23 +535,28 @@ export default function Home() {
           <div className="footer-brand">
 
             <Link href="/" className="footer-logo">
+
               <span className="logo-symbol">N</span>
+
               <span>
                 Nex<span>APK</span>
               </span>
+
             </Link>
 
-            <p>Your Trusted APK Platform</p>
+            <p>
+              A simple and modern APK discovery platform.
+            </p>
 
           </div>
 
 
           <div className="footer-column">
 
-            <h4>Quick Links</h4>
+            <h4>Legal</h4>
 
             <Link href="/terms">
-              Terms of Service
+              Terms
             </Link>
 
             <Link href="/privacy">
@@ -426,15 +568,15 @@ export default function Home() {
             </Link>
 
             <Link href="/contact">
-              Contact Us
+              Contact
             </Link>
 
           </div>
 
 
-          <div className="footer-column social-column">
+          <div className="footer-column">
 
-            <h4>Follow Us</h4>
+            <h4>Follow NexAPK</h4>
 
             <div className="socials">
 
@@ -468,7 +610,7 @@ export default function Home() {
           </span>
 
           <span>
-            Made with <b>♥</b> for Android Lovers
+            Made for Android users
           </span>
 
         </div>
@@ -477,4 +619,4 @@ export default function Home() {
 
     </main>
   );
-      }
+}
