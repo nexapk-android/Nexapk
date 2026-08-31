@@ -1,1 +1,1660 @@
-*{box-sizing:border-box}html{background:#f7f8fb}body{margin:0;color:#111827;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.topbar{height:72px;padding:0 max(20px,calc((100% - 1180px)/2));display:flex;align-items:center;gap:34px;background:rgba(255,255,255,.92);border-bottom:1px solid #e7e9ef;position:sticky;top:0;z-index:10;backdrop-filter:blur(12px)}.brand{display:flex;align-items:center;gap:9px;text-decoration:none;color:#111827;font-size:22px;font-weight:850;letter-spacing:-.8px}.brand>span:last-child>span,.brand>span{color:#111827}.brand span span{color:#ff5b2e}.brandMark{width:34px;height:34px;border-radius:11px;background:#111827;color:white!important;display:grid;place-items:center;font-weight:900}.topbar nav{display:flex;gap:24px;margin-left:auto}.topbar a{color:#525866;text-decoration:none;font-weight:650}.searchButton{border:1px solid #dfe2e8;background:#fff;border-radius:12px;width:40px;height:40px;font-size:22px}.hero{max-width:1180px;margin:0 auto;padding:92px 20px 72px;position:relative}.heroGlow{position:absolute;width:360px;height:260px;right:8%;top:35px;background:#ff6b3d;filter:blur(110px);opacity:.12;pointer-events:none}.eyebrow{font-size:12px;font-weight:850;letter-spacing:1.8px;color:#ff5b2e;margin:0 0 12px}.hero h1{font-size:clamp(42px,7vw,76px);line-height:.98;letter-spacing:-4px;margin:0;max-width:780px}.hero h1 span{color:#ff5b2e}.heroText{color:#687080;font-size:17px;line-height:1.6;max-width:620px}.searchBox{margin-top:30px;max-width:680px;height:58px;background:white;border:1px solid #e0e3e9;border-radius:17px;display:flex;align-items:center;padding:5px 6px 5px 18px;box-shadow:0 12px 35px rgba(17,24,39,.06)}.searchBox span{font-size:22px;color:#7a8190}.searchBox input{border:0;outline:0;flex:1;padding:0 12px;font-size:15px}.searchBox button,.downloadButton{border:0;background:#111827;color:white;border-radius:13px;height:46px;padding:0 20px;font-weight:800}.content{max-width:1180px;margin:0 auto;padding:10px 20px 80px}.sectionHead{display:flex;justify-content:space-between;align-items:end;margin-bottom:22px}.sectionHead h2{margin:0;font-size:30px;letter-spacing:-1px}.viewAll{color:#111827;text-decoration:none;font-weight:750}.apkGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.apkCard{background:#fff;border:1px solid #e5e7ec;border-radius:20px;padding:16px;display:flex;gap:14px;text-decoration:none;color:inherit;min-height:130px;box-shadow:0 8px 28px rgba(17,24,39,.035);transition:.2s}.apkCard:hover{transform:translateY(-2px);box-shadow:0 15px 35px rgba(17,24,39,.08)}.appIcon{width:68px;height:68px;flex:0 0 68px;border-radius:18px;background:linear-gradient(135deg,#161a22,#596171);color:#fff;display:grid;place-items:center;font-size:27px;font-weight:900}.appInfo{min-width:0}.badges{display:flex;gap:6px;align-items:center}.badges b,.badges small{font-size:9px;letter-spacing:.5px;border-radius:6px;padding:4px 6px;background:#fff0ea;color:#ff5b2e}.badges small{background:#eef8f2;color:#16804a}.apkCard h3{margin:8px 0 2px;font-size:17px}.apkCard p{margin:0;color:#777f8e;font-size:12px}.meta{display:flex;gap:12px;margin-top:9px;color:#7a8190;font-size:10px}.loadMore{display:block;margin:30px auto 0;padding:13px 20px;border-radius:13px;border:1px solid #dfe2e8;background:#fff;font-weight:800}.loadMore span{margin-left:8px}.simplePage{min-height:100vh}.pageContent{padding-top:70px}.pageContent h1{font-size:52px;letter-spacing:-2px;margin:0 0 12px}.notice{margin-top:25px;padding:18px;border:1px dashed #cfd4dd;background:#fff;border-radius:14px;color:#687080}.detailHero{display:flex;gap:20px;align-items:center;background:#fff;border:1px solid #e5e7ec;border-radius:22px;padding:22px}.detailHero h1{margin:0;font-size:36px}.appIcon.big{width:96px;height:96px;flex-basis:96px;font-size:38px}.downloadButton{margin-top:22px;width:100%;height:54px;background:#ff5b2e}.adminGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px}.adminCard{background:#fff;border:1px solid #e5e7ec;border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:8px}.adminCard span{font-size:13px;color:#737b89}footer{border-top:1px solid #e5e7ec;background:#fff;padding:42px 20px;text-align:center}.footerBrand{display:flex;justify-content:center;align-items:center;gap:9px;font-size:20px}.footerBrand .brandMark{width:30px;height:30px}.footerLinks{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin:24px 0}.footerLinks a{color:#697180;text-decoration:none;font-size:13px}footer p,footer small{color:#8a919e;font-size:12px}@media(max-width:650px){.topbar{height:64px;padding:0 14px}.topbar nav{display:none}.searchButton{margin-left:auto}.hero{padding:62px 16px 48px}.hero h1{font-size:46px;letter-spacing:-2.5px}.content{padding-left:14px;padding-right:14px}.apkGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.apkCard{padding:11px;border-radius:16px;display:block}.appIcon{width:54px;height:54px;flex-basis:54px;border-radius:15px;font-size:21px;margin-bottom:10px}.apkCard h3{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meta{display:block;line-height:1.7}.meta span{display:block}.pageContent h1{font-size:40px}.adminGrid{grid-template-columns:1fr}.detailHero{align-items:flex-start}.detailHero h1{font-size:28px}}
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #f7faff;
+  color: #07152f;
+  font-family: "Inter", Arial, sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+  height: 78px;
+  background: #ffffff;
+  border-bottom: 1px solid #edf1f7;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  width: min(1180px, calc(100% - 40px));
+  height: 100%;
+  margin: auto;
+
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.menu-btn {
+  width: 42px;
+  height: 42px;
+  padding: 9px;
+
+  border: 0;
+  background: transparent;
+
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+
+.menu-btn span {
+  display: block;
+  width: 24px;
+  height: 2.5px;
+  border-radius: 5px;
+  background: #07152f;
+}
+
+
+/* LOGO */
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+}
+
+.logo-text span,
+.footer-logo span span {
+  color: #126be8;
+}
+
+.logo-symbol {
+  width: 48px;
+  height: 48px;
+
+  display: grid;
+  place-items: center;
+
+  color: white;
+  font-size: 27px;
+  font-weight: 900;
+
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0b52c7,
+      #1987ff
+    );
+
+  transform: skew(-7deg);
+
+  box-shadow:
+    0 8px 20px rgba(18, 107, 232, 0.2);
+}
+
+
+.desktop-nav {
+  display: flex;
+  gap: 28px;
+  margin-left: 28px;
+}
+
+.desktop-nav a {
+  color: #53617a;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.desktop-nav a:hover {
+  color: #126be8;
+}
+
+.header-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+}
+
+.icon-btn {
+  width: 43px;
+  height: 43px;
+
+  border: 1px solid #e3e9f2;
+  border-radius: 13px;
+
+  background: white;
+
+  color: #07152f;
+  font-size: 25px;
+
+  display: grid;
+  place-items: center;
+}
+
+.icon-btn:hover {
+  border-color: #126be8;
+  color: #126be8;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero-section {
+  padding: 20px 0 38px;
+}
+
+.hero {
+  width: min(1180px, calc(100% - 40px));
+  min-height: 380px;
+
+  margin: auto;
+
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+
+  border-radius: 20px;
+
+  background:
+    radial-gradient(
+      circle at 85% 50%,
+      rgba(45, 151, 255, 0.22),
+      transparent 40%
+    ),
+    linear-gradient(
+      110deg,
+      #eef7ff,
+      #f6fbff
+    );
+
+  border: 1px solid #dcecff;
+}
+
+.hero::before {
+  content: "";
+
+  position: absolute;
+  width: 380px;
+  height: 380px;
+
+  right: 50px;
+  top: -130px;
+
+  border-radius: 50%;
+
+  background: rgba(67, 166, 255, 0.1);
+}
+
+.hero-content {
+  width: 58%;
+  padding: 48px 30px 48px 42px;
+  position: relative;
+  z-index: 2;
+}
+
+.platform-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 7px 12px;
+
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #d9eaff;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.hero h1 {
+  margin: 14px 0 10px;
+
+  font-size: clamp(39px, 4.4vw, 59px);
+  line-height: 1.04;
+
+  letter-spacing: -2.8px;
+}
+
+.hero h1 span {
+  color: #126be8;
+}
+
+.hero-content > p {
+  max-width: 590px;
+
+  margin: 0;
+
+  color: #526b8c;
+
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+
+/* SEARCH */
+
+.hero-search {
+  max-width: 620px;
+  height: 56px;
+
+  margin-top: 23px;
+
+  padding: 5px 6px 5px 17px;
+
+  display: flex;
+  align-items: center;
+
+  background: white;
+
+  border: 1px solid #dce6f2;
+  border-radius: 999px;
+
+  box-shadow:
+    0 10px 30px rgba(36, 102, 168, 0.09);
+}
+
+.search-symbol {
+  color: #55718f;
+  font-size: 24px;
+}
+
+.hero-search input {
+  flex: 1;
+
+  min-width: 0;
+
+  padding: 0 12px;
+
+  border: 0;
+  outline: 0;
+
+  color: #07152f;
+  background: transparent;
+
+  font-size: 13px;
+}
+
+.hero-search button {
+  width: 46px;
+  height: 46px;
+
+  border: 0;
+  border-radius: 50%;
+
+  background: #126be8;
+  color: white;
+
+  font-size: 21px;
+}
+
+
+/* POPULAR */
+
+.popular {
+  margin-top: 15px;
+
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  flex-wrap: wrap;
+
+  font-size: 11px;
+}
+
+.popular strong {
+  margin-right: 3px;
+}
+
+.popular a {
+  padding: 8px 13px;
+
+  background: white;
+
+  border: 1px solid #e1e9f3;
+
+  border-radius: 999px;
+
+  color: #49617e;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  box-shadow: 0 4px 12px rgba(30, 75, 120, 0.05);
+}
+
+.popular a:hover {
+  color: #126be8;
+  border-color: #bcd8fb;
+}
+
+
+/* PHONE */
+
+.hero-visual {
+  width: 42%;
+  height: 100%;
+
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phone {
+  width: 185px;
+  height: 350px;
+
+  position: relative;
+
+  border: 7px solid #07152f;
+  border-radius: 29px;
+
+  background: white;
+
+  transform: rotate(5deg);
+
+  box-shadow:
+    0 25px 50px rgba(8, 30, 65, 0.25);
+
+  z-index: 3;
+}
+
+.phone-notch {
+  position: absolute;
+
+  width: 70px;
+  height: 19px;
+
+  top: -2px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  background: #07152f;
+
+  border-radius: 0 0 13px 13px;
+
+  z-index: 5;
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+
+  padding: 48px 15px 15px;
+
+  border-radius: 21px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #edf7ff,
+      #ffffff
+    );
+}
+
+.phone-logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  justify-content: center;
+
+  font-size: 15px;
+}
+
+.phone-logo b span {
+  color: #126be8;
+}
+
+.mini-n {
+  width: 25px;
+  height: 25px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 7px;
+
+  background: #126be8;
+  color: white;
+
+  font-weight: 900;
+}
+
+.phone-line {
+  width: 80%;
+  height: 8px;
+
+  margin: 22px auto 8px;
+
+  border-radius: 5px;
+
+  background: #d8e9fa;
+}
+
+.phone-line.short {
+  width: 55%;
+  margin-top: 0;
+}
+
+.phone-card {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  margin-top: 16px;
+
+  padding: 9px;
+
+  background: white;
+
+  border: 1px solid #e0eaf4;
+  border-radius: 12px;
+}
+
+.mini-icon {
+  width: 35px;
+  height: 35px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 10px;
+
+  background: #126be8;
+  color: white;
+
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.phone-card b {
+  display: block;
+  font-size: 9px;
+}
+
+.phone-card small {
+  color: #7890a8;
+  font-size: 7px;
+}
+
+.floating-app {
+  width: 58px;
+  height: 58px;
+
+  position: absolute;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 17px;
+
+  background: white;
+
+  font-size: 25px;
+  font-weight: 900;
+
+  box-shadow:
+    0 13px 28px rgba(15, 68, 120, 0.16);
+
+  z-index: 4;
+}
+
+.floating-one {
+  top: 70px;
+  left: 38px;
+
+  color: #16b85a;
+}
+
+.floating-two {
+  top: 140px;
+  left: 15px;
+
+  color: #e1306c;
+}
+
+.floating-three {
+  bottom: 92px;
+  left: 42px;
+
+  color: #139eea;
+}
+
+.floating-four {
+  right: 35px;
+  bottom: 55px;
+
+  color: #13b85b;
+}
+
+.download-note {
+  position: absolute;
+
+  right: 20px;
+  top: 92px;
+
+  color: #07152f;
+
+  font-size: 17px;
+  font-weight: 800;
+
+  transform: rotate(-7deg);
+
+  z-index: 5;
+}
+
+.download-note span {
+  display: block;
+  text-align: center;
+
+  margin-top: 5px;
+
+  font-size: 27px;
+}
+
+
+/* =========================
+   FEATURED
+========================= */
+
+.featured-section {
+  width: min(1180px, calc(100% - 40px));
+
+  margin: auto;
+
+  padding: 8px 0 38px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 18px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.fire {
+  font-size: 38px;
+}
+
+.section-title h2 {
+  margin: 0;
+
+  font-size: 27px;
+  letter-spacing: -1px;
+}
+
+.section-title p {
+  margin: 3px 0 0;
+
+  color: #6d8099;
+
+  font-size: 13px;
+}
+
+.view-all {
+  color: #48627f;
+
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.view-all span {
+  margin-left: 5px;
+
+  color: #126be8;
+
+  font-size: 20px;
+}
+
+
+/* GRID */
+
+.apk-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 15px;
+}
+
+.apk-card {
+  padding: 16px;
+
+  background: white;
+
+  border: 1px solid #e4ebf4;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 8px 25px rgba(20, 62, 105, 0.045);
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+.apk-card:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 16px 35px rgba(20, 62, 105, 0.09);
+}
+
+.apk-main {
+  min-width: 0;
+
+  display: flex;
+  gap: 15px;
+
+  position: relative;
+}
+
+.app-icon {
+  width: 96px;
+  height: 96px;
+
+  flex: 0 0 96px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 20px;
+
+  color: white;
+
+  font-size: 36px;
+  font-weight: 900;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0d6fe9,
+      #55b2ff
+    );
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.25);
+}
+
+.icon-whatsapp-plus {
+  background: linear-gradient(135deg,#00bf63,#18e37b);
+}
+
+.icon-instagram-pro {
+  background: linear-gradient(135deg,#7b20ff,#ff2f66,#ffb01f);
+}
+
+.icon-bgmi {
+  background: linear-gradient(135deg,#222,#68717e);
+}
+
+.icon-spotify-premium {
+  background: #111;
+  color: #1ed760;
+}
+
+.icon-capcut-pro {
+  background: #f4f7fa;
+  color: #111;
+}
+
+.icon-youtube-vanced {
+  background: #101010;
+  color: #ff1744;
+}
+
+.apk-info {
+  min-width: 0;
+  padding-right: 22px;
+}
+
+.apk-name-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  flex-wrap: wrap;
+}
+
+.apk-name-row h3 {
+  margin: 1px 0 0;
+
+  font-size: 15px;
+  line-height: 1.3;
+}
+
+.apk-badge {
+  padding: 4px 8px;
+
+  border-radius: 999px;
+
+  color: white;
+
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: .3px;
+}
+
+.badge-mod {
+  background: #126be8;
+}
+
+.badge-popular {
+  background: #ff7414;
+}
+
+.badge-new {
+  background: #1987f4;
+}
+
+.badge-trending {
+  background: #8a20e8;
+}
+
+.apk-version {
+  margin-top: 6px;
+
+  color: #55718f;
+
+  font-size: 11px;
+}
+
+.apk-version span {
+  margin: 0 6px;
+}
+
+.apk-info p {
+  margin: 8px 0 0;
+
+  color: #61748c;
+
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.card-arrow {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 32px;
+  height: 32px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: #f1f7ff;
+
+  color: #2775c7;
+
+  font-size: 18px;
+}
+
+
+/* CARD BOTTOM */
+
+.apk-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 10px;
+
+  margin-top: 15px;
+}
+
+.apk-stats {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  color: #5e7691;
+
+  font-size: 10px;
+}
+
+.apk-stats span {
+  white-space: nowrap;
+}
+
+.apk-stats b {
+  margin-right: 4px;
+
+  color: #126be8;
+
+  font-size: 15px;
+}
+
+.apk-stats span:first-child b {
+  color: #ffb300;
+}
+
+.download-btn {
+  min-height: 40px;
+
+  padding: 0 16px;
+
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  border-radius: 999px;
+
+  background: #07152f;
+  color: white;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  white-space: nowrap;
+}
+
+.download-btn:hover {
+  background: #126be8;
+}
+
+
+/* LOAD MORE */
+
+.load-more-wrap {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 25px;
+}
+
+.load-more {
+  min-width: 270px;
+  height: 52px;
+
+  padding: 0 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  border-radius: 999px;
+
+  background: #126be8;
+  color: white;
+
+  font-size: 13px;
+  font-weight: 800;
+
+  box-shadow:
+    0 10px 25px rgba(18,107,232,.2);
+
+  transition: .2s;
+}
+
+.load-more:hover {
+  transform: translateY(-2px);
+
+  background: #095ccf;
+}
+
+.load-more b {
+  font-size: 17px;
+}
+
+
+/* =========================
+   BENEFITS
+========================= */
+
+.benefits {
+  width: min(1180px, calc(100% - 40px));
+
+  margin: 0 auto 20px;
+
+  min-height: 72px;
+
+  padding: 10px 25px;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  align-items: center;
+
+  background: white;
+
+  border: 1px solid #e4ebf4;
+  border-radius: 17px;
+
+  box-shadow:
+    0 8px 24px rgba(20, 62, 105, .04);
+}
+
+.benefit {
+  min-height: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  border-right: 1px solid #e3eaf3;
+}
+
+.benefit:last-child {
+  border-right: 0;
+}
+
+.benefit-icon {
+  width: 35px;
+  height: 35px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 10px;
+
+  background: #e9f3ff;
+
+  color: #126be8;
+
+  font-size: 21px;
+  font-weight: 900;
+}
+
+.benefit b {
+  display: block;
+
+  font-size: 11px;
+}
+
+.benefit small {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #71839a;
+
+  font-size: 9px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+  margin-top: 20px;
+
+  background:
+    radial-gradient(
+      circle at 20% 0%,
+      rgba(18,107,232,.14),
+      transparent 35%
+    ),
+    #061326;
+
+  color: white;
+}
+
+.footer-inner {
+  width: min(1180px, calc(100% - 40px));
+
+  min-height: 190px;
+
+  margin: auto;
+  padding: 42px 0 35px;
+
+  display: grid;
+
+  grid-template-columns: 1.4fr 1fr 1fr;
+
+  gap: 50px;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 25px;
+  font-weight: 900;
+}
+
+.footer-logo .logo-symbol {
+  width: 43px;
+  height: 43px;
+  font-size: 23px;
+}
+
+.footer-logo > span:last-child span {
+  color: #2185ff;
+}
+
+.footer-brand p {
+  margin: 12px 0 0;
+
+  color: #8da2bd;
+
+  font-size: 11px;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-column h4 {
+  margin: 0 0 7px;
+
+  font-size: 12px;
+}
+
+.footer-column a {
+  color: #91a4bc;
+
+  font-size: 11px;
+}
+
+.footer-column a:hover {
+  color: white;
+}
+
+.socials {
+  display: flex;
+  gap: 9px;
+}
+
+.socials a {
+  width: 38px;
+  height: 38px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: #12243c;
+
+  color: white;
+
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.socials a:hover {
+  background: #126be8;
+}
+
+.footer-bottom {
+  width: min(1180px, calc(100% - 40px));
+
+  margin: auto;
+
+  padding: 18px 0;
+
+  display: flex;
+  justify-content: space-between;
+
+  border-top: 1px solid rgba(255,255,255,.09);
+
+  color: #72869e;
+
+  font-size: 10px;
+}
+
+.footer-bottom b {
+  color: #ff365f;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 760px) {
+
+  .header {
+    height: 68px;
+  }
+
+  .header-inner {
+    width: calc(100% - 24px);
+    gap: 8px;
+  }
+
+  .menu-btn {
+    display: flex;
+  }
+
+  .logo {
+    font-size: 25px;
+    gap: 7px;
+  }
+
+  .logo-symbol {
+    width: 39px;
+    height: 39px;
+
+    border-radius: 11px;
+
+    font-size: 22px;
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  .icon-btn {
+    width: 39px;
+    height: 39px;
+
+    border: 0;
+
+    font-size: 24px;
+  }
+
+
+  /* HERO */
+
+  .hero-section {
+    padding: 12px 0 25px;
+  }
+
+  .hero {
+    width: calc(100% - 20px);
+
+    min-height: auto;
+
+    display: block;
+
+    border-radius: 17px;
+  }
+
+  .hero-content {
+    width: 100%;
+
+    padding: 24px 17px 18px;
+  }
+
+  .platform-badge {
+    font-size: 10px;
+
+    padding: 6px 10px;
+  }
+
+  .hero h1 {
+    margin-top: 12px;
+
+    font-size: 31px;
+    line-height: 1.08;
+
+    letter-spacing: -1.5px;
+  }
+
+  .hero-content > p {
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .hero-search {
+    height: 49px;
+
+    margin-top: 17px;
+
+    padding-left: 13px;
+  }
+
+  .hero-search input {
+    font-size: 11px;
+  }
+
+  .hero-search button {
+    width: 39px;
+    height: 39px;
+
+    font-size: 18px;
+  }
+
+  .popular {
+    gap: 5px;
+
+    margin-top: 12px;
+  }
+
+  .popular a {
+    padding: 6px 9px;
+
+    font-size: 9px;
+  }
+
+  .popular strong {
+    font-size: 9px;
+  }
+
+
+  /* PHONE */
+
+  .hero-visual {
+    width: 100%;
+    height: 245px;
+
+    position: relative;
+
+    right: auto;
+    top: auto;
+  }
+
+  .phone {
+    width: 125px;
+    height: 225px;
+
+    border-width: 5px;
+
+    border-radius: 22px;
+  }
+
+  .phone-notch {
+    width: 48px;
+    height: 13px;
+
+    border-radius: 0 0 9px 9px;
+  }
+
+  .phone-screen {
+    padding: 31px 9px 9px;
+
+    border-radius: 16px;
+  }
+
+  .phone-logo {
+    font-size: 10px;
+  }
+
+  .mini-n {
+    width: 18px;
+    height: 18px;
+
+    border-radius: 5px;
+
+    font-size: 9px;
+  }
+
+  .phone-line {
+    height: 5px;
+
+    margin-top: 13px;
+  }
+
+  .phone-card {
+    margin-top: 9px;
+
+    padding: 6px;
+
+    border-radius: 8px;
+  }
+
+  .mini-icon {
+    width: 24px;
+    height: 24px;
+
+    border-radius: 6px;
+
+    font-size: 8px;
+  }
+
+  .phone-card b {
+    font-size: 7px;
+  }
+
+  .phone-card small {
+    font-size: 5px;
+  }
+
+  .floating-app {
+    width: 43px;
+    height: 43px;
+
+    border-radius: 12px;
+
+    font-size: 18px;
+  }
+
+  .floating-one {
+    top: 42px;
+    left: 18%;
+  }
+
+  .floating-two {
+    top: 103px;
+    left: 10%;
+  }
+
+  .floating-three {
+    bottom: 45px;
+    left: 19%;
+  }
+
+  .floating-four {
+    right: 12%;
+    bottom: 27px;
+  }
+
+  .download-note {
+    right: 7%;
+    top: 55px;
+
+    font-size: 11px;
+  }
+
+  .download-note span {
+    font-size: 20px;
+  }
+
+
+  /* FEATURED */
+
+  .featured-section {
+    width: calc(100% - 20px);
+
+    padding-bottom: 28px;
+  }
+
+  .section-heading {
+    margin-bottom: 13px;
+  }
+
+  .fire {
+    font-size: 28px;
+  }
+
+  .section-title {
+    gap: 8px;
+  }
+
+  .section-title h2 {
+    font-size: 21px;
+  }
+
+  .section-title p {
+    font-size: 10px;
+  }
+
+  .view-all {
+    font-size: 10px;
+  }
+
+
+  /* 2 APK PER ROW */
+
+  .apk-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 9px;
+  }
+
+  .apk-card {
+    padding: 10px;
+
+    border-radius: 14px;
+  }
+
+  .apk-main {
+    display: block;
+  }
+
+  .app-icon {
+    width: 58px;
+    height: 58px;
+
+    flex: none;
+
+    margin-bottom: 9px;
+
+    border-radius: 15px;
+
+    font-size: 23px;
+  }
+
+  .apk-info {
+    padding-right: 0;
+  }
+
+  .apk-name-row {
+    display: block;
+  }
+
+  .apk-name-row h3 {
+    margin-bottom: 4px;
+
+    font-size: 12px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .apk-badge {
+    display: inline-block;
+
+    padding: 3px 6px;
+
+    font-size: 7px;
+  }
+
+  .apk-version {
+    font-size: 8px;
+  }
+
+  .apk-version span {
+    margin: 0 3px;
+  }
+
+  .apk-info p {
+    margin-top: 6px;
+
+    font-size: 8px;
+
+    line-height: 1.4;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-arrow {
+    width: 25px;
+    height: 25px;
+
+    font-size: 13px;
+  }
+
+  .apk-bottom {
+    display: block;
+
+    margin-top: 10px;
+  }
+
+  .apk-stats {
+    justify-content: space-between;
+
+    gap: 3px;
+
+    font-size: 7px;
+  }
+
+  .apk-stats b {
+    margin-right: 2px;
+
+    font-size: 10px;
+  }
+
+  .download-btn {
+    width: 100%;
+
+    min-height: 34px;
+
+    margin-top: 8px;
+
+    justify-content: center;
+
+    font-size: 8px;
+  }
+
+
+  /* LOAD MORE */
+
+  .load-more {
+    min-width: 230px;
+    height: 46px;
+
+    font-size: 11px;
+  }
+
+
+  /* BENEFITS */
+
+  .benefits {
+    width: calc(100% - 20px);
+
+    grid-template-columns: repeat(2, 1fr);
+
+    padding: 7px;
+
+    gap: 4px;
+
+    border-radius: 14px;
+  }
+
+  .benefit {
+    min-height: 54px;
+
+    justify-content: flex-start;
+
+    padding-left: 8px;
+
+    border-right: 0;
+  }
+
+  .benefit:nth-child(-n + 2) {
+    border-bottom: 1px solid #e8edf4;
+  }
+
+  .benefit-icon {
+    width: 29px;
+    height: 29px;
+
+    font-size: 17px;
+  }
+
+  .benefit b {
+    font-size: 9px;
+  }
+
+  .benefit small {
+    font-size: 7px;
+  }
+
+
+  /* FOOTER */
+
+  .footer-inner {
+    width: calc(100% - 30px);
+
+    padding: 32px 0;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 28px;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  .footer-logo {
+    font-size: 22px;
+  }
+
+  .footer-logo .logo-symbol {
+    width: 38px;
+    height: 38px;
+  }
+
+  .footer-column h4 {
+    font-size: 11px;
+  }
+
+  .footer-column a {
+    font-size: 9px;
+  }
+
+  .socials a {
+    width: 34px;
+    height: 34px;
+  }
+
+  .footer-bottom {
+    width: calc(100% - 30px);
+
+    display: block;
+
+    padding: 16px 0;
+
+    line-height: 2;
+  }
+
+  .footer-bottom span {
+    display: block;
+  }
+
+}
