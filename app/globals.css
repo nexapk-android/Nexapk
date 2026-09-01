@@ -2,16 +2,30 @@
 
 :root {
   --bg: #f6f8fc;
-  --card: #ffffff;
-  --text: #101828;
-  --muted: #667085;
-  --soft: #98a2b3;
-  --border: #e7ebf2;
-  --blue: #1769ff;
-  --blue-dark: #0f55d9;
-  --blue-soft: #edf4ff;
-  --dark: #101828;
-  --radius: 18px;
+  --surface: #ffffff;
+  --surface-soft: #f8fbff;
+  --text: #07152f;
+  --muted: #65758c;
+  --muted-light: #8796aa;
+  --border: #e4eaf2;
+  --primary: #126be8;
+  --primary-dark: #0759ca;
+  --blue-soft: #eaf4ff;
+  --shadow: 0 12px 35px rgba(20, 55, 100, 0.055);
+}
+
+html.dark {
+  --bg: #080d16;
+  --surface: #101722;
+  --surface-soft: #121c2a;
+  --text: #f4f7fb;
+  --muted: #9baac0;
+  --muted-light: #718197;
+  --border: #1f2b3b;
+  --primary: #3185f5;
+  --primary-dark: #166bd8;
+  --blue-soft: #13263f;
+  --shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
 }
 
 * {
@@ -27,7 +41,9 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: "Inter", Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
 }
 
 button,
@@ -44,35 +60,40 @@ a {
   text-decoration: none;
 }
 
+img {
+  max-width: 100%;
+}
+
 .site {
   min-height: 100vh;
+  overflow: hidden;
 }
 
 
-/* =========================================================
+/* =========================
    HEADER
-========================================================= */
+========================= */
 
 .header {
+  height: 76px;
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 100;
 
-  height: 72px;
-
-  background: rgba(255, 255, 255, 0.86);
-  border-bottom: 1px solid rgba(231, 235, 242, 0.8);
+  background: rgba(255, 255, 255, 0.94);
+  border-bottom: 1px solid rgba(228, 234, 242, 0.9);
 
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
 
   transition:
     background 0.25s ease,
-    box-shadow 0.25s ease;
+    border-color 0.25s ease;
 }
 
-.header:hover {
-  background: rgba(255, 255, 255, 0.94);
+.dark .header {
+  background: rgba(8, 13, 22, 0.88);
+  border-bottom-color: rgba(255, 255, 255, 0.07);
 }
 
 .header-inner {
@@ -82,180 +103,62 @@ a {
 
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 26px;
 }
 
-
-/* MENU */
-
 .menu-btn {
-  width: 40px;
-  height: 40px;
-
+  width: 42px;
+  height: 42px;
   padding: 8px;
+
+  border: 0;
+  background: transparent;
 
   display: none;
   flex-direction: column;
   justify-content: center;
   gap: 5px;
-
-  border: 0;
-  background: transparent;
 }
 
 .menu-btn span {
-  width: 22px;
-  height: 2.5px;
-
   display: block;
-
+  width: 25px;
+  height: 2.5px;
   border-radius: 10px;
   background: var(--text);
 }
 
-
-/* =========================================================
-   BRANDING
-========================================================= */
-
 .logo {
   display: flex;
   align-items: center;
-  gap: 9px;
-
-  font-size: 27px;
-  font-weight: 900;
-
-  letter-spacing: -1.5px;
+  line-height: 0;
+  flex-shrink: 0;
 }
 
-.logo-text {
-  color: #111827;
+.header-logo {
+  width: 190px;
+  height: auto;
+  display: block;
+  object-fit: contain;
 }
-
-.logo-text span {
-  color: var(--blue);
-}
-
-
-/*
-  Robot-style branding mark.
-  Current page.tsx uses "N" inside .logo-symbol.
-  Styling makes it look like a compact premium brand mark.
-*/
-
-.logo-symbol {
-  width: 43px;
-  height: 43px;
-
-  display: grid;
-  place-items: center;
-
-  position: relative;
-
-  border-radius: 13px;
-
-  background: linear-gradient(
-    145deg,
-    #111827,
-    #27364d
-  );
-
-  color: #fff;
-
-  font-size: 21px;
-  font-weight: 900;
-
-  box-shadow:
-    0 7px 20px rgba(16, 24, 40, 0.16);
-
-  overflow: hidden;
-}
-
-.logo-symbol::before,
-.logo-symbol::after {
-  content: "";
-
-  position: absolute;
-
-  width: 4px;
-  height: 4px;
-
-  top: 14px;
-
-  border-radius: 50%;
-
-  background: #fff;
-
-  opacity: 0.95;
-}
-
-.logo-symbol::before {
-  left: 12px;
-}
-
-.logo-symbol::after {
-  right: 12px;
-}
-
-.logo-symbol {
-  text-indent: -999px;
-}
-
-.logo-symbol::marker {
-  display: none;
-}
-
-
-/* NAV */
 
 .desktop-nav {
   display: flex;
   align-items: center;
-  gap: 26px;
-
-  margin-left: 22px;
+  gap: 28px;
+  margin-left: 18px;
 }
 
 .desktop-nav a {
-  position: relative;
-
-  color: #667085;
-
+  color: var(--muted);
   font-size: 13px;
   font-weight: 700;
-
   transition: color 0.2s ease;
 }
 
 .desktop-nav a:hover {
-  color: var(--blue);
+  color: var(--primary);
 }
-
-.desktop-nav a::after {
-  content: "";
-
-  position: absolute;
-
-  left: 0;
-  bottom: -8px;
-
-  width: 0;
-  height: 2px;
-
-  border-radius: 10px;
-
-  background: var(--blue);
-
-  transition: width 0.2s ease;
-}
-
-.desktop-nav a:hover::after {
-  width: 100%;
-}
-
-
-/* HEADER ACTIONS */
 
 .header-actions {
   margin-left: auto;
@@ -266,213 +169,220 @@ a {
 }
 
 .icon-btn {
-  width: 40px;
-  height: 40px;
+  width: 43px;
+  height: 43px;
 
   display: grid;
   place-items: center;
 
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: 13px;
 
-  background: #fff;
+  background: var(--surface);
+  color: var(--text);
 
-  color: #344054;
-
-  font-size: 21px;
+  font-size: 24px;
 
   transition:
     transform 0.2s ease,
-    color 0.2s ease,
     border-color 0.2s ease,
+    color 0.2s ease,
     background 0.2s ease;
 }
 
 .icon-btn:hover {
-  color: var(--blue);
-  border-color: #cbdcff;
-  background: var(--blue-soft);
-
   transform: translateY(-1px);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.theme-btn {
+  font-size: 21px;
 }
 
 
-/* =========================================================
+/* =========================
    HERO
-========================================================= */
+========================= */
 
 .hero-section {
-  padding: 22px 0 40px;
+  padding: 22px 0 42px;
 }
 
 .hero {
   width: min(1180px, calc(100% - 40px));
-  min-height: 385px;
-
-  position: relative;
+  min-height: 445px;
 
   margin: auto;
 
+  position: relative;
   overflow: hidden;
 
   display: flex;
   align-items: center;
 
-  border: 1px solid #dfe8f5;
-  border-radius: 24px;
+  border: 1px solid #dce9f7;
+  border-radius: 25px;
 
   background:
     radial-gradient(
-      circle at 84% 45%,
-      rgba(54, 132, 255, 0.13),
-      transparent 34%
+      circle at 88% 38%,
+      rgba(63, 159, 255, 0.22),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 65% 100%,
+      rgba(18, 107, 232, 0.08),
+      transparent 35%
     ),
     linear-gradient(
-      120deg,
-      #f5f9ff 0%,
-      #ffffff 55%,
-      #f4f8ff 100%
+      125deg,
+      #edf7ff 0%,
+      #f7fbff 55%,
+      #eef7ff 100%
     );
 
   box-shadow:
-    0 18px 50px rgba(30, 70, 120, 0.07);
+    0 20px 50px rgba(34, 100, 160, 0.06);
+}
+
+.dark .hero {
+  border-color: #1e344f;
+
+  background:
+    radial-gradient(
+      circle at 88% 38%,
+      rgba(38, 125, 230, 0.2),
+      transparent 30%
+    ),
+    linear-gradient(
+      125deg,
+      #0d1929,
+      #101b2b
+    );
 }
 
 .hero::before {
   content: "";
 
   position: absolute;
+  width: 520px;
+  height: 520px;
 
-  width: 420px;
-  height: 420px;
-
-  right: -130px;
-  top: -170px;
-
-  border-radius: 50%;
-
-  background: rgba(64, 143, 255, 0.08);
-}
-
-.hero::after {
-  content: "";
-
-  position: absolute;
-
-  width: 190px;
-  height: 190px;
-
-  right: 250px;
-  bottom: -110px;
+  right: -160px;
+  top: -210px;
 
   border-radius: 50%;
 
-  background: rgba(102, 168, 255, 0.07);
+  background: rgba(55, 154, 255, 0.08);
 }
-
-
-/* HERO CONTENT */
 
 .hero-content {
-  width: 60%;
+  width: 58%;
+  padding: 55px 25px 55px 48px;
 
   position: relative;
-  z-index: 3;
-
-  padding: 48px 20px 48px 45px;
+  z-index: 5;
 }
 
 .platform-badge {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 9px;
 
-  padding: 7px 12px;
+  padding: 8px 14px;
 
-  border: 1px solid #dce8fa;
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid #dbe8f6;
+
   border-radius: 999px;
 
-  background: rgba(255, 255, 255, 0.82);
+  color: #216dc4;
 
-  color: #3d5d82;
-
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
 
-  box-shadow: 0 5px 15px rgba(50, 100, 160, 0.04);
+  box-shadow:
+    0 7px 20px rgba(35, 100, 160, 0.05);
+}
+
+.dark .platform-badge {
+  background: rgba(18, 30, 46, 0.9);
+  border-color: #29415f;
+  color: #71b1ff;
+}
+
+.badge-dot {
+  width: 9px;
+  height: 9px;
+
+  border-radius: 50%;
+
+  background: var(--primary);
+
+  box-shadow:
+    0 0 0 5px rgba(18, 107, 232, 0.09);
 }
 
 .hero h1 {
-  margin: 16px 0 12px;
+  margin: 18px 0 13px;
 
-  color: #101828;
-
-  font-size: clamp(38px, 4.4vw, 58px);
-  line-height: 1.05;
+  font-size: clamp(40px, 4.2vw, 58px);
+  line-height: 1.04;
 
   letter-spacing: -3px;
 }
 
 .hero h1 span {
-  color: var(--blue);
+  color: var(--primary);
 }
 
 .hero-content > p {
-  max-width: 590px;
+  max-width: 610px;
 
   margin: 0;
 
-  color: #667085;
+  color: var(--muted);
 
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.7;
 }
 
 
-/* =========================================================
+/* =========================
    SEARCH
-========================================================= */
+========================= */
 
 .hero-search {
-  max-width: 620px;
-  height: 56px;
+  max-width: 625px;
+  height: 58px;
 
-  margin-top: 22px;
-  padding: 5px 6px 5px 16px;
+  margin-top: 25px;
+  padding: 5px 6px 5px 17px;
 
   display: flex;
   align-items: center;
 
-  border: 1px solid #dce3ed;
+  background: var(--surface);
+
+  border: 1px solid var(--border);
   border-radius: 999px;
 
-  background: #fff;
-
   box-shadow:
-    0 10px 28px rgba(30, 70, 120, 0.08);
-
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.hero-search:focus-within {
-  border-color: #b9d0ff;
-
-  box-shadow:
-    0 0 0 4px rgba(23, 105, 255, 0.08),
-    0 12px 30px rgba(30, 70, 120, 0.08);
+    0 12px 32px rgba(31, 80, 130, 0.09);
 }
 
 .search-symbol {
-  color: #667085;
-  font-size: 22px;
+  color: #6b8199;
+  font-size: 27px;
+  line-height: 1;
 }
 
 .hero-search input {
   flex: 1;
-
   min-width: 0;
+
+  height: 100%;
 
   padding: 0 12px;
 
@@ -480,99 +390,102 @@ a {
   outline: 0;
 
   background: transparent;
-
   color: var(--text);
 
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .hero-search input::placeholder {
-  color: #98a2b3;
+  color: #99a7b7;
 }
 
 .hero-search button {
-  width: 45px;
-  height: 45px;
-
-  flex: 0 0 45px;
-
-  display: grid;
-  place-items: center;
+  width: 47px;
+  height: 47px;
 
   border: 0;
   border-radius: 50%;
 
-  background: var(--blue);
+  display: grid;
+  place-items: center;
 
-  color: #fff;
+  background: var(--primary);
+  color: white;
 
-  font-size: 19px;
+  font-size: 23px;
 
-  box-shadow:
-    0 7px 17px rgba(23, 105, 255, 0.22);
-
-  transition: 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
 }
 
 .hero-search button:hover {
-  background: var(--blue-dark);
   transform: scale(1.04);
+  background: var(--primary-dark);
 }
 
 
-/* POPULAR */
+/* =========================
+   POPULAR
+========================= */
 
 .popular {
-  margin-top: 14px;
+  margin-top: 15px;
 
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  gap: 8px;
 
-  gap: 7px;
-
-  font-size: 10px;
+  font-size: 11px;
 }
 
 .popular strong {
-  margin-right: 3px;
-
-  color: #475467;
+  margin-right: 2px;
+  color: var(--text);
 }
 
 .popular a {
-  padding: 7px 11px;
+  padding: 8px 13px;
 
-  border: 1px solid #e2e8f0;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #dfe8f2;
+
   border-radius: 999px;
 
-  background: #fff;
+  color: #52677f;
 
-  color: #667085;
+  font-size: 11px;
+  font-weight: 700;
 
-  font-size: 10px;
-  font-weight: 600;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
 
-  transition: 0.2s ease;
+.dark .popular a {
+  background: #142133;
+  border-color: #25384f;
+  color: #a5b5c9;
 }
 
 .popular a:hover {
-  color: var(--blue);
-  border-color: #bfd3ff;
-  background: #f7faff;
+  transform: translateY(-1px);
+  color: var(--primary);
+  border-color: #bcd8f6;
 }
 
 
-/* =========================================================
+/* =========================
    HERO PHONE
-========================================================= */
+========================= */
 
 .hero-visual {
-  width: 40%;
+  width: 42%;
   height: 100%;
 
   position: absolute;
-
   right: 0;
   top: 0;
 
@@ -581,136 +494,165 @@ a {
   justify-content: center;
 }
 
+.hero-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(2px);
+}
+
+.hero-glow-one {
+  width: 300px;
+  height: 300px;
+  right: 80px;
+  top: 45px;
+
+  background: rgba(53, 157, 255, 0.12);
+}
+
+.hero-glow-two {
+  width: 190px;
+  height: 190px;
+  right: 230px;
+  bottom: 15px;
+
+  background: rgba(18, 107, 232, 0.08);
+}
+
 .phone {
-  width: 185px;
-  height: 350px;
+  width: 205px;
+  height: 375px;
 
   position: relative;
   z-index: 4;
 
-  border: 7px solid #101828;
-  border-radius: 29px;
+  border: 7px solid #07152f;
+  border-radius: 34px;
 
-  background: #fff;
+  background: #ffffff;
 
-  transform: rotate(4deg);
+  transform: rotate(6deg);
 
   box-shadow:
-    0 25px 55px rgba(16, 24, 40, 0.2);
+    0 30px 55px rgba(7, 29, 65, 0.25);
+}
+
+.dark .phone {
+  border-color: #020711;
 }
 
 .phone-notch {
   position: absolute;
 
-  width: 70px;
-  height: 19px;
+  width: 78px;
+  height: 20px;
 
   top: -2px;
   left: 50%;
 
   transform: translateX(-50%);
 
-  border-radius: 0 0 13px 13px;
+  border-radius: 0 0 14px 14px;
 
-  background: #101828;
+  background: #07152f;
 
-  z-index: 5;
+  z-index: 3;
 }
 
 .phone-screen {
   width: 100%;
   height: 100%;
 
-  padding: 48px 15px 15px;
+  padding: 52px 13px 13px;
 
   overflow: hidden;
 
-  border-radius: 21px;
+  border-radius: 26px;
 
   background:
     linear-gradient(
       180deg,
-      #f1f6ff,
-      #fff
+      #f1f8ff,
+      #ffffff
     );
 }
 
-.phone-logo {
+.phone-brand {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 7px;
+
+  color: #07152f;
 
   font-size: 15px;
-  font-weight: 800;
 }
 
-.phone-logo b span {
-  color: var(--blue);
-}
-
-.mini-n {
-  width: 25px;
-  height: 25px;
-
-  display: grid;
-  place-items: center;
+.phone-brand img {
+  width: 26px;
+  height: 26px;
 
   border-radius: 7px;
 
-  background: var(--blue);
-
-  color: #fff;
-
-  font-size: 11px;
-  font-weight: 900;
+  object-fit: cover;
 }
 
-.phone-line {
-  width: 80%;
-  height: 8px;
-
-  margin: 22px auto 8px;
-
-  border-radius: 6px;
-
-  background: #dce8fa;
+.phone-brand strong span {
+  color: #126be8;
 }
 
-.phone-line.short {
-  width: 55%;
-  margin-top: 0;
+.phone-search-line {
+  height: 32px;
+
+  margin-top: 18px;
+  padding: 0 10px;
+
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  border: 1px solid #dce6f1;
+  border-radius: 999px;
+
+  color: #9aa9b9;
+
+  font-size: 7px;
+}
+
+.phone-search-line span {
+  font-size: 14px;
+  color: #55718f;
 }
 
 .phone-card {
+  margin-top: 11px;
+  padding: 9px;
+
   display: flex;
   align-items: center;
   gap: 8px;
 
-  margin-top: 16px;
-  padding: 9px;
+  background: white;
 
-  border: 1px solid #e5ebf3;
-  border-radius: 12px;
-
-  background: #fff;
+  border: 1px solid #e0e8f0;
+  border-radius: 11px;
 
   box-shadow:
-    0 6px 15px rgba(30, 70, 120, 0.05);
+    0 5px 14px rgba(24, 67, 110, 0.05);
 }
 
-.mini-icon {
-  width: 35px;
-  height: 35px;
+.phone-mini-icon {
+  width: 34px;
+  height: 34px;
 
   display: grid;
   place-items: center;
 
-  border-radius: 10px;
+  flex-shrink: 0;
 
-  background: var(--blue);
+  border-radius: 9px;
 
-  color: #fff;
+  background: #126be8;
+  color: white;
 
   font-size: 12px;
   font-weight: 900;
@@ -718,25 +660,46 @@ a {
 
 .phone-card b {
   display: block;
-  font-size: 9px;
+
+  color: #172a42;
+
+  font-size: 8px;
 }
 
 .phone-card small {
   display: block;
 
-  margin-top: 2px;
+  margin-top: 3px;
 
-  color: #98a2b3;
+  color: #91a0b0;
 
-  font-size: 7px;
+  font-size: 6px;
+}
+
+.phone-download {
+  height: 35px;
+
+  margin-top: 13px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+
+  background: #126be8;
+  color: white;
+
+  font-size: 8px;
+  font-weight: 800;
 }
 
 
-/* FLOATING APP ICONS */
+/* FLOATING APPS */
 
 .floating-app {
-  width: 58px;
-  height: 58px;
+  width: 61px;
+  height: 61px;
 
   position: absolute;
   z-index: 5;
@@ -744,85 +707,50 @@ a {
   display: grid;
   place-items: center;
 
-  border: 1px solid rgba(255,255,255,.9);
-  border-radius: 17px;
+  border-radius: 18px;
 
-  background: #fff;
+  background: white;
 
-  font-size: 24px;
+  font-size: 25px;
   font-weight: 900;
 
   box-shadow:
-    0 13px 30px rgba(30, 70, 120, 0.13);
+    0 14px 30px rgba(22, 74, 120, 0.13);
 }
 
 .floating-one {
-  top: 65px;
-  left: 40px;
-
-  color: #12b76a;
+  left: 12%;
+  top: 95px;
+  color: #13b85b;
 }
 
 .floating-two {
-  top: 145px;
-  left: 18px;
-
+  left: 4%;
+  bottom: 90px;
   color: #e1306c;
 }
 
 .floating-three {
-  bottom: 95px;
-  left: 43px;
-
-  color: #1d9bf0;
+  right: 8%;
+  bottom: 70px;
+  color: #139eea;
 }
 
 .floating-four {
-  right: 30px;
-  bottom: 50px;
-
-  color: #12b76a;
-}
-
-.download-note {
-  position: absolute;
-
-  right: 20px;
-  top: 82px;
-
-  z-index: 6;
-
-  color: #344054;
-
-  font-size: 15px;
-  font-weight: 800;
-
-  transform: rotate(-7deg);
-}
-
-.download-note span {
-  display: block;
-
-  margin-top: 3px;
-
-  text-align: center;
-
-  color: var(--blue);
-
-  font-size: 25px;
+  right: 2%;
+  top: 125px;
+  color: #1db954;
 }
 
 
-/* =========================================================
-   FEATURED
-========================================================= */
+/* =========================
+   FEATURED SECTION
+========================= */
 
 .featured-section {
   width: min(1180px, calc(100% - 40px));
-
   margin: auto;
-
-  padding: 2px 0 40px;
+  padding: 0 0 42px;
 }
 
 .section-heading {
@@ -830,294 +758,283 @@ a {
   align-items: center;
   justify-content: space-between;
 
-  margin-bottom: 17px;
+  margin-bottom: 19px;
 }
 
 .section-title {
   display: flex;
   align-items: center;
-  gap: 11px;
+  gap: 12px;
 }
 
-.fire {
-  font-size: 30px;
+.section-icon {
+  width: 43px;
+  height: 43px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 13px;
+
+  background: var(--blue-soft);
+  color: var(--primary);
+
+  font-size: 23px;
 }
 
 .section-title h2 {
   margin: 0;
 
-  color: #101828;
-
-  font-size: 25px;
+  font-size: 27px;
   line-height: 1.1;
 
   letter-spacing: -1px;
 }
 
 .section-title p {
-  margin: 4px 0 0;
+  margin: 5px 0 0;
 
-  color: #98a2b3;
+  color: var(--muted);
 
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .view-all {
   display: flex;
   align-items: center;
+  gap: 6px;
 
-  color: #667085;
+  color: var(--muted);
 
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 800;
-
-  transition: color 0.2s ease;
-}
-
-.view-all:hover {
-  color: var(--blue);
 }
 
 .view-all span {
-  margin-left: 5px;
-
-  color: var(--blue);
-
-  font-size: 18px;
+  color: var(--primary);
+  font-size: 21px;
 }
 
 
-/* =========================================================
+/* =========================
    APK GRID
-========================================================= */
+========================= */
 
 .apk-grid {
   display: grid;
 
   grid-template-columns: repeat(2, minmax(0, 1fr));
 
-  gap: 15px;
+  gap: 16px;
 }
 
 .apk-card {
-  padding: 15px;
+  min-width: 0;
 
-  border: 1px solid #e6eaf0;
-  border-radius: 18px;
+  padding: 17px;
 
-  background: #fff;
+  background: var(--surface);
 
-  box-shadow:
-    0 6px 20px rgba(16, 24, 40, 0.035);
+  border: 1px solid var(--border);
+  border-radius: 19px;
+
+  box-shadow: var(--shadow);
 
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    border-color 0.2s ease;
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
 }
 
 .apk-card:hover {
   transform: translateY(-3px);
 
-  border-color: #d8e3f5;
+  border-color: #cddff2;
 
   box-shadow:
-    0 15px 35px rgba(16, 24, 40, 0.075);
+    0 18px 40px rgba(20, 62, 105, 0.09);
+}
+
+.dark .apk-card:hover {
+  border-color: #2c4867;
+}
+
+.apk-card-link {
+  display: block;
 }
 
 .apk-main {
   min-width: 0;
 
-  position: relative;
-
   display: flex;
   gap: 14px;
+
+  position: relative;
 }
 
-
-/* APP ICON */
-
 .app-icon {
-  width: 86px;
-  height: 86px;
+  width: 78px;
+  height: 78px;
 
-  flex: 0 0 86px;
+  flex: 0 0 78px;
 
   display: grid;
   place-items: center;
 
-  border-radius: 19px;
+  border-radius: 20px;
 
-  color: #fff;
-
-  font-size: 33px;
+  font-size: 30px;
   font-weight: 900;
 
-  background:
-    linear-gradient(
-      135deg,
-      #1769ff,
-      #58a6ff
-    );
+  color: white;
 
   box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,.22);
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
-
-/* APP-SPECIFIC ICONS */
-
-.icon-whatsapp-plus {
-  background: linear-gradient(135deg, #05b966, #20e27d);
+.app-icon.whatsapp {
+  background: linear-gradient(135deg, #00bd61, #18e57b);
 }
 
-.icon-instagram-pro {
-  background: linear-gradient(135deg, #7c2cff, #f43f6f, #ffad1f);
+.app-icon.instagram {
+  background: linear-gradient(135deg, #7620ff, #ff2f66, #ffad18);
 }
 
-.icon-bgmi {
-  background: linear-gradient(135deg, #151922, #667085);
+.app-icon.bgmi {
+  background: linear-gradient(135deg, #1b1d20, #69717b);
 }
 
-.icon-spotify-premium {
-  background: #111827;
+.app-icon.spotify {
+  background: #111820;
   color: #1ed760;
 }
 
-.icon-capcut-pro {
-  background: #f1f3f5;
-  color: #101828;
+.app-icon.capcut {
+  background: #f1f4f7;
+  color: #10151d;
 }
 
-.icon-youtube-vanced {
+.app-icon.youtube {
   background: #111;
   color: #ff1744;
 }
 
-
-/* APK INFO */
-
 .apk-info {
   min-width: 0;
-
-  padding-right: 24px;
+  padding-right: 30px;
 }
 
 .apk-name-row {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-
   gap: 7px;
+  flex-wrap: wrap;
 }
 
 .apk-name-row h3 {
-  margin: 2px 0 0;
+  margin: 1px 0 0;
 
-  color: #101828;
+  color: var(--text);
 
-  font-size: 14px;
-  line-height: 1.35;
+  font-size: 15px;
+  line-height: 1.3;
 }
 
 .apk-badge {
-  padding: 4px 7px;
+  padding: 4px 8px;
 
   border-radius: 999px;
 
-  color: #fff;
+  color: white;
 
   font-size: 7px;
   font-weight: 900;
 
-  letter-spacing: .3px;
+  letter-spacing: 0.3px;
 }
 
 .badge-mod {
-  background: var(--blue);
+  background: #126be8;
 }
 
 .badge-popular {
-  background: #f97316;
+  background: #ff7414;
 }
 
 .badge-new {
-  background: #16a0ff;
+  background: #1987f4;
 }
 
 .badge-trending {
-  background: #8b5cf6;
+  background: #8a20e8;
 }
 
 .apk-version {
   margin-top: 6px;
 
-  color: #667085;
+  color: var(--muted);
 
   font-size: 10px;
 }
 
 .apk-version span {
-  margin: 0 5px;
-
-  color: #c1c7d0;
+  margin: 0 6px;
+  color: #a0adbb;
 }
 
 .apk-info p {
-  margin: 7px 0 0;
+  margin: 8px 0 0;
 
-  color: #98a2b3;
+  color: var(--muted);
 
   font-size: 10px;
   line-height: 1.55;
 }
 
 .card-arrow {
-  width: 31px;
-  height: 31px;
-
   position: absolute;
 
-  top: 0;
   right: 0;
+  top: 0;
+
+  width: 31px;
+  height: 31px;
 
   display: grid;
   place-items: center;
 
-  border: 1px solid #e3eaf3;
   border-radius: 50%;
 
-  background: #f7faff;
+  background: var(--blue-soft);
+  color: var(--primary);
 
-  color: var(--blue);
+  font-size: 17px;
 
-  font-size: 16px;
-
-  transition: 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
 }
 
 .apk-card:hover .card-arrow {
-  background: var(--blue);
-  color: #fff;
-  border-color: var(--blue);
+  transform: translateX(2px);
 }
 
 
-/* =========================================================
-   APK CARD BOTTOM
-========================================================= */
+/* =========================
+   APK BOTTOM
+========================= */
 
 .apk-bottom {
+  margin-top: 15px;
+
+  padding-top: 13px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
 
-  gap: 10px;
-
-  margin-top: 14px;
-  padding-top: 12px;
-
-  border-top: 1px solid #f0f2f5;
+  border-top: 1px solid var(--border);
 }
 
 .apk-stats {
@@ -1125,7 +1042,7 @@ a {
   align-items: center;
   gap: 13px;
 
-  color: #667085;
+  color: var(--muted);
 
   font-size: 9px;
 }
@@ -1135,35 +1052,31 @@ a {
 }
 
 .apk-stats b {
-  margin-right: 3px;
+  margin-right: 4px;
 
-  color: var(--blue);
+  color: var(--primary);
 
   font-size: 13px;
 }
 
-.apk-stats span:first-child b {
-  color: #f5a524;
+.apk-stats .star {
+  color: #ffb000;
 }
 
-
-/* DOWNLOAD */
-
 .download-btn {
-  min-height: 37px;
+  min-height: 38px;
 
   padding: 0 14px;
 
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 7px;
 
   border-radius: 999px;
 
-  background: #101828;
-
-  color: #fff;
+  background: #07152f;
+  color: white;
 
   font-size: 9px;
   font-weight: 800;
@@ -1175,26 +1088,31 @@ a {
     transform 0.2s ease;
 }
 
-.download-btn:hover {
-  background: var(--blue);
-  transform: translateY(-1px);
+.dark .download-btn {
+  background: #eaf2ff;
+  color: #07152f;
+}
+
+.apk-card:hover .download-btn {
+  background: var(--primary);
+  color: white;
 }
 
 
-/* =========================================================
+/* =========================
    LOAD MORE
-========================================================= */
+========================= */
 
 .load-more-wrap {
   display: flex;
   justify-content: center;
 
-  margin-top: 25px;
+  margin-top: 27px;
 }
 
 .load-more {
-  min-width: 245px;
-  height: 49px;
+  min-width: 255px;
+  height: 50px;
 
   padding: 0 22px;
 
@@ -1203,73 +1121,65 @@ a {
   justify-content: center;
   gap: 9px;
 
-  border: 1px solid #dce5f2;
   border-radius: 999px;
 
-  background: #fff;
+  background: var(--primary);
+  color: white;
 
-  color: #344054;
-
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
 
   box-shadow:
-    0 7px 20px rgba(16, 24, 40, 0.05);
+    0 10px 25px rgba(18, 107, 232, 0.18);
 
-  transition: 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
 }
 
 .load-more:hover {
-  color: var(--blue);
-
-  border-color: #bfd3ff;
-
-  box-shadow:
-    0 10px 25px rgba(23, 105, 255, 0.09);
-
   transform: translateY(-2px);
+  background: var(--primary-dark);
 }
 
 .load-more b {
-  color: var(--blue);
-  font-size: 16px;
+  font-size: 17px;
 }
 
 
-/* =========================================================
+/* =========================
    BENEFITS
-========================================================= */
+========================= */
 
 .benefits {
   width: min(1180px, calc(100% - 40px));
 
-  min-height: 76px;
+  min-height: 78px;
 
-  margin: 0 auto 22px;
-  padding: 10px 20px;
+  margin: 0 auto 25px;
+  padding: 9px 20px;
 
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   align-items: center;
 
-  border: 1px solid #e6eaf0;
-  border-radius: 17px;
+  background: var(--surface);
 
-  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 18px;
 
-  box-shadow:
-    0 6px 20px rgba(16, 24, 40, 0.035);
+  box-shadow: var(--shadow);
 }
 
 .benefit {
-  min-height: 43px;
+  min-height: 47px;
 
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
+  gap: 10px;
 
-  border-right: 1px solid #edf0f4;
+  border-right: 1px solid var(--border);
 }
 
 .benefit:last-child {
@@ -1277,27 +1187,25 @@ a {
 }
 
 .benefit-icon {
-  width: 33px;
-  height: 33px;
+  width: 35px;
+  height: 35px;
 
   display: grid;
   place-items: center;
 
+  flex-shrink: 0;
+
   border-radius: 10px;
 
   background: var(--blue-soft);
+  color: var(--primary);
 
-  color: var(--blue);
-
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 900;
 }
 
 .benefit b {
   display: block;
-
-  color: #344054;
-
   font-size: 10px;
 }
 
@@ -1306,90 +1214,91 @@ a {
 
   margin-top: 3px;
 
-  color: #98a2b3;
+  color: var(--muted);
 
   font-size: 8px;
 }
 
 
-/* =========================================================
+/* =========================
    FOOTER
-========================================================= */
+========================= */
 
 .footer {
-  margin-top: 20px;
+  margin-top: 25px;
 
-  background: #101828;
+  background:
+    radial-gradient(
+      circle at 10% 0%,
+      rgba(18, 107, 232, 0.15),
+      transparent 30%
+    ),
+    #06101e;
 
-  color: #fff;
+  color: white;
 }
 
 .footer-inner {
   width: min(1180px, calc(100% - 40px));
 
-  min-height: 180px;
-
   margin: auto;
-  padding: 38px 0 32px;
+  padding: 48px 0 42px;
 
   display: grid;
 
-  grid-template-columns: 1.5fr 1fr 1fr;
+  grid-template-columns: 1.7fr 0.8fr 0.8fr 0.9fr;
 
-  gap: 55px;
+  gap: 35px;
+}
+
+.footer-brand {
+  min-width: 0;
 }
 
 .footer-logo {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 9px;
 
-  color: #fff;
-
-  font-size: 23px;
-  font-weight: 900;
-
-  letter-spacing: -1px;
+  line-height: 0;
 }
 
-.footer-logo .logo-symbol {
-  width: 39px;
-  height: 39px;
+.footer-logo-image {
+  width: 330px;
+  max-width: 100%;
+  height: auto;
 
-  font-size: 18px;
-
-  box-shadow: none;
-}
-
-.footer-logo > span:last-child span {
-  color: #4f8cff;
+  display: block;
+  object-fit: contain;
 }
 
 .footer-brand p {
-  margin: 11px 0 0;
+  max-width: 330px;
 
-  color: #98a2b3;
+  margin: 15px 0 0;
 
-  font-size: 10px;
+  color: #91a2b8;
+
+  font-size: 11px;
+  line-height: 1.7;
 }
 
 .footer-column {
   display: flex;
   flex-direction: column;
-  gap: 9px;
+  gap: 11px;
 }
 
 .footer-column h4 {
   margin: 0 0 6px;
 
-  color: #fff;
+  color: white;
 
   font-size: 11px;
   font-weight: 800;
 }
 
 .footer-column a {
-  color: #98a2b3;
+  color: #8fa2b9;
 
   font-size: 10px;
 
@@ -1397,119 +1306,69 @@ a {
 }
 
 .footer-column a:hover {
-  color: #fff;
+  color: white;
 }
-
-
-/* SOCIAL */
 
 .socials {
   display: flex;
-  align-items: center;
   gap: 8px;
 }
 
 .socials a {
-  width: 36px;
-  height: 36px;
+  width: 37px;
+  height: 37px;
 
   display: grid;
   place-items: center;
 
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 11px;
+  border-radius: 50%;
 
-  background: #182337;
-
-  color: #fff;
+  background: #122238;
+  color: white;
 
   font-size: 14px;
   font-weight: 800;
 
-  transition: 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
 }
 
 .socials a:hover {
-  background: var(--blue);
-
   transform: translateY(-2px);
+  background: var(--primary);
 }
-
-
-/* FOOTER BOTTOM */
 
 .footer-bottom {
   width: min(1180px, calc(100% - 40px));
 
   margin: auto;
-  padding: 16px 0;
+  padding: 17px 0;
 
   display: flex;
+  align-items: center;
   justify-content: space-between;
 
-  border-top: 1px solid rgba(255,255,255,.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 
-  color: #667085;
+  color: #71849c;
 
   font-size: 9px;
 }
 
-.footer-bottom b {
-  color: #ff4d6d;
-}
 
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 900px) {
-
-  .hero-content {
-    width: 62%;
-  }
-
-  .hero-visual {
-    width: 38%;
-  }
-
-  .apk-grid {
-    gap: 12px;
-  }
-
-  .app-icon {
-    width: 78px;
-    height: 78px;
-    flex-basis: 78px;
-  }
-
-  .apk-stats {
-    gap: 8px;
-  }
-
-}
-
-
-/* =========================================================
+/* =========================
    MOBILE
-========================================================= */
+========================= */
 
 @media (max-width: 760px) {
 
-  /* HEADER */
-
   .header {
-    height: 64px;
-
-    background: rgba(255,255,255,.82);
-
-    box-shadow:
-      0 4px 20px rgba(16,24,40,.04);
+    height: 68px;
   }
 
   .header-inner {
-    width: calc(100% - 20px);
-
+    width: calc(100% - 18px);
     gap: 5px;
   }
 
@@ -1517,38 +1376,53 @@ a {
     display: flex;
   }
 
-  .logo {
-    font-size: 23px;
-    gap: 7px;
-  }
-
-  .logo-symbol {
-    width: 37px;
-    height: 37px;
-
-    border-radius: 11px;
-
-    font-size: 18px;
-  }
-
-  .logo-symbol::before,
-  .logo-symbol::after {
-    width: 3px;
-    height: 3px;
-
-    top: 12px;
-  }
-
-  .logo-symbol::before {
-    left: 10px;
-  }
-
-  .logo-symbol::after {
-    right: 10px;
+  .header-logo {
+    width: 154px;
   }
 
   .desktop-nav {
+    position: absolute;
+
+    left: 9px;
+    right: 9px;
+    top: 74px;
+
     display: none;
+
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+
+    margin: 0;
+
+    padding: 8px;
+
+    background: rgba(255, 255, 255, 0.96);
+
+    border: 1px solid var(--border);
+    border-radius: 16px;
+
+    box-shadow:
+      0 15px 35px rgba(15, 45, 80, 0.12);
+
+    backdrop-filter: blur(18px);
+  }
+
+  .dark .desktop-nav {
+    background: rgba(15, 23, 35, 0.97);
+  }
+
+  .desktop-nav.mobile-open {
+    display: flex;
+  }
+
+  .desktop-nav a {
+    padding: 13px 12px;
+    border-radius: 10px;
+  }
+
+  .desktop-nav a:hover {
+    background: var(--blue-soft);
   }
 
   .header-actions {
@@ -1556,105 +1430,97 @@ a {
   }
 
   .icon-btn {
-    width: 37px;
-    height: 37px;
+    width: 39px;
+    height: 39px;
 
     border: 0;
 
     background: transparent;
 
-    font-size: 20px;
+    font-size: 23px;
   }
 
 
   /* HERO */
 
   .hero-section {
-    padding: 10px 0 25px;
+    padding: 11px 0 28px;
   }
 
   .hero {
-    width: calc(100% - 16px);
+    width: calc(100% - 18px);
 
     min-height: auto;
 
     display: block;
 
-    border-radius: 19px;
-
-    box-shadow:
-      0 10px 30px rgba(30,70,120,.06);
+    border-radius: 21px;
   }
 
   .hero-content {
     width: 100%;
-
-    padding: 23px 15px 15px;
+    padding: 24px 16px 5px;
   }
 
   .platform-badge {
-    padding: 6px 10px;
-
-    font-size: 9px;
-  }
-
-  .hero h1 {
-    margin: 12px 0 9px;
-
-    font-size: 30px;
-    line-height: 1.08;
-
-    letter-spacing: -1.6px;
-  }
-
-  .hero-content > p {
-    font-size: 11px;
-    line-height: 1.6;
-  }
-
-
-  /* SEARCH */
-
-  .hero-search {
-    height: 49px;
-
-    margin-top: 16px;
-
-    padding-left: 12px;
-  }
-
-  .search-symbol {
-    font-size: 19px;
-  }
-
-  .hero-search input {
-    padding: 0 8px;
-
+    padding: 7px 11px;
     font-size: 10px;
   }
 
+  .badge-dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .hero h1 {
+    margin: 15px 0 11px;
+
+    font-size: 32px;
+    line-height: 1.07;
+
+    letter-spacing: -1.7px;
+  }
+
+  .hero-content > p {
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .hero-search {
+    height: 51px;
+
+    margin-top: 18px;
+
+    padding-left: 13px;
+  }
+
+  .search-symbol {
+    font-size: 23px;
+  }
+
+  .hero-search input {
+    padding: 0 9px;
+    font-size: 11px;
+  }
+
   .hero-search button {
-    width: 39px;
-    height: 39px;
+    width: 41px;
+    height: 41px;
 
-    flex-basis: 39px;
-
-    font-size: 17px;
+    font-size: 19px;
   }
 
   .popular {
-    gap: 4px;
-
-    margin-top: 11px;
+    margin-top: 13px;
+    gap: 5px;
   }
 
   .popular strong {
-    font-size: 8px;
+    font-size: 9px;
   }
 
   .popular a {
-    padding: 6px 8px;
-
+    padding: 6px 9px;
     font-size: 8px;
   }
 
@@ -1663,7 +1529,7 @@ a {
 
   .hero-visual {
     width: 100%;
-    height: 230px;
+    height: 350px;
 
     position: relative;
 
@@ -1671,141 +1537,153 @@ a {
     top: auto;
   }
 
+  .hero-glow-one {
+    width: 270px;
+    height: 270px;
+
+    right: 50%;
+    top: 25px;
+
+    transform: translateX(50%);
+  }
+
+  .hero-glow-two {
+    display: none;
+  }
+
   .phone {
-    width: 120px;
-    height: 215px;
+    width: 164px;
+    height: 300px;
 
-    border-width: 5px;
+    border-width: 6px;
+    border-radius: 28px;
 
-    border-radius: 21px;
+    transform: rotate(6deg);
   }
 
   .phone-notch {
-    width: 46px;
-    height: 12px;
+    width: 62px;
+    height: 17px;
 
-    border-radius: 0 0 8px 8px;
+    border-radius: 0 0 11px 11px;
   }
 
   .phone-screen {
-    padding: 30px 8px 8px;
-
-    border-radius: 16px;
+    padding: 42px 10px 10px;
+    border-radius: 21px;
   }
 
-  .phone-logo {
-    font-size: 9px;
+  .phone-brand {
+    font-size: 12px;
   }
 
-  .mini-n {
-    width: 18px;
-    height: 18px;
-
-    border-radius: 5px;
-
-    font-size: 8px;
+  .phone-brand img {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
   }
 
-  .phone-line {
-    height: 5px;
+  .phone-search-line {
+    height: 27px;
+    margin-top: 14px;
 
-    margin-top: 13px;
+    font-size: 6px;
+  }
+
+  .phone-search-line span {
+    font-size: 11px;
   }
 
   .phone-card {
-    margin-top: 9px;
-
-    padding: 6px;
-
-    border-radius: 8px;
+    margin-top: 8px;
+    padding: 7px;
+    border-radius: 9px;
   }
 
-  .mini-icon {
-    width: 23px;
-    height: 23px;
+  .phone-mini-icon {
+    width: 29px;
+    height: 29px;
 
-    border-radius: 6px;
+    border-radius: 7px;
 
-    font-size: 7px;
+    font-size: 10px;
   }
 
   .phone-card b {
-    font-size: 6px;
+    font-size: 7px;
   }
 
   .phone-card small {
     font-size: 5px;
   }
 
+  .phone-download {
+    height: 30px;
+    margin-top: 10px;
+    font-size: 6px;
+  }
+
   .floating-app {
-    width: 42px;
-    height: 42px;
+    width: 49px;
+    height: 49px;
 
-    border-radius: 12px;
+    border-radius: 14px;
 
-    font-size: 17px;
+    font-size: 20px;
   }
 
   .floating-one {
-    top: 40px;
-    left: 16%;
+    left: 9%;
+    top: 65px;
   }
 
   .floating-two {
-    top: 100px;
-    left: 8%;
+    left: 4%;
+    bottom: 65px;
   }
 
   .floating-three {
-    bottom: 43px;
-    left: 17%;
+    right: 5%;
+    bottom: 75px;
   }
 
   .floating-four {
-    right: 11%;
-    bottom: 26px;
-  }
-
-  .download-note {
-    right: 6%;
-    top: 52px;
-
-    font-size: 10px;
-  }
-
-  .download-note span {
-    font-size: 18px;
+    right: 8%;
+    top: 100px;
   }
 
 
   /* FEATURED */
 
   .featured-section {
-    width: calc(100% - 16px);
-
-    padding-bottom: 26px;
+    width: calc(100% - 18px);
+    padding-bottom: 30px;
   }
 
   .section-heading {
-    margin-bottom: 12px;
+    margin-bottom: 13px;
+  }
+
+  .section-icon {
+    width: 37px;
+    height: 37px;
+
+    border-radius: 11px;
+
+    font-size: 19px;
   }
 
   .section-title {
-    gap: 7px;
-  }
-
-  .fire {
-    font-size: 25px;
+    gap: 8px;
   }
 
   .section-title h2 {
-    font-size: 20px;
+    font-size: 21px;
   }
 
   .section-title p {
     margin-top: 3px;
-
-    font-size: 8px;
+    font-size: 9px;
   }
 
   .view-all {
@@ -1813,33 +1691,21 @@ a {
   }
 
   .view-all span {
-    font-size: 15px;
+    font-size: 17px;
   }
 
 
-  /* =====================================================
-     2 APK CARDS PER ROW
-  ===================================================== */
+  /* APK CARDS */
 
   .apk-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-
     gap: 8px;
   }
 
   .apk-card {
-    min-width: 0;
+    padding: 10px;
 
-    padding: 9px;
-
-    border-radius: 14px;
-
-    box-shadow:
-      0 5px 16px rgba(16,24,40,.035);
-  }
-
-  .apk-card:hover {
-    transform: none;
+    border-radius: 15px;
   }
 
   .apk-main {
@@ -1850,9 +1716,9 @@ a {
     width: 55px;
     height: 55px;
 
-    margin-bottom: 8px;
+    margin-bottom: 9px;
 
-    border-radius: 14px;
+    border-radius: 15px;
 
     font-size: 22px;
   }
@@ -1866,29 +1732,22 @@ a {
   }
 
   .apk-name-row h3 {
-    width: calc(100% - 3px);
-
-    margin: 0 0 4px;
-
-    overflow: hidden;
+    margin: 0 0 5px;
 
     font-size: 11px;
 
     white-space: nowrap;
+    overflow: hidden;
     text-overflow: ellipsis;
   }
 
   .apk-badge {
-    display: inline-block;
-
     padding: 3px 6px;
-
     font-size: 6px;
   }
 
   .apk-version {
-    margin-top: 5px;
-
+    margin-top: 6px;
     font-size: 7px;
   }
 
@@ -1897,34 +1756,28 @@ a {
   }
 
   .apk-info p {
-    margin-top: 5px;
+    margin-top: 6px;
 
     font-size: 7px;
     line-height: 1.45;
 
     display: -webkit-box;
-
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-
     overflow: hidden;
   }
 
   .card-arrow {
-    width: 23px;
-    height: 23px;
-
+    width: 24px;
+    height: 24px;
     font-size: 12px;
   }
-
-
-  /* CARD BOTTOM */
 
   .apk-bottom {
     display: block;
 
     margin-top: 9px;
-    padding-top: 8px;
+    padding-top: 9px;
   }
 
   .apk-stats {
@@ -1932,14 +1785,13 @@ a {
 
     justify-content: space-between;
 
-    gap: 2px;
+    gap: 3px;
 
     font-size: 6px;
   }
 
   .apk-stats b {
     margin-right: 2px;
-
     font-size: 9px;
   }
 
@@ -1948,13 +1800,10 @@ a {
 
     min-height: 32px;
 
-    margin-top: 7px;
+    margin-top: 8px;
 
     font-size: 7px;
   }
-
-
-  /* LOAD MORE */
 
   .load-more-wrap {
     margin-top: 20px;
@@ -1963,7 +1812,6 @@ a {
   .load-more {
     min-width: 220px;
     height: 44px;
-
     font-size: 10px;
   }
 
@@ -1971,44 +1819,40 @@ a {
   /* BENEFITS */
 
   .benefits {
-    width: calc(100% - 16px);
+    width: calc(100% - 18px);
 
     min-height: auto;
 
-    margin-bottom: 16px;
+    grid-template-columns: repeat(2, 1fr);
 
     padding: 6px;
 
-    grid-template-columns: repeat(2, 1fr);
+    gap: 3px;
 
-    gap: 2px;
-
-    border-radius: 14px;
+    border-radius: 15px;
   }
 
   .benefit {
-    min-height: 51px;
+    min-height: 54px;
 
     justify-content: flex-start;
 
-    padding-left: 7px;
+    padding-left: 6px;
 
     border-right: 0;
   }
 
   .benefit:nth-child(-n + 2) {
-    border-bottom: 1px solid #edf0f4;
+    border-bottom: 1px solid var(--border);
   }
 
   .benefit-icon {
-    width: 28px;
-    height: 28px;
-
-    flex: 0 0 28px;
+    width: 29px;
+    height: 29px;
 
     border-radius: 9px;
 
-    font-size: 15px;
+    font-size: 16px;
   }
 
   .benefit b {
@@ -2016,51 +1860,42 @@ a {
   }
 
   .benefit small {
-    margin-top: 2px;
-
     font-size: 6px;
   }
 
 
-  /* =====================================================
-     FOOTER
-  ===================================================== */
+  /* FOOTER */
 
   .footer {
-    margin-top: 16px;
+    margin-top: 20px;
   }
 
   .footer-inner {
-    width: calc(100% - 24px);
+    width: calc(100% - 25px);
 
-    min-height: auto;
-
-    padding: 28px 0 25px;
+    padding: 35px 0 28px;
 
     grid-template-columns: 1fr 1fr;
 
-    gap: 25px;
+    gap: 30px 20px;
   }
 
   .footer-brand {
     grid-column: 1 / -1;
   }
 
-  .footer-logo {
-    font-size: 21px;
-  }
-
-  .footer-logo .logo-symbol {
-    width: 36px;
-    height: 36px;
+  .footer-logo-image {
+    width: 275px;
   }
 
   .footer-brand p {
-    font-size: 8px;
+    max-width: 320px;
+    margin-top: 12px;
+    font-size: 9px;
   }
 
   .footer-column {
-    gap: 8px;
+    gap: 9px;
   }
 
   .footer-column h4 {
@@ -2071,29 +1906,21 @@ a {
     font-size: 8px;
   }
 
-  .socials {
-    gap: 6px;
-  }
-
   .socials a {
-    width: 32px;
-    height: 32px;
-
-    border-radius: 9px;
-
-    font-size: 12px;
+    width: 34px;
+    height: 34px;
+    font-size: 13px;
   }
 
   .footer-bottom {
-    width: calc(100% - 24px);
+    width: calc(100% - 25px);
 
     display: block;
 
-    padding: 14px 0;
+    padding: 15px 0;
 
-    line-height: 1.9;
-
-    font-size: 7px;
+    font-size: 8px;
+    line-height: 2;
   }
 
   .footer-bottom span {
@@ -2102,18 +1929,22 @@ a {
 }
 
 
-/* =========================================================
-   VERY SMALL PHONES
-========================================================= */
+/* =========================
+   SMALL PHONES
+========================= */
 
 @media (max-width: 380px) {
 
-  .hero h1 {
-    font-size: 27px;
+  .header-logo {
+    width: 137px;
   }
 
-  .apk-grid {
-    gap: 6px;
+  .hero h1 {
+    font-size: 29px;
+  }
+
+  .popular a {
+    padding: 5px 7px;
   }
 
   .apk-card {
@@ -2123,53 +1954,13 @@ a {
   .app-icon {
     width: 51px;
     height: 51px;
-
-    font-size: 20px;
   }
 
   .apk-name-row h3 {
     font-size: 10px;
   }
 
-  .apk-info p {
-    font-size: 6.5px;
-  }
-
-  .apk-stats {
-    font-size: 5.5px;
-  }
-
   .download-btn {
-    min-height: 30px;
-
-    font-size: 6.5px;
-  }
-}
-
-
-/* =========================================================
-   ACCESSIBILITY
-========================================================= */
-
-button:focus-visible,
-a:focus-visible,
-input:focus-visible {
-  outline: 3px solid rgba(23, 105, 255, 0.2);
-  outline-offset: 2px;
-}
-
-
-/* =========================================================
-   REDUCE MOTION
-========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    transition: none !important;
-    animation: none !important;
+    font-size: 6px;
   }
 }
