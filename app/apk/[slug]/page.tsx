@@ -120,25 +120,25 @@ const apps: Record<string, AppData> = {
   },
 };
 
+const fallbackApp: AppData = {
+  name: "APK Application",
+  category: "Apps",
+  version: "Latest",
+  size: "—",
+  rating: "4.5",
+  reviews: "Reviews",
+  downloads: "1M+",
+  android: "Android 6.0+",
+  badge: "LATEST",
+  description:
+    "Discover the latest version with useful features and a smooth experience.",
+  updated: "Recently",
+  developer: "NexAPK",
+  icon: "N",
+};
+
 function getApp(slug: string): AppData {
-  return (
-    apps[slug] || {
-      name: "APK Application",
-      category: "Apps",
-      version: "Latest",
-      size: "—",
-      rating: "4.5",
-      reviews: "Reviews",
-      downloads: "1M+",
-      android: "Android 6.0+",
-      badge: "LATEST",
-      description:
-        "Discover the latest version with useful features and a smooth experience.",
-      updated: "Recently",
-      developer: "NexAPK",
-      icon: "N",
-    }
-  );
+  return apps[slug] ?? fallbackApp;
 }
 
 function AppIcon({
@@ -148,14 +148,17 @@ function AppIcon({
   icon: string;
   category: string;
 }) {
-  const className =
-    category.toLowerCase() === "social"
-      ? "detail-icon social-icon"
-      : category.toLowerCase() === "games"
-        ? "detail-icon games-icon"
-        : category.toLowerCase() === "music"
-          ? "detail-icon music-icon"
-          : "detail-icon";
+  const categoryName = category.toLowerCase();
+
+  let className = "detail-icon";
+
+  if (categoryName === "social") {
+    className += " social-icon";
+  } else if (categoryName === "games") {
+    className += " games-icon";
+  } else if (categoryName === "music") {
+    className += " music-icon";
+  }
 
   return <div className={className}>{icon}</div>;
 }
@@ -176,7 +179,7 @@ function PreviewPhone({ app }: { app: AppData }) {
 
         <div className="preview-search">
           <span>⌕</span>
-          Search APKs
+          <span>Search APKs</span>
         </div>
 
         <div className="preview-app-card">
@@ -197,9 +200,7 @@ function PreviewPhone({ app }: { app: AppData }) {
           </div>
         </div>
 
-        <div className="preview-download">
-          ↓ &nbsp; Download APK
-        </div>
+        <div className="preview-download">↓ &nbsp; Download APK</div>
       </div>
     </div>
   );
@@ -213,17 +214,12 @@ export default async function AppDetailsPage({
   const { slug } = await params;
   const app = getApp(slug);
 
-  const appSlug = slug || "whatsapp-plus";
-
   return (
     <main className="details-page">
-
-      {/* ================= HEADER ================= */}
-
       <header className="details-header">
         <div className="details-header-inner">
-
           <button
+            type="button"
             className="details-menu"
             aria-label="Open menu"
           >
@@ -233,20 +229,17 @@ export default async function AppDetailsPage({
           </button>
 
           <Link href="/" className="details-header-logo">
-            <img
-              src="/nexapk-header.png"
-              alt="NexAPK"
-            />
+            <img src="/nexapk-header.png" alt="NexAPK" />
           </Link>
 
-          <nav className="details-nav">
+          <nav className="details-nav" aria-label="Main navigation">
             <Link href="/">Home</Link>
             <Link href="/latest">Latest</Link>
           </nav>
 
           <div className="details-actions">
-
             <button
+              type="button"
               className="details-theme"
               aria-label="Toggle theme"
             >
@@ -254,29 +247,22 @@ export default async function AppDetailsPage({
             </button>
 
             <button
+              type="button"
               className="details-search"
               aria-label="Search"
             >
               ⌕
             </button>
-
           </div>
-
         </div>
       </header>
 
-
-      {/* ================= MAIN ================= */}
-
       <div className="details-container">
-
-        {/* BREADCRUMB */}
-
         <div className="details-breadcrumb">
           <Link href="/">Home</Link>
           <span>›</span>
 
-          <Link href={`/latest?category=${app.category}`}>
+          <Link href={`/latest?category=${encodeURIComponent(app.category)}`}>
             {app.category}
           </Link>
 
@@ -285,66 +271,34 @@ export default async function AppDetailsPage({
           <strong>{app.name}</strong>
         </div>
 
-
-        {/* ================= HERO CARD ================= */}
-
         <section className="app-hero-card">
-
           <div className="app-main-info">
-
-            <AppIcon
-              icon={app.icon}
-              category={app.category}
-            />
+            <AppIcon icon={app.icon} category={app.category} />
 
             <div className="app-title-area">
-
               <div className="app-tags">
-
-                <span className="tag-mod">
-                  {app.badge}
-                </span>
-
-                <span className="tag-category">
-                  {app.category}
-                </span>
-
-                <span className="tag-latest">
-                  LATEST
-                </span>
-
+                <span className="tag-mod">{app.badge}</span>
+                <span className="tag-category">{app.category}</span>
+                <span className="tag-latest">LATEST</span>
               </div>
 
               <h1>{app.name}</h1>
 
-              <p>
-                {app.description}
-              </p>
-
+              <p>{app.description}</p>
             </div>
-
           </div>
 
-
-          {/* RATING */}
-
           <div className="rating-row">
-
-            <div className="stars">
+            <div className="stars" aria-label={`${app.rating} out of 5`}>
               ★★★★★
             </div>
 
             <strong>{app.rating}</strong>
 
             <span>{app.reviews}</span>
-
           </div>
 
-
-          {/* STATS */}
-
           <div className="app-stats">
-
             <div className="stat-item">
               <strong>{app.downloads}</strong>
               <span>Downloads</span>
@@ -359,29 +313,23 @@ export default async function AppDetailsPage({
               <strong>{app.android}</strong>
               <span>Required</span>
             </div>
-
           </div>
 
-
-          {/* ACTIONS */}
-
           <div className="app-actions">
-
-            <button className="primary-download">
+            <button type="button" className="primary-download">
               <span>↓</span>
               Download APK
             </button>
 
             <button
+              type="button"
               className="favorite-button"
               aria-label="Add to favorites"
             >
-              ♡
+              <span className="heart">♡</span>
               <span>Favorite</span>
             </button>
-
           </div>
-
 
           <div className="trust-line">
             <span>✓ Safe</span>
@@ -390,72 +338,46 @@ export default async function AppDetailsPage({
             <i>•</i>
             <span>No Registration</span>
           </div>
-
         </section>
 
-
-        {/* ================= PREVIEW ================= */}
-
         <section className="preview-section">
-
           <div className="preview-header">
-
             <div>
-              <span className="section-kicker">
-                PREVIEW
-              </span>
+              <span className="section-kicker">PREVIEW</span>
 
-              <h2>
-                See it in action
-              </h2>
+              <h2>See it in action</h2>
 
               <p>
                 A quick look at the {app.name} experience.
               </p>
             </div>
 
-            <div className="preview-dots">
+            <div className="preview-dots" aria-hidden="true">
               <span />
               <span />
               <span />
             </div>
-
           </div>
 
           <div className="preview-body">
-
             <PreviewPhone app={app} />
-
           </div>
-
         </section>
 
-
-        {/* ================= FEATURES ================= */}
-
         <section className="features-section">
-
           <div className="section-heading-modern">
+            <span className="section-kicker">HIGHLIGHTS</span>
 
-            <div>
-              <span className="section-kicker">
-                HIGHLIGHTS
-              </span>
-
-              <h2>
-                Why you&apos;ll love it
-              </h2>
-            </div>
-
+            <h2>Why you&apos;ll love it</h2>
           </div>
 
-
           <div className="feature-grid">
-
             <div className="feature-card">
               <div className="feature-icon">✦</div>
+
               <div>
                 <h3>Premium Features</h3>
+
                 <p>
                   Explore useful features and extra customization options.
                 </p>
@@ -464,8 +386,10 @@ export default async function AppDetailsPage({
 
             <div className="feature-card">
               <div className="feature-icon">⌁</div>
+
               <div>
                 <h3>Smooth Experience</h3>
+
                 <p>
                   Clean interface designed for a fast and simple experience.
                 </p>
@@ -474,8 +398,10 @@ export default async function AppDetailsPage({
 
             <div className="feature-card">
               <div className="feature-icon">↻</div>
+
               <div>
                 <h3>Regular Updates</h3>
+
                 <p>
                   Stay updated with the latest available version.
                 </p>
@@ -484,40 +410,26 @@ export default async function AppDetailsPage({
 
             <div className="feature-card">
               <div className="feature-icon">✓</div>
+
               <div>
                 <h3>Easy Access</h3>
+
                 <p>
                   Simple download process without unnecessary steps.
                 </p>
               </div>
             </div>
-
           </div>
-
         </section>
 
-
-        {/* ================= APP INFORMATION ================= */}
-
         <section className="information-section">
-
           <div className="section-heading-modern">
+            <span className="section-kicker">DETAILS</span>
 
-            <div>
-              <span className="section-kicker">
-                DETAILS
-              </span>
-
-              <h2>
-                App Information
-              </h2>
-            </div>
-
+            <h2>App Information</h2>
           </div>
 
-
           <div className="information-card">
-
             <div className="info-row">
               <span>App Name</span>
               <strong>{app.name}</strong>
@@ -552,64 +464,39 @@ export default async function AppDetailsPage({
               <span>Developer</span>
               <strong>{app.developer}</strong>
             </div>
-
           </div>
-
         </section>
 
-
-        {/* ================= DOWNLOAD CTA ================= */}
-
         <section className="bottom-download">
-
           <div>
-            <span className="section-kicker">
-              READY TO DOWNLOAD?
-            </span>
+            <span className="section-kicker">READY TO DOWNLOAD?</span>
 
-            <h2>
-              Get {app.name}
-            </h2>
+            <h2>Get {app.name}</h2>
 
             <p>
               Download the latest version and explore the experience.
             </p>
           </div>
 
-          <button className="bottom-download-button">
+          <button type="button" className="bottom-download-button">
             ↓ &nbsp; Download APK
           </button>
-
         </section>
 
-
-        {/* ================= RELATED ================= */}
-
         <section className="related-section">
-
           <div className="section-heading-modern related-heading">
-
             <div>
-              <span className="section-kicker">
-                DISCOVER MORE
-              </span>
+              <span className="section-kicker">DISCOVER MORE</span>
 
-              <h2>
-                You May Also Like
-              </h2>
+              <h2>You May Also Like</h2>
             </div>
 
-            <Link href="/latest">
-              View All →
-            </Link>
-
+            <Link href="/latest">View All →</Link>
           </div>
 
-
           <div className="related-grid">
-
             {Object.entries(apps)
-              .filter(([key]) => key !== appSlug)
+              .filter(([key]) => key !== slug)
               .slice(0, 3)
               .map(([key, item]) => (
                 <Link
@@ -617,13 +504,9 @@ export default async function AppDetailsPage({
                   className="related-card"
                   key={key}
                 >
-
-                  <div className="related-icon">
-                    {item.icon}
-                  </div>
+                  <div className="related-icon">{item.icon}</div>
 
                   <div className="related-content">
-
                     <h3>{item.name}</h3>
 
                     <span>
@@ -634,31 +517,18 @@ export default async function AppDetailsPage({
                       <b>★ {item.rating}</b>
                       <small>{item.downloads}</small>
                     </div>
-
                   </div>
 
-                  <span className="related-arrow">
-                    →
-                  </span>
-
+                  <span className="related-arrow">→</span>
                 </Link>
               ))}
-
           </div>
-
         </section>
-
       </div>
 
-
-      {/* ================= FOOTER ================= */}
-
       <footer className="details-footer">
-
         <div className="footer-top">
-
           <div className="footer-brand-area">
-
             <Link href="/" className="footer-image-link">
               <img
                 src="/nexapk-footer.png"
@@ -667,58 +537,33 @@ export default async function AppDetailsPage({
             </Link>
 
             <p>
-              Your trusted place to discover apps,
-              games and useful Android tools.
+              Your trusted place to discover apps, games and useful Android
+              tools.
             </p>
-
           </div>
 
-
           <div className="footer-links">
-
             <h4>Explore</h4>
 
             <Link href="/">Home</Link>
             <Link href="/latest">Latest APKs</Link>
-            <Link href="/latest?category=games">
-              Games
-            </Link>
-            <Link href="/latest?category=tools">
-              Tools
-            </Link>
-
+            <Link href="/latest?category=games">Games</Link>
+            <Link href="/latest?category=tools">Tools</Link>
           </div>
 
-
           <div className="footer-links">
-
             <h4>Legal</h4>
 
-            <Link href="/privacy">
-              Privacy Policy
-            </Link>
-
-            <Link href="/terms">
-              Terms of Service
-            </Link>
-
-            <Link href="/dmca">
-              DMCA
-            </Link>
-
-            <Link href="/contact">
-              Contact Us
-            </Link>
-
+            <Link href="/privacy">Privacy Policy</Link>
+            <Link href="/terms">Terms of Service</Link>
+            <Link href="/dmca">DMCA</Link>
+            <Link href="/contact">Contact Us</Link>
           </div>
 
-
           <div className="footer-links">
-
             <h4>Follow NexAPK</h4>
 
             <div className="footer-socials">
-
               <a href="#" aria-label="Instagram">
                 ◎
               </a>
@@ -734,44 +579,29 @@ export default async function AppDetailsPage({
               <a href="#" aria-label="X">
                 X
               </a>
-
             </div>
-
           </div>
-
         </div>
 
-
         <div className="footer-bottom">
-
-          <span>
-            © 2026 NexAPK. All rights reserved.
-          </span>
+          <span>© 2026 NexAPK. All rights reserved.</span>
 
           <span>
             Made with <b>♥</b> for Android Lovers
           </span>
-
         </div>
-
       </footer>
 
-
-      {/* ================= PAGE CSS ================= */}
-
       <style jsx global>{`
-
         .details-page {
           min-height: 100vh;
           background: #f5f8fc;
           color: #08172f;
         }
 
-        /* HEADER */
-
         .details-header {
           height: 76px;
-          background: rgba(255,255,255,.94);
+          background: rgba(255, 255, 255, 0.94);
           border-bottom: 1px solid #e7edf5;
           position: sticky;
           top: 0;
@@ -832,6 +662,7 @@ export default async function AppDetailsPage({
           color: #66758a;
           font-size: 13px;
           font-weight: 700;
+          text-decoration: none;
         }
 
         .details-nav a:hover {
@@ -855,6 +686,7 @@ export default async function AppDetailsPage({
           font-size: 23px;
           display: grid;
           place-items: center;
+          cursor: pointer;
         }
 
         .details-theme:hover,
@@ -863,15 +695,11 @@ export default async function AppDetailsPage({
           color: #1976e8;
         }
 
-        /* CONTAINER */
-
         .details-container {
           width: min(1080px, calc(100% - 40px));
           margin: auto;
           padding: 26px 0 70px;
         }
-
-        /* BREADCRUMB */
 
         .details-breadcrumb {
           display: flex;
@@ -880,6 +708,11 @@ export default async function AppDetailsPage({
           margin-bottom: 20px;
           color: #8a98aa;
           font-size: 13px;
+        }
+
+        .details-breadcrumb a {
+          color: inherit;
+          text-decoration: none;
         }
 
         .details-breadcrumb a:hover {
@@ -891,8 +724,6 @@ export default async function AppDetailsPage({
           font-weight: 800;
         }
 
-        /* HERO */
-
         .app-hero-card {
           position: relative;
           overflow: hidden;
@@ -902,16 +733,11 @@ export default async function AppDetailsPage({
           background:
             radial-gradient(
               circle at 92% 8%,
-              rgba(54,146,255,.16),
+              rgba(54, 146, 255, 0.16),
               transparent 31%
             ),
-            linear-gradient(
-              135deg,
-              #ffffff,
-              #f4f9ff
-            );
-          box-shadow:
-            0 20px 55px rgba(20,58,100,.07);
+            linear-gradient(135deg, #ffffff, #f4f9ff);
+          box-shadow: 0 20px 55px rgba(20, 58, 100, 0.07);
         }
 
         .app-main-info {
@@ -930,26 +756,22 @@ export default async function AppDetailsPage({
           color: #fff;
           font-size: 49px;
           font-weight: 900;
-          background:
-            linear-gradient(135deg,#0871df,#51b0ff);
+          background: linear-gradient(135deg, #0871df, #51b0ff);
           box-shadow:
-            0 17px 35px rgba(18,107,232,.18),
-            inset 0 0 0 1px rgba(255,255,255,.25);
+            0 17px 35px rgba(18, 107, 232, 0.18),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.25);
         }
 
         .social-icon {
-          background:
-            linear-gradient(135deg,#0bc66b,#20e883);
+          background: linear-gradient(135deg, #0bc66b, #20e883);
         }
 
         .games-icon {
-          background:
-            linear-gradient(135deg,#171c25,#697686);
+          background: linear-gradient(135deg, #171c25, #697686);
         }
 
         .music-icon {
-          background:
-            linear-gradient(135deg,#101010,#242424);
+          background: linear-gradient(135deg, #101010, #242424);
           color: #1ed760;
         }
 
@@ -971,7 +793,7 @@ export default async function AppDetailsPage({
           border-radius: 999px;
           font-size: 9px;
           font-weight: 900;
-          letter-spacing: .3px;
+          letter-spacing: 0.3px;
         }
 
         .tag-mod {
@@ -991,7 +813,7 @@ export default async function AppDetailsPage({
 
         .app-title-area h1 {
           margin: 0;
-          font-size: clamp(34px,4vw,52px);
+          font-size: clamp(34px, 4vw, 52px);
           line-height: 1.05;
           letter-spacing: -2.3px;
         }
@@ -1003,8 +825,6 @@ export default async function AppDetailsPage({
           font-size: 16px;
           line-height: 1.65;
         }
-
-        /* RATING */
 
         .rating-row {
           display: flex;
@@ -1030,11 +850,9 @@ export default async function AppDetailsPage({
           font-size: 13px;
         }
 
-        /* STATS */
-
         .app-stats {
           display: grid;
-          grid-template-columns: repeat(3,1fr);
+          grid-template-columns: repeat(3, 1fr);
           margin-top: 21px;
           border-top: 1px solid #e4ebf3;
           border-bottom: 1px solid #e4ebf3;
@@ -1065,8 +883,6 @@ export default async function AppDetailsPage({
           font-size: 11px;
         }
 
-        /* ACTION */
-
         .app-actions {
           display: flex;
           gap: 12px;
@@ -1078,17 +894,18 @@ export default async function AppDetailsPage({
           flex: 1;
           border: 0;
           border-radius: 17px;
-          background: linear-gradient(135deg,#126be8,#2688f5);
-          color: white;
+          background: linear-gradient(135deg, #126be8, #2688f5);
+          color: #fff;
           font-size: 15px;
           font-weight: 900;
-          box-shadow: 0 13px 27px rgba(18,107,232,.22);
-          transition: .2s ease;
+          box-shadow: 0 13px 27px rgba(18, 107, 232, 0.22);
+          transition: 0.2s ease;
+          cursor: pointer;
         }
 
         .primary-download:hover {
           transform: translateY(-2px);
-          box-shadow: 0 17px 32px rgba(18,107,232,.28);
+          box-shadow: 0 17px 32px rgba(18, 107, 232, 0.28);
         }
 
         .primary-download span {
@@ -1106,10 +923,16 @@ export default async function AppDetailsPage({
           color: #58687c;
           font-size: 14px;
           font-weight: 800;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          cursor: pointer;
         }
 
-        .favorite-button:first-letter {
-          font-size: 25px;
+        .favorite-button .heart {
+          font-size: 27px;
+          line-height: 1;
         }
 
         .favorite-button:hover {
@@ -1136,15 +959,13 @@ export default async function AppDetailsPage({
           color: #b7c0cb;
         }
 
-        /* PREVIEW */
-
         .preview-section {
           margin-top: 25px;
           overflow: hidden;
           border: 1px solid #dfe8f2;
           border-radius: 26px;
           background: #fff;
-          box-shadow: 0 14px 40px rgba(20,58,100,.05);
+          box-shadow: 0 14px 40px rgba(20, 58, 100, 0.05);
         }
 
         .preview-header {
@@ -1166,7 +987,7 @@ export default async function AppDetailsPage({
         .section-heading-modern h2 {
           margin: 5px 0 0;
           font-size: 24px;
-          letter-spacing: -.8px;
+          letter-spacing: -0.8px;
         }
 
         .preview-header p {
@@ -1196,10 +1017,10 @@ export default async function AppDetailsPage({
           background:
             radial-gradient(
               circle at 50% 70%,
-              rgba(52,142,244,.17),
+              rgba(52, 142, 244, 0.17),
               transparent 48%
             ),
-            linear-gradient(180deg,#f6faff,#eef6ff);
+            linear-gradient(180deg, #f6faff, #eef6ff);
         }
 
         .preview-phone {
@@ -1210,8 +1031,7 @@ export default async function AppDetailsPage({
           border: 7px solid #07172e;
           border-radius: 38px 38px 42px 42px;
           background: #fff;
-          box-shadow:
-            0 25px 55px rgba(8,35,70,.22);
+          box-shadow: 0 25px 55px rgba(8, 35, 70, 0.22);
           transform: rotate(2deg);
         }
 
@@ -1233,7 +1053,7 @@ export default async function AppDetailsPage({
           overflow: hidden;
           padding: 46px 15px 15px;
           border-radius: 27px;
-          background: linear-gradient(180deg,#f2f8ff,#fff);
+          background: linear-gradient(180deg, #f2f8ff, #fff);
         }
 
         .preview-brand {
@@ -1254,7 +1074,7 @@ export default async function AppDetailsPage({
           display: grid;
           place-items: center;
           border-radius: 8px;
-          background: linear-gradient(135deg,#0871df,#36a0ff);
+          background: linear-gradient(135deg, #0871df, #36a0ff);
           color: #fff;
           font-size: 13px;
           font-weight: 900;
@@ -1273,7 +1093,7 @@ export default async function AppDetailsPage({
           font-size: 9px;
         }
 
-        .preview-search span {
+        .preview-search span:first-child {
           font-size: 15px;
         }
 
@@ -1286,7 +1106,7 @@ export default async function AppDetailsPage({
           border: 1px solid #dfe8f1;
           border-radius: 13px;
           background: #fff;
-          box-shadow: 0 5px 14px rgba(25,65,105,.05);
+          box-shadow: 0 5px 14px rgba(25, 65, 105, 0.05);
         }
 
         .preview-app-icon {
@@ -1327,8 +1147,6 @@ export default async function AppDetailsPage({
           font-weight: 900;
         }
 
-        /* SECTIONS */
-
         .features-section,
         .information-section,
         .related-section {
@@ -1341,7 +1159,7 @@ export default async function AppDetailsPage({
 
         .feature-grid {
           display: grid;
-          grid-template-columns: repeat(2,1fr);
+          grid-template-columns: repeat(2, 1fr);
           gap: 12px;
         }
 
@@ -1352,12 +1170,12 @@ export default async function AppDetailsPage({
           border: 1px solid #e0e8f1;
           border-radius: 18px;
           background: #fff;
-          transition: .2s ease;
+          transition: 0.2s ease;
         }
 
         .feature-card:hover {
           transform: translateY(-2px);
-          box-shadow: 0 12px 28px rgba(20,58,100,.07);
+          box-shadow: 0 12px 28px rgba(20, 58, 100, 0.07);
         }
 
         .feature-icon {
@@ -1384,8 +1202,6 @@ export default async function AppDetailsPage({
           font-size: 11px;
           line-height: 1.5;
         }
-
-        /* INFORMATION */
 
         .information-card {
           padding: 5px 20px;
@@ -1417,8 +1233,6 @@ export default async function AppDetailsPage({
           text-align: right;
         }
 
-        /* BOTTOM CTA */
-
         .bottom-download {
           display: flex;
           align-items: center;
@@ -1430,17 +1244,17 @@ export default async function AppDetailsPage({
           background:
             radial-gradient(
               circle at 85% 20%,
-              rgba(76,168,255,.25),
+              rgba(76, 168, 255, 0.25),
               transparent 35%
             ),
-            linear-gradient(135deg,#07182f,#0b274b);
+            linear-gradient(135deg, #07182f, #0b274b);
           color: #fff;
         }
 
         .bottom-download h2 {
           margin: 6px 0 4px;
           font-size: 25px;
-          letter-spacing: -.8px;
+          letter-spacing: -0.8px;
         }
 
         .bottom-download p {
@@ -1463,9 +1277,8 @@ export default async function AppDetailsPage({
           font-size: 12px;
           font-weight: 900;
           white-space: nowrap;
+          cursor: pointer;
         }
-
-        /* RELATED */
 
         .related-heading {
           display: flex;
@@ -1477,11 +1290,12 @@ export default async function AppDetailsPage({
           color: #1674e8;
           font-size: 12px;
           font-weight: 800;
+          text-decoration: none;
         }
 
         .related-grid {
           display: grid;
-          grid-template-columns: repeat(3,1fr);
+          grid-template-columns: repeat(3, 1fr);
           gap: 12px;
         }
 
@@ -1494,12 +1308,14 @@ export default async function AppDetailsPage({
           border: 1px solid #e0e8f1;
           border-radius: 18px;
           background: #fff;
-          transition: .2s ease;
+          transition: 0.2s ease;
+          text-decoration: none;
+          color: inherit;
         }
 
         .related-card:hover {
           transform: translateY(-3px);
-          box-shadow: 0 13px 28px rgba(20,58,100,.07);
+          box-shadow: 0 13px 28px rgba(20, 58, 100, 0.07);
         }
 
         .related-icon {
@@ -1509,7 +1325,7 @@ export default async function AppDetailsPage({
           display: grid;
           place-items: center;
           border-radius: 15px;
-          background: linear-gradient(135deg,#0d70e9,#50adff);
+          background: linear-gradient(135deg, #0d70e9, #50adff);
           color: #fff;
           font-size: 21px;
           font-weight: 900;
@@ -1558,13 +1374,11 @@ export default async function AppDetailsPage({
           font-size: 16px;
         }
 
-        /* FOOTER */
-
         .details-footer {
           background:
             radial-gradient(
               circle at 15% 0%,
-              rgba(22,116,232,.17),
+              rgba(22, 116, 232, 0.17),
               transparent 31%
             ),
             #061326;
@@ -1615,6 +1429,7 @@ export default async function AppDetailsPage({
         .footer-links a {
           color: #91a4bb;
           font-size: 10px;
+          text-decoration: none;
         }
 
         .footer-links a:hover {
@@ -1636,6 +1451,7 @@ export default async function AppDetailsPage({
           color: #fff;
           font-size: 13px;
           font-weight: 800;
+          text-decoration: none;
         }
 
         .footer-socials a:hover {
@@ -1649,7 +1465,7 @@ export default async function AppDetailsPage({
           display: flex;
           align-items: center;
           justify-content: space-between;
-          border-top: 1px solid rgba(255,255,255,.08);
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
           color: #71849c;
           font-size: 9px;
         }
@@ -1658,10 +1474,7 @@ export default async function AppDetailsPage({
           color: #ff4267;
         }
 
-        /* MOBILE */
-
         @media (max-width: 760px) {
-
           .details-header {
             height: 68px;
           }
@@ -1813,6 +1626,10 @@ export default async function AppDetailsPage({
             padding: 0 10px;
             border-radius: 14px;
             font-size: 11px;
+          }
+
+          .favorite-button .heart {
+            font-size: 22px;
           }
 
           .trust-line {
@@ -1973,9 +1790,7 @@ export default async function AppDetailsPage({
             display: block;
           }
         }
-
       `}</style>
-
     </main>
   );
 }
