@@ -277,7 +277,7 @@ export default function ApkDetailsPage() {
 
                   <div className="preview-brand">
                     <img
-                      src="/robot-icon.png"
+                      src="/app/icon.png"
                       alt=""
                     />
                     <b>Nex<span>APK</span></b>
