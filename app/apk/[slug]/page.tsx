@@ -1,208 +1,147 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-const appData: Record<string, {
-  name: string;
-  category: string;
-  version: string;
-  size: string;
-  rating: string;
-  downloads: string;
-  badge: string;
-  icon: string;
-  description: string;
-  features: string[];
-}> = {
-  "whatsapp-plus": {
-    name: "WhatsApp Plus",
-    category: "Social",
-    version: "17.20",
-    size: "54 MB",
-    rating: "4.6",
-    downloads: "5M+",
-    badge: "MOD",
-    icon: "W",
-    description:
-      "Explore the latest version of WhatsApp Plus with a clean interface and additional customization options.",
-    features: [
-      "Clean and modern interface",
-      "Additional customization options",
-      "Improved privacy controls",
-      "Regular version updates",
-    ],
-  },
-
-  "instagram-pro": {
-    name: "Instagram Pro",
-    category: "Social",
-    version: "32.0",
-    size: "48 MB",
-    rating: "4.5",
-    downloads: "10M+",
-    badge: "MOD",
-    icon: "◎",
-    description:
-      "A modern Instagram experience with additional customization and useful features.",
-    features: [
-      "Clean browsing experience",
-      "Extra customization options",
-      "Improved privacy controls",
-      "Regular updates",
-    ],
-  },
-
-  "bgmi": {
-    name: "BGMI",
-    category: "Games",
-    version: "3.6.0",
-    size: "2.6 GB",
-    rating: "4.7",
-    downloads: "20M+",
-    badge: "POPULAR",
-    icon: "B",
-    description:
-      "Discover the latest BGMI version with updated gameplay and an improved experience.",
-    features: [
-      "Updated gameplay",
-      "New content and improvements",
-      "Optimized performance",
-      "Regular updates",
-    ],
-  },
-
-  "spotify-premium": {
-    name: "Spotify Premium",
-    category: "Music",
-    version: "9.9.78",
-    size: "86 MB",
-    rating: "4.4",
-    downloads: "5M+",
-    badge: "NEW",
-    icon: "S",
-    description:
-      "Explore the latest Spotify version with a clean music listening experience.",
-    features: [
-      "Clean music interface",
-      "Smooth playback experience",
-      "Personalized music discovery",
-      "Regular updates",
-    ],
-  },
-
-  "capcut-pro": {
-    name: "CapCut Pro",
-    category: "Tools",
-    version: "12.5.0",
-    size: "138 MB",
-    rating: "4.5",
-    downloads: "15M+",
-    badge: "TRENDING",
-    icon: "C",
-    description:
-      "Explore the latest CapCut version with creative editing tools and features.",
-    features: [
-      "Powerful editing tools",
-      "Creative effects and templates",
-      "Smooth editing workflow",
-      "Regular updates",
-    ],
-  },
-
-  "youtube-vanced": {
-    name: "YouTube Vanced",
-    category: "Entertainment",
-    version: "18.23.39",
-    size: "95 MB",
-    rating: "4.3",
-    downloads: "8M+",
-    badge: "TRENDING",
-    icon: "▶",
-    description:
-      "Explore the latest version with a clean and comfortable video viewing experience.",
-    features: [
-      "Clean video interface",
-      "Smooth playback",
-      "Useful viewing controls",
-      "Regular updates",
-    ],
-  },
+const app = {
+  name: "WhatsApp Plus",
+  category: "Social",
+  version: "17.20",
+  size: "54 MB",
+  rating: "4.6",
+  reviews: "125K",
+  downloads: "5M+",
+  android: "5.0+",
+  packageName: "com.whatsappplus",
+  updated: "2 days ago",
+  description:
+    "WhatsApp Plus is a modified messaging experience with extra customization, privacy controls and useful features.",
+  icon: "/robot-icon.png",
+  screenshots: [
+    "/screenshot-1.png",
+    "/screenshot-2.png",
+    "/screenshot-3.png",
+  ],
+  features: [
+    "Hide online status",
+    "Custom themes",
+    "More privacy options",
+    "Send larger files",
+    "Dual WhatsApp support",
+    "Extra customization options",
+  ],
 };
 
 const relatedApps = [
   {
-    name: "WhatsApp Plus",
-    slug: "whatsapp-plus",
-    icon: "W",
-    category: "Social",
-  },
-  {
     name: "Instagram Pro",
-    slug: "instagram-pro",
+    version: "32.0",
+    size: "48 MB",
+    rating: "4.5",
+    badge: "MOD",
     icon: "◎",
-    category: "Social",
+    className: "related-instagram",
   },
   {
     name: "Spotify Premium",
-    slug: "spotify-premium",
+    version: "9.9.78",
+    size: "86 MB",
+    rating: "4.4",
+    badge: "NEW",
     icon: "S",
-    category: "Music",
+    className: "related-spotify",
+  },
+  {
+    name: "CapCut Pro",
+    version: "12.5.0",
+    size: "138 MB",
+    rating: "4.5",
+    badge: "PRO",
+    icon: "C",
+    className: "related-capcut",
+  },
+  {
+    name: "YouTube Vanced",
+    version: "18.23.39",
+    size: "95 MB",
+    rating: "4.3",
+    badge: "MOD",
+    icon: "▶",
+    className: "related-youtube",
   },
 ];
 
-function getIconClass(name: string) {
-  return `detail-app-icon icon-${name
-    .toLowerCase()
-    .replace(/\s+/g, "-")}`;
-}
+export default function ApkDetailsPage() {
+  const [dark, setDark] = useState(false);
+  const [favorite, setFavorite] = useState(false);
+  const [activeTab, setActiveTab] = useState("about");
 
-export default async function AppDetails({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("nexapk-theme");
 
-  const app = appData[slug] ?? appData["whatsapp-plus"];
+    if (savedTheme === "dark") {
+      setDark(true);
+      document.documentElement.classList.add("dark");
+    }
+  }, []);
+
+  function toggleTheme() {
+    const next = !dark;
+
+    setDark(next);
+
+    if (next) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("nexapk-theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("nexapk-theme", "light");
+    }
+  }
 
   return (
     <main className="details-page">
 
       {/* HEADER */}
-      <header className="header">
-        <div className="header-inner">
+      <header className="details-header">
+        <div className="details-header-inner">
 
-          <button className="menu-btn" aria-label="Open menu">
+          <Link href="/" className="mobile-menu" aria-label="Menu">
             <span />
             <span />
             <span />
-          </button>
+          </Link>
 
-          <Link href="/" className="logo">
+          <Link href="/" className="header-logo">
             <img
               src="/logo-header.png"
               alt="NexAPK"
             />
           </Link>
 
-          <nav className="desktop-nav">
+          <nav className="details-nav">
             <Link href="/">Home</Link>
             <Link href="/latest">Latest</Link>
           </nav>
 
-          <div className="header-actions">
+          <div className="details-actions">
+
             <button
-              className="icon-btn"
+              className="theme-button"
+              onClick={toggleTheme}
               aria-label="Toggle theme"
             >
-              ☼
+              {dark ? "☀" : "☾"}
             </button>
 
             <Link
               href="/latest"
-              className="icon-btn"
+              className="header-search"
               aria-label="Search"
             >
               ⌕
             </Link>
+
           </div>
 
         </div>
@@ -210,43 +149,106 @@ export default async function AppDetails({
 
 
       {/* MAIN */}
-      <section className="details-container">
+      <div className="details-container">
 
         {/* BREADCRUMB */}
         <div className="breadcrumb">
           <Link href="/">Home</Link>
           <span>›</span>
-          <Link href="/latest">{app.category}</Link>
+          <Link href="/latest">Social</Link>
           <span>›</span>
-          <strong>{app.name}</strong>
+          <b>{app.name}</b>
         </div>
 
 
         {/* APP HERO */}
-        <section className="app-details-hero">
+        <section className="app-detail-hero">
 
-          <div className="detail-top">
+          <div className="app-detail-main">
 
-            <div className={getIconClass(app.name)}>
-              {app.icon}
+            <div className="detail-icon-wrap">
+              <img
+                src={app.icon}
+                alt={app.name}
+                className="detail-app-icon"
+              />
             </div>
 
-            <div className="detail-heading">
+            <div className="detail-info">
 
-              <div className="detail-badge">
-                {app.badge}
+              <div className="detail-badges">
+                <span className="detail-badge mod">MOD</span>
+                <span className="detail-badge category">
+                  {app.category}
+                </span>
+                <span className="detail-badge latest">
+                  LATEST
+                </span>
               </div>
 
               <h1>{app.name}</h1>
 
-              <p>
-                Latest version • {app.category}
+              <p className="detail-subtitle">
+                Extra features, privacy controls and more
+                customization for your messaging experience.
               </p>
 
               <div className="detail-rating">
-                <span className="rating-star">★</span>
+
+                <span className="stars">★★★★★</span>
+
                 <strong>{app.rating}</strong>
-                <span>Excellent rating</span>
+
+                <span>
+                  {app.reviews} reviews
+                </span>
+
+              </div>
+
+              <div className="detail-stats">
+
+                <div>
+                  <b>{app.downloads}</b>
+                  <span>Downloads</span>
+                </div>
+
+                <div>
+                  <b>{app.size}</b>
+                  <span>Size</span>
+                </div>
+
+                <div>
+                  <b>Android {app.android}</b>
+                  <span>Required</span>
+                </div>
+
+              </div>
+
+              <div className="detail-buttons">
+
+                <a
+                  href="#download"
+                  className="primary-download"
+                >
+                  <span>↓</span>
+                  Download APK
+                </a>
+
+                <button
+                  className={`favorite-button ${
+                    favorite ? "active" : ""
+                  }`}
+                  onClick={() => setFavorite(!favorite)}
+                >
+                  <span>{favorite ? "♥" : "♡"}</span>
+                  {favorite ? "Saved" : "Favorite"}
+                </button>
+
+              </div>
+
+              <div className="secure-note">
+                <span>✓</span>
+                Safe &nbsp;•&nbsp; Fast Download &nbsp;•&nbsp; No Registration
               </div>
 
             </div>
@@ -254,184 +256,302 @@ export default async function AppDetails({
           </div>
 
 
-          {/* STATS */}
-          <div className="detail-stats">
+          {/* PREVIEW */}
+          <div className="app-preview">
 
-            <div>
-              <strong>{app.version}</strong>
-              <span>Version</span>
-            </div>
+            <div className="preview-top">
+              <span>App Preview</span>
 
-            <div>
-              <strong>{app.size}</strong>
-              <span>Size</span>
-            </div>
-
-            <div>
-              <strong>{app.downloads}</strong>
-              <span>Downloads</span>
-            </div>
-
-            <div>
-              <strong>Android</strong>
-              <span>Platform</span>
-            </div>
-
-          </div>
-
-
-          {/* DESCRIPTION */}
-          <p className="detail-description">
-            {app.description}
-          </p>
-
-
-          {/* DOWNLOAD */}
-          <div className="detail-actions">
-
-            <a
-              href="#download"
-              className="primary-download"
-            >
-              <span>⇩</span>
-              <span>
-                <strong>Download APK</strong>
-                <small>{app.size} • Latest Version</small>
+              <span className="preview-dots">
+                ● ● ●
               </span>
-            </a>
+            </div>
 
-            <button className="share-btn">
-              ↗
-              <span>Share</span>
-            </button>
+            <div className="preview-screen">
+
+              <div className="preview-phone">
+
+                <div className="preview-notch" />
+
+                <div className="preview-content">
+
+                  <div className="preview-brand">
+                    <img
+                      src="/robot-icon.png"
+                      alt=""
+                    />
+                    <b>Nex<span>APK</span></b>
+                  </div>
+
+                  <div className="preview-search">
+                    ⌕ &nbsp; Search APKs
+                  </div>
+
+                  <div className="preview-card">
+                    <div className="preview-mini-icon">W</div>
+                    <div>
+                      <b>WhatsApp Plus</b>
+                      <small>Latest version</small>
+                    </div>
+                  </div>
+
+                  <div className="preview-card">
+                    <div className="preview-mini-icon">✓</div>
+                    <div>
+                      <b>Premium Features</b>
+                      <small>More control</small>
+                    </div>
+                  </div>
+
+                  <div className="preview-download">
+                    ↓ &nbsp; Download APK
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
 
           </div>
 
-          <div className="download-trust">
+        </section>
+
+
+        {/* TRUST BAR */}
+        <section className="detail-trust">
+
+          <div>
             <span>✓</span>
-            Carefully reviewed
-            <span>•</span>
-            Updated regularly
-            <span>•</span>
-            Android compatible
+            <div>
+              <b>Verified APK</b>
+              <small>Checked & reviewed</small>
+            </div>
+          </div>
+
+          <div>
+            <span>ϟ</span>
+            <div>
+              <b>Fast Download</b>
+              <small>High speed servers</small>
+            </div>
+          </div>
+
+          <div>
+            <span>↻</span>
+            <div>
+              <b>Regular Updates</b>
+              <small>Latest versions</small>
+            </div>
+          </div>
+
+          <div>
+            <span>♙</span>
+            <div>
+              <b>No Registration</b>
+              <small>Direct access</small>
+            </div>
           </div>
 
         </section>
 
 
         {/* CONTENT GRID */}
-        <div className="details-content">
+        <div className="detail-content-grid">
 
-          <div className="details-main">
+          <div className="detail-left">
+
+            {/* TABS */}
+            <div className="detail-tabs">
+
+              <button
+                className={activeTab === "about" ? "active" : ""}
+                onClick={() => setActiveTab("about")}
+              >
+                About
+              </button>
+
+              <button
+                className={activeTab === "screenshots" ? "active" : ""}
+                onClick={() => setActiveTab("screenshots")}
+              >
+                Screenshots
+              </button>
+
+              <button
+                className={activeTab === "changelog" ? "active" : ""}
+                onClick={() => setActiveTab("changelog")}
+              >
+                Changelog
+              </button>
+
+            </div>
+
 
             {/* ABOUT */}
-            <section className="detail-section">
+            {activeTab === "about" && (
+              <section className="detail-section">
 
-              <div className="detail-section-heading">
-                <span>✦</span>
-                <h2>About {app.name}</h2>
-              </div>
-
-              <p>
-                {app.description} NexAPK keeps app information
-                organized so you can quickly check the version,
-                size, category and important details before
-                continuing.
-              </p>
-
-            </section>
-
-
-            {/* FEATURES */}
-            <section className="detail-section">
-
-              <div className="detail-section-heading">
-                <span>✓</span>
-                <h2>Features</h2>
-              </div>
-
-              <div className="feature-list">
-
-                {app.features.map((feature) => (
-                  <div
-                    className="feature-item"
-                    key={feature}
-                  >
-                    <span>✓</span>
-                    <p>{feature}</p>
+                <div className="section-label">
+                  <span>01</span>
+                  <div>
+                    <h2>About {app.name}</h2>
+                    <p>Everything you need to know</p>
                   </div>
-                ))}
+                </div>
 
-              </div>
+                <p className="long-description">
+                  {app.description} It is designed for users
+                  who want a cleaner and more customizable
+                  experience while keeping the interface
+                  familiar and easy to use.
+                </p>
 
-            </section>
+
+                <h3 className="sub-heading">
+                  Features
+                </h3>
+
+                <div className="feature-grid">
+
+                  {app.features.map((feature) => (
+                    <div
+                      className="feature-item"
+                      key={feature}
+                    >
+                      <span>✓</span>
+                      {feature}
+                    </div>
+                  ))}
+
+                </div>
+
+              </section>
+            )}
 
 
-            {/* INFORMATION */}
-            <section className="detail-section">
+            {/* SCREENSHOTS */}
+            {activeTab === "screenshots" && (
+              <section className="detail-section">
 
-              <div className="detail-section-heading">
-                <span>⌘</span>
-                <h2>App Information</h2>
+                <div className="section-label">
+                  <span>02</span>
+                  <div>
+                    <h2>Screenshots</h2>
+                    <p>Preview the application</p>
+                  </div>
+                </div>
+
+                <div className="screenshots-grid">
+
+                  {app.screenshots.map((image, index) => (
+                    <div
+                      className="screenshot-card"
+                      key={image}
+                    >
+                      <img
+                        src={image}
+                        alt={`${app.name} screenshot ${index + 1}`}
+                      />
+                    </div>
+                  ))}
+
+                </div>
+
+              </section>
+            )}
+
+
+            {/* CHANGELOG */}
+            {activeTab === "changelog" && (
+              <section className="detail-section">
+
+                <div className="section-label">
+                  <span>03</span>
+                  <div>
+                    <h2>Changelog</h2>
+                    <p>What&apos;s new in this version</p>
+                  </div>
+                </div>
+
+                <div className="changelog-card">
+
+                  <div className="change-version">
+                    <div>
+                      <span>Latest</span>
+                      <b>Version {app.version}</b>
+                    </div>
+
+                    <small>
+                      Updated {app.updated}
+                    </small>
+                  </div>
+
+                  <ul>
+                    <li>Improved overall performance</li>
+                    <li>New interface improvements</li>
+                    <li>Fixed minor bugs</li>
+                    <li>Improved stability</li>
+                    <li>Better customization options</li>
+                  </ul>
+
+                </div>
+
+              </section>
+            )}
+
+
+            {/* APP INFORMATION */}
+            <section className="detail-section app-information">
+
+              <div className="section-label">
+                <span>04</span>
+                <div>
+                  <h2>App Information</h2>
+                  <p>Technical details</p>
+                </div>
               </div>
 
               <div className="info-table">
 
                 <div>
                   <span>App Name</span>
-                  <strong>{app.name}</strong>
+                  <b>{app.name}</b>
+                </div>
+
+                <div>
+                  <span>Version</span>
+                  <b>{app.version}</b>
+                </div>
+
+                <div>
+                  <span>Size</span>
+                  <b>{app.size}</b>
                 </div>
 
                 <div>
                   <span>Category</span>
-                  <strong>{app.category}</strong>
+                  <b>{app.category}</b>
                 </div>
 
                 <div>
-                  <span>Latest Version</span>
-                  <strong>{app.version}</strong>
+                  <span>Package Name</span>
+                  <b>{app.packageName}</b>
                 </div>
 
                 <div>
-                  <span>File Size</span>
-                  <strong>{app.size}</strong>
+                  <span>Android Required</span>
+                  <b>{app.android}+</b>
                 </div>
 
                 <div>
-                  <span>Platform</span>
-                  <strong>Android</strong>
+                  <span>Downloads</span>
+                  <b>{app.downloads}</b>
                 </div>
 
                 <div>
-                  <span>Rating</span>
-                  <strong>★ {app.rating}</strong>
-                </div>
-
-              </div>
-
-            </section>
-
-
-            {/* SCREENSHOTS */}
-            <section className="detail-section">
-
-              <div className="detail-section-heading">
-                <span>▣</span>
-                <h2>Screenshots</h2>
-              </div>
-
-              <div className="screenshots">
-
-                <div className="screenshot-placeholder">
-                  <span>Preview</span>
-                </div>
-
-                <div className="screenshot-placeholder">
-                  <span>Preview</span>
-                </div>
-
-                <div className="screenshot-placeholder">
-                  <span>Preview</span>
+                  <span>Last Updated</span>
+                  <b>{app.updated}</b>
                 </div>
 
               </div>
@@ -442,53 +562,64 @@ export default async function AppDetails({
 
 
           {/* SIDEBAR */}
-          <aside className="details-sidebar">
+          <aside className="detail-sidebar">
 
-            <div className="sidebar-card" id="download">
+            <div
+              className="sidebar-download"
+              id="download"
+            >
 
               <div className="sidebar-icon">
-                ⇩
+                <img
+                  src={app.icon}
+                  alt=""
+                />
               </div>
 
-              <h3>Ready to download?</h3>
+              <h3>Ready to Download?</h3>
 
               <p>
-                Check the app details and continue when you're
-                ready.
+                Get the latest version of {app.name}
+                and enjoy the newest features.
               </p>
 
               <a
                 href="#"
-                className="sidebar-download"
+                className="sidebar-download-btn"
               >
-                Download APK
-                <span>→</span>
+                ↓ &nbsp; Download APK
               </a>
 
-              <small>
-                Version {app.version} • {app.size}
-              </small>
+              <div className="download-meta">
+                <span>Version {app.version}</span>
+                <span>{app.size}</span>
+              </div>
 
             </div>
 
 
             <div className="sidebar-card">
 
-              <h3>App Details</h3>
+              <h3>APK Details</h3>
 
-              <div className="mini-info">
-                <span>Category</span>
-                <strong>{app.category}</strong>
+              <div>
+                <span>Rating</span>
+                <b>★ {app.rating}</b>
               </div>
 
-              <div className="mini-info">
-                <span>Version</span>
-                <strong>{app.version}</strong>
+              <div>
+                <span>Downloads</span>
+                <b>{app.downloads}</b>
               </div>
 
-              <div className="mini-info">
-                <span>Size</span>
-                <strong>{app.size}</strong>
+              <div>
+                <span>Android</span>
+                <b>{app.android}+</b>
+              </div>
+
+              <div>
+                <span>Updated</span>
+                <b>{app.updated}</b>
               </div>
 
             </div>
@@ -503,8 +634,8 @@ export default async function AppDetails({
 
           <div className="related-heading">
             <div>
-              <h2>More Apps You May Like</h2>
-              <p>Explore more apps from NexAPK</p>
+              <span>EXPLORE MORE</span>
+              <h2>Related APKs</h2>
             </div>
 
             <Link href="/latest">
@@ -512,43 +643,58 @@ export default async function AppDetails({
             </Link>
           </div>
 
-
           <div className="related-grid">
 
-            {relatedApps
-              .filter((item) => item.slug !== slug)
-              .map((item) => (
-                <Link
-                  href={`/apk/${item.slug}`}
-                  className="related-card"
-                  key={item.slug}
+            {relatedApps.map((item) => (
+              <Link
+                href={`/apk/${item.name
+                  .toLowerCase()
+                  .replace(/\s+/g, "-")}`}
+                className="related-card"
+                key={item.name}
+              >
+
+                <div
+                  className={`related-icon ${item.className}`}
                 >
+                  {item.icon}
+                </div>
 
-                  <div className="related-icon">
-                    {item.icon}
-                  </div>
+                <div className="related-info">
 
-                  <div>
+                  <div className="related-title">
                     <h3>{item.name}</h3>
-                    <p>{item.category}</p>
+                    <span>{item.badge}</span>
                   </div>
 
-                  <span>→</span>
+                  <p>
+                    v{item.version} · {item.size}
+                  </p>
 
-                </Link>
-              ))}
+                  <div className="related-bottom">
+                    <span>
+                      ★ {item.rating}
+                    </span>
+
+                    <span>→</span>
+                  </div>
+
+                </div>
+
+              </Link>
+            ))}
 
           </div>
 
         </section>
 
-      </section>
+      </div>
 
 
       {/* FOOTER */}
-      <footer className="footer">
+      <footer className="details-footer">
 
-        <div className="footer-inner">
+        <div className="footer-main">
 
           <div className="footer-brand">
 
@@ -560,31 +706,53 @@ export default async function AppDetails({
             </Link>
 
             <p>
-              Apps, games and useful tools — all in one simple
-              place.
+              Your trusted place to discover the
+              latest apps, games and useful tools.
             </p>
 
+            <div className="footer-socials">
+              <a href="#" aria-label="Telegram">➤</a>
+              <a href="#" aria-label="YouTube">▶</a>
+              <a href="#" aria-label="Instagram">◎</a>
+              <a href="#" aria-label="X">𝕏</a>
+            </div>
+
           </div>
 
-          <div className="footer-column">
-            <h4>Explore</h4>
-            <Link href="/">Home</Link>
-            <Link href="/latest">Latest APKs</Link>
-          </div>
 
-          <div className="footer-column">
-            <h4>Legal</h4>
-            <Link href="/terms">Terms of Service</Link>
-            <Link href="/privacy">Privacy Policy</Link>
-            <Link href="/dmca">DMCA</Link>
-            <Link href="/contact">Contact</Link>
+          <div className="footer-links">
+
+            <div>
+              <h4>Explore</h4>
+              <Link href="/">Home</Link>
+              <Link href="/latest">Latest APKs</Link>
+              <Link href="/latest">Popular Apps</Link>
+              <Link href="/latest">Games</Link>
+            </div>
+
+            <div>
+              <h4>Support</h4>
+              <Link href="/contact">Contact Us</Link>
+              <Link href="/privacy">Privacy Policy</Link>
+              <Link href="/terms">Terms</Link>
+              <Link href="/dmca">DMCA</Link>
+            </div>
+
           </div>
 
         </div>
 
+
         <div className="footer-bottom">
-          <span>© 2026 NexAPK. All rights reserved.</span>
-          <span>Made with <b>♥</b> for Android lovers.</span>
+
+          <span>
+            © 2026 NexAPK. All rights reserved.
+          </span>
+
+          <span>
+            Made with <b>♥</b> for Android Lovers
+          </span>
+
         </div>
 
       </footer>
