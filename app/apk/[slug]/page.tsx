@@ -700,7 +700,7 @@ export default function ApkDetailsPage() {
 
             <Link href="/" className="footer-logo">
               <img
-                src="/public/nexapk-footer.png"
+                src="/nexapk-footer.png"
                 alt="NexAPK"
               />
             </Link>
