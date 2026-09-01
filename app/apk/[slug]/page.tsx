@@ -114,7 +114,7 @@ export default function ApkDetailsPage() {
 
           <Link href="/" className="header-logo">
             <img
-              src="/nexapk-header.png"
+              src="/public/nexapk-header.png"
               alt="NexAPK"
             />
           </Link>
