@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 
 * {
   box-sizing: border-box;
@@ -10,8 +10,8 @@ html {
 
 body {
   margin: 0;
-  background: #f7faff;
-  color: #07152f;
+  background: #f8fafc;
+  color: #0b1428;
   font-family: "Inter", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
@@ -19,6 +19,11 @@ body {
 button,
 input {
   font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
 }
 
 button {
@@ -30,11 +35,6 @@ a {
   text-decoration: none;
 }
 
-button,
-a {
-  -webkit-tap-highlight-color: transparent;
-}
-
 
 /* =========================
    HEADER
@@ -44,10 +44,10 @@ a {
   height: 72px;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
 
-  background: #ffffff;
-  border-bottom: 1px solid #edf1f7;
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid #edf0f5;
 
   transition:
     background .25s ease,
@@ -55,159 +55,124 @@ a {
     backdrop-filter .25s ease;
 }
 
-.header-scrolled {
-  background: rgba(255, 255, 255, .78);
-  border-bottom-color: rgba(220, 228, 238, .8);
-
-  box-shadow:
-    0 8px 30px rgba(20, 55, 95, .07);
-
+.header:hover {
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 8px 30px rgba(15, 35, 65, .05);
 }
 
 .header-inner {
-  width: min(1180px, calc(100% - 40px));
+  width: min(1160px, calc(100% - 40px));
   height: 100%;
   margin: auto;
 
   display: flex;
   align-items: center;
-  gap: 28px;
 }
 
-
-/* MENU */
-
 .menu-btn {
-  width: 40px;
-  height: 40px;
-
-  padding: 8px;
-
-  border: 0;
-  background: transparent;
+  width: 42px;
+  height: 42px;
+  margin-right: 13px;
 
   display: none;
   flex-direction: column;
   justify-content: center;
   gap: 5px;
+
+  border: 0;
+  background: transparent;
 }
 
 .menu-btn span {
-  width: 23px;
+  width: 24px;
   height: 2.5px;
-
   display: block;
 
-  border-radius: 99px;
-  background: #07152f;
+  border-radius: 10px;
+  background: #0b1428;
 }
 
 
-/* LOGO */
+/* =========================
+   BRAND
+========================= */
 
-.logo {
-  display: flex;
+.brand {
+  display: inline-flex;
   align-items: center;
   gap: 9px;
-
-  font-size: 29px;
-  font-weight: 900;
-
-  letter-spacing: -1.5px;
 }
 
-.logo-symbol {
-  width: 43px;
-  height: 43px;
+.brand-mark {
+  width: 40px;
+  height: 40px;
 
   display: grid;
   place-items: center;
 
-  border-radius: 13px;
+  border-radius: 11px;
 
-  background:
-    linear-gradient(
-      135deg,
-      #0759cf,
-      #1989ff
-    );
-
+  background: #1473e6;
   color: white;
 
-  font-size: 24px;
-  font-weight: 900;
+  font-size: 21px;
+  font-weight: 800;
 
-  box-shadow:
-    0 8px 20px rgba(18, 107, 232, .18);
+  box-shadow: 0 6px 18px rgba(20, 115, 230, .18);
 }
 
-.logo-text span {
-  color: #126be8;
+.brand-name {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -1.5px;
 }
 
-
-/* NAV */
+.brand-name span {
+  color: #1473e6;
+}
 
 .desktop-nav {
   display: flex;
   align-items: center;
-  gap: 27px;
-  margin-left: 25px;
+  gap: 30px;
+  margin-left: 48px;
 }
 
 .desktop-nav a {
-  color: #53617a;
-
+  color: #647086;
   font-size: 13px;
-  font-weight: 700;
-
-  transition: color .2s ease;
+  font-weight: 600;
 }
 
 .desktop-nav a:hover {
-  color: #126be8;
+  color: #1473e6;
 }
-
-
-/* HEADER ACTION */
 
 .header-actions {
   margin-left: auto;
-
-  display: flex;
-  align-items: center;
 }
 
-.icon-btn {
-  width: 41px;
-  height: 41px;
-
-  padding: 10px;
+.header-search {
+  width: 42px;
+  height: 42px;
 
   display: grid;
   place-items: center;
 
-  border: 1px solid #e2e9f2;
+  border: 1px solid #e4e9f0;
   border-radius: 12px;
 
-  background: #ffffff;
-  color: #07152f;
+  background: white;
+  color: #17243a;
+
+  font-size: 25px;
 }
 
-.icon-btn:hover {
-  color: #126be8;
-  border-color: #bfd9fa;
-}
-
-.icon-btn svg {
-  width: 20px;
-  height: 20px;
-
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
+.header-search:hover {
+  border-color: #b9d5f7;
+  color: #1473e6;
 }
 
 
@@ -216,571 +181,274 @@ a {
 ========================= */
 
 .hero-section {
-  padding: 18px 0 32px;
+  padding: 38px 0 22px;
 }
 
 .hero {
-  width: min(1180px, calc(100% - 40px));
-  min-height: 370px;
-
+  width: min(1160px, calc(100% - 40px));
   margin: auto;
+
+  padding: 42px 48px 32px;
 
   position: relative;
   overflow: hidden;
 
-  display: flex;
-  align-items: center;
-
-  border: 1px solid #dcecff;
-  border-radius: 22px;
+  border: 1px solid #e2ebf5;
+  border-radius: 24px;
 
   background:
     radial-gradient(
-      circle at 85% 50%,
-      rgba(45, 151, 255, .2),
-      transparent 38%
+      circle at 100% 0%,
+      rgba(30, 130, 240, .10),
+      transparent 32%
     ),
     linear-gradient(
-      110deg,
-      #eef7ff,
-      #f8fcff
+      135deg,
+      #f7fbff,
+      #eef7ff
     );
 }
 
-.hero::before {
+.hero::after {
   content: "";
-
   position: absolute;
 
-  width: 390px;
-  height: 390px;
+  width: 330px;
+  height: 330px;
 
-  right: 20px;
-  top: -130px;
+  right: -120px;
+  bottom: -180px;
 
   border-radius: 50%;
 
-  background: rgba(67, 166, 255, .09);
+  border: 45px solid rgba(30, 130, 240, .045);
 }
 
-
-/* HERO CONTENT */
-
-.hero-content {
-  width: 59%;
-
-  padding: 45px 30px 45px 42px;
-
+.hero-top {
   position: relative;
-  z-index: 5;
+  z-index: 2;
 }
 
-.platform-badge {
-  width: fit-content;
-
+.hero-label {
   display: inline-flex;
   align-items: center;
   gap: 8px;
 
-  padding: 7px 12px;
+  padding: 7px 11px;
 
-  border: 1px solid #d9eaff;
+  border: 1px solid #dce8f5;
   border-radius: 999px;
 
-  background: rgba(255, 255, 255, .82);
+  background: rgba(255,255,255,.85);
 
-  color: #126be8;
+  color: #2369ae;
 
   font-size: 11px;
-  font-weight: 800;
+  font-weight: 700;
 }
 
-.status-dot {
-  width: 7px;
-  height: 7px;
+.label-dot {
+  width: 8px;
+  height: 8px;
 
   border-radius: 50%;
+  background: #1473e6;
 
-  background: #126be8;
-
-  box-shadow:
-    0 0 0 4px rgba(18, 107, 232, .09);
+  box-shadow: 0 0 0 5px rgba(20,115,230,.08);
 }
 
 .hero h1 {
-  margin: 15px 0 11px;
+  max-width: 700px;
 
-  font-size: clamp(38px, 4.3vw, 57px);
+  margin: 17px 0 11px;
 
-  line-height: 1.05;
+  font-size: clamp(38px, 5vw, 58px);
+  line-height: 1.04;
 
-  letter-spacing: -2.8px;
+  letter-spacing: -3px;
+  font-weight: 800;
 }
 
-.hero h1 span {
-  color: #126be8;
-}
-
-.hero-content > p {
-  max-width: 590px;
+.hero p {
+  max-width: 620px;
 
   margin: 0;
 
-  color: #526b8c;
+  color: #61738c;
 
   font-size: 14px;
   line-height: 1.65;
 }
 
 
-/* HERO SEARCH */
+/* SEARCH */
 
-.hero-search {
-  max-width: 610px;
-  height: 55px;
+.search-box {
+  width: min(680px, 100%);
+  height: 56px;
 
-  margin-top: 21px;
+  margin-top: 25px;
 
-  padding: 5px 6px 5px 15px;
+  padding: 5px 6px 5px 17px;
 
   display: flex;
   align-items: center;
 
   background: white;
 
-  border: 1px solid #dce6f2;
-  border-radius: 999px;
+  border: 1px solid #dbe5f0;
+  border-radius: 14px;
 
   box-shadow:
-    0 10px 30px rgba(36, 102, 168, .09);
+    0 8px 28px rgba(26, 76, 125, .07);
+
+  position: relative;
+  z-index: 2;
 }
 
-.search-symbol {
-  width: 23px;
-  height: 23px;
-
-  flex: 0 0 23px;
-
-  color: #55718f;
+.search-icon {
+  color: #708198;
+  font-size: 25px;
 }
 
-.search-symbol svg {
-  width: 100%;
-  height: 100%;
-
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-}
-
-.hero-search input {
+.search-box input {
   flex: 1;
-
   min-width: 0;
 
-  height: 100%;
-
-  padding: 0 12px;
+  padding: 0 13px;
 
   border: 0;
   outline: 0;
 
-  color: #07152f;
   background: transparent;
 
-  font-size: 12px;
+  color: #0b1428;
+  font-size: 13px;
 }
 
-.hero-search input::placeholder {
-  color: #8a9aae;
+.search-box input::placeholder {
+  color: #98a5b5;
 }
 
-.hero-search button {
-  width: 45px;
-  height: 45px;
+.search-box button {
+  height: 44px;
 
-  padding: 12px;
+  padding: 0 19px;
 
   border: 0;
-  border-radius: 50%;
+  border-radius: 10px;
 
-  display: grid;
-  place-items: center;
-
-  background: #126be8;
+  background: #1473e6;
   color: white;
+
+  font-size: 12px;
+  font-weight: 700;
 }
 
-.hero-search button:hover {
-  background: #075bd3;
-}
-
-.hero-search button svg {
-  width: 100%;
-  height: 100%;
-
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
+.search-box button:hover {
+  background: #0b64d4;
 }
 
 
 /* POPULAR */
 
-.popular {
-  margin-top: 13px;
-
-  display: flex;
-  align-items: center;
-  gap: 7px;
-
-  flex-wrap: wrap;
-}
-
-.popular strong {
-  margin-right: 3px;
-
-  color: #334966;
-
-  font-size: 10px;
-}
-
-.popular button {
-  padding: 7px 11px;
-
-  border: 1px solid #e0e8f2;
-  border-radius: 999px;
-
-  background: white;
-
-  color: #536a85;
-
-  font-size: 9px;
-  font-weight: 600;
-}
-
-.popular button:hover {
-  color: #126be8;
-  border-color: #bcd8fb;
-}
-
-
-/* =========================
-   HERO PHONE
-========================= */
-
-.hero-visual {
-  width: 41%;
-  height: 100%;
-
-  position: absolute;
-  right: 0;
-  top: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.phone {
-  width: 185px;
-  height: 342px;
-
-  position: relative;
-  z-index: 4;
-
-  border: 7px solid #07152f;
-  border-radius: 29px;
-
-  background: white;
-
-  transform: rotate(5deg);
-
-  box-shadow:
-    0 25px 50px rgba(8, 30, 65, .23);
-}
-
-.phone-notch {
-  position: absolute;
-
-  width: 70px;
-  height: 18px;
-
-  top: -2px;
-  left: 50%;
-
-  transform: translateX(-50%);
-
-  border-radius: 0 0 12px 12px;
-
-  background: #07152f;
-
-  z-index: 5;
-}
-
-.phone-screen {
-  width: 100%;
-  height: 100%;
-
-  padding: 45px 13px 13px;
-
-  border-radius: 21px;
-
-  background:
-    linear-gradient(
-      180deg,
-      #eef7ff,
-      #ffffff
-    );
-}
-
-.phone-logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-
-  font-size: 14px;
-}
-
-.phone-logo b span {
-  color: #126be8;
-}
-
-.mini-n {
-  width: 25px;
-  height: 25px;
-
-  display: grid;
-  place-items: center;
-
-  border-radius: 7px;
-
-  background: #126be8;
-  color: white;
-
-  font-size: 11px;
-  font-weight: 900;
-}
-
-.phone-search {
-  height: 25px;
-
-  margin-top: 18px;
-
-  padding: 7px 9px;
-
-  border-radius: 999px;
-
-  background: white;
-  border: 1px solid #e2eaf3;
-}
-
-.phone-search span {
-  display: block;
-
-  width: 65%;
-  height: 5px;
-
-  border-radius: 99px;
-
-  background: #e0eaf5;
-}
-
-.phone-card {
+.popular-row {
   display: flex;
   align-items: center;
   gap: 8px;
 
-  margin-top: 11px;
+  margin-top: 14px;
 
-  padding: 8px;
+  position: relative;
+  z-index: 2;
 
-  background: white;
-
-  border: 1px solid #e0eaf4;
-  border-radius: 11px;
+  flex-wrap: wrap;
 }
 
-.mini-icon {
-  width: 32px;
-  height: 32px;
+.popular-row > span {
+  margin-right: 3px;
 
-  display: grid;
-  place-items: center;
-
-  border-radius: 9px;
-
-  background: #126be8;
-  color: white;
+  color: #56677d;
 
   font-size: 11px;
-  font-weight: 900;
+  font-weight: 700;
 }
 
-.phone-card b {
-  display: block;
+.popular-row a {
+  padding: 6px 11px;
 
-  font-size: 8px;
+  border: 1px solid #dce5ef;
+  border-radius: 8px;
+
+  background: rgba(255,255,255,.72);
+
+  color: #62748b;
+
+  font-size: 10px;
+  font-weight: 600;
 }
 
-.phone-card small {
-  display: block;
-
-  margin-top: 2px;
-
-  color: #7890a8;
-
-  font-size: 6px;
-}
-
-.phone-download {
-  margin-top: 12px;
-
-  height: 31px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-
-  border-radius: 999px;
-
-  background: #126be8;
-  color: white;
-
-  font-size: 7px;
-  font-weight: 800;
-}
-
-.phone-download svg {
-  width: 12px;
-  height: 12px;
-
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-}
-
-
-/* FLOATING APPS */
-
-.floating-app {
-  width: 57px;
-  height: 57px;
-
-  position: absolute;
-  z-index: 5;
-
-  display: grid;
-  place-items: center;
-
-  border-radius: 17px;
-
-  background: white;
-
-  font-size: 24px;
-  font-weight: 900;
-
-  box-shadow:
-    0 13px 28px rgba(15, 68, 120, .15);
-}
-
-.floating-one {
-  top: 58px;
-  left: 33px;
-
-  color: #16b85a;
-}
-
-.floating-two {
-  top: 138px;
-  left: 9px;
-
-  color: #e1306c;
-}
-
-.floating-three {
-  right: 35px;
-  bottom: 61px;
-
-  color: #139eea;
+.popular-row a:hover {
+  color: #1473e6;
+  border-color: #bcd6f3;
 }
 
 
 /* =========================
-   APK SECTION
+   APPS SECTION
 ========================= */
 
-.featured-section {
-  width: min(1180px, calc(100% - 40px));
-
+.apps-section {
+  width: min(1160px, calc(100% - 40px));
   margin: auto;
 
-  padding: 8px 0 35px;
+  padding: 30px 0 42px;
 }
 
 .section-heading {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
 
   margin-bottom: 18px;
 }
 
-.section-title {
-  display: flex;
-  align-items: center;
-  gap: 11px;
+.section-kicker {
+  color: #1473e6;
+
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
 }
 
-.section-icon {
-  width: 37px;
-  height: 37px;
+.section-heading h2 {
+  margin: 3px 0 2px;
 
-  display: grid;
-  place-items: center;
-
-  border-radius: 11px;
-
-  background: #eaf4ff;
-  color: #126be8;
-
-  font-size: 19px;
-  font-weight: 900;
+  font-size: 27px;
+  letter-spacing: -1.2px;
 }
 
-.section-title h2 {
+.section-heading p {
   margin: 0;
 
-  font-size: 26px;
+  color: #7b899b;
 
-  letter-spacing: -1px;
-}
-
-.section-title p {
-  margin: 3px 0 0;
-
-  color: #71839a;
-
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .view-all {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-
-  color: #48627f;
+  color: #506176;
 
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .view-all span {
-  color: #126be8;
+  margin-left: 5px;
 
-  font-size: 18px;
+  color: #1473e6;
+
+  font-size: 17px;
 }
 
 
@@ -793,7 +461,7 @@ a {
 
   grid-template-columns: repeat(2, minmax(0, 1fr));
 
-  gap: 15px;
+  gap: 14px;
 }
 
 .apk-card {
@@ -801,72 +469,67 @@ a {
 
   background: white;
 
-  border: 1px solid #e3eaf3;
-  border-radius: 18px;
+  border: 1px solid #e5eaf0;
+  border-radius: 16px;
 
   box-shadow:
-    0 7px 25px rgba(20, 62, 105, .045);
+    0 4px 18px rgba(16, 43, 75, .035);
 
   transition:
-    transform .2s ease,
-    box-shadow .2s ease,
-    border-color .2s ease;
+    transform .18s ease,
+    box-shadow .18s ease,
+    border-color .18s ease;
 }
 
 .apk-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 
-  border-color: #d3e4f7;
+  border-color: #d6e4f3;
 
   box-shadow:
-    0 15px 35px rgba(20, 62, 105, .085);
+    0 12px 30px rgba(16, 43, 75, .075);
 }
 
+.card-main {
+  display: block;
+}
 
-/* APK MAIN */
-
-.apk-main {
-  min-width: 0;
-
+.card-top {
   display: flex;
-  gap: 14px;
+  align-items: center;
+
+  gap: 13px;
 
   position: relative;
 }
 
-
-/* APP ICON */
-
 .app-icon {
-  width: 82px;
-  height: 82px;
+  width: 62px;
+  height: 62px;
 
-  flex: 0 0 82px;
+  flex: 0 0 62px;
 
   display: grid;
   place-items: center;
 
-  border-radius: 19px;
+  border-radius: 16px;
 
   color: white;
 
-  font-size: 31px;
-  font-weight: 900;
-
-  box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,.2);
+  font-size: 24px;
+  font-weight: 800;
 }
 
 .app-icon.whatsapp {
-  background: linear-gradient(135deg, #00bd63, #20e57c);
+  background: linear-gradient(135deg,#08bf67,#16df7c);
 }
 
 .app-icon.instagram {
-  background: linear-gradient(135deg, #7021ff, #f02f73, #ffad1c);
+  background: linear-gradient(135deg,#7635ef,#e82e72,#ffb22c);
 }
 
 .app-icon.bgmi {
-  background: linear-gradient(135deg, #20242a, #69727c);
+  background: linear-gradient(135deg,#232832,#687384);
 }
 
 .app-icon.spotify {
@@ -875,318 +538,219 @@ a {
 }
 
 .app-icon.capcut {
-  background: #f0f4f7;
-  color: #111827;
-}
-
-.app-icon.telegram {
-  background: #229ed9;
+  background: #f2f4f7;
+  color: #111820;
+  border: 1px solid #e5e8ec;
 }
 
 .app-icon.youtube {
-  background: #111111;
+  background: #111;
   color: #ff1744;
 }
 
-.app-icon.netflix {
-  background: #171717;
-  color: #e50914;
-}
-
-
-/* APK INFO */
-
-.apk-info {
+.app-details {
   min-width: 0;
-
-  padding-right: 25px;
+  padding-right: 30px;
 }
 
-.apk-name-row {
+.app-title-row {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
 
   flex-wrap: wrap;
 }
 
-.apk-name-row h3 {
-  margin: 1px 0 0;
+.app-title-row h3 {
+  margin: 0;
 
   font-size: 14px;
-  line-height: 1.3;
+  font-weight: 700;
 
-  color: #0b1932;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.apk-badge {
-  padding: 4px 7px;
+.badge {
+  padding: 3px 7px;
 
-  border-radius: 999px;
+  border-radius: 5px;
 
   color: white;
 
   font-size: 7px;
-  font-weight: 900;
-
+  font-weight: 800;
   letter-spacing: .3px;
 }
 
 .badge-mod {
-  background: #126be8;
+  background: #1473e6;
 }
 
 .badge-popular {
-  background: #ff7414;
+  background: #f17a19;
 }
 
 .badge-new {
-  background: #1987f4;
+  background: #1984e9;
 }
 
 .badge-trending {
-  background: #8a20e8;
+  background: #8b38d7;
 }
 
-.apk-version {
-  margin-top: 6px;
+.app-meta {
+  margin-top: 7px;
 
-  color: #55718f;
+  color: #7b899a;
 
   font-size: 10px;
 }
 
-.apk-version span {
+.app-meta span {
   margin: 0 5px;
+  color: #b4bec9;
 }
 
-.apk-info p {
-  max-width: 310px;
+.arrow {
+  width: 29px;
+  height: 29px;
 
-  margin: 7px 0 0;
+  position: absolute;
+  top: 0;
+  right: 0;
 
-  color: #647891;
+  display: grid;
+  place-items: center;
+
+  border-radius: 9px;
+
+  background: #f4f8fc;
+  color: #4f83bd;
+
+  font-size: 15px;
+}
+
+.app-description {
+  margin: 12px 0 0;
+
+  color: #738298;
 
   font-size: 10px;
   line-height: 1.5;
 }
 
 
-/* CARD ARROW */
+/* CARD FOOTER */
 
-.card-arrow {
-  position: absolute;
-  top: 0;
-  right: 0;
+.card-footer {
+  margin-top: 14px;
+  padding-top: 12px;
 
-  width: 29px;
-  height: 29px;
-
-  display: grid;
-  place-items: center;
-
-  border-radius: 50%;
-
-  background: #f0f6fd;
-
-  color: #2775c7;
-}
-
-.card-arrow svg {
-  width: 14px;
-  height: 14px;
-
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-}
-
-
-/* APK BOTTOM */
-
-.apk-bottom {
   display: flex;
   align-items: center;
   justify-content: space-between;
 
   gap: 10px;
 
-  margin-top: 14px;
-  padding-top: 13px;
-
-  border-top: 1px solid #edf1f6;
+  border-top: 1px solid #eef1f5;
 }
 
-.apk-stats {
+.stats {
   display: flex;
   align-items: center;
-  gap: 13px;
+  gap: 12px;
 
-  color: #627994;
+  color: #68798d;
 
   font-size: 9px;
 }
 
-.apk-stats span {
+.stats span {
   white-space: nowrap;
 }
 
-.apk-stats b {
-  margin-right: 3px;
+.stats b {
+  margin-right: 4px;
 
-  color: #126be8;
+  color: #5d88b7;
 
-  font-size: 13px;
+  font-size: 12px;
 }
 
-.apk-stats .star {
-  color: #ffb300;
+.stats .star {
+  color: #f4ad16;
 }
 
+.download-button {
+  min-height: 34px;
 
-/* DOWNLOAD */
-
-.download-btn {
-  min-height: 38px;
-
-  padding: 0 14px;
+  padding: 0 13px;
 
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
+  gap: 7px;
 
-  border-radius: 999px;
+  border-radius: 9px;
 
-  background: #07152f;
+  background: #0c172b;
   color: white;
 
   font-size: 9px;
-  font-weight: 800;
+  font-weight: 700;
 
-  white-space: nowrap;
-
-  transition:
-    background .2s ease,
-    transform .2s ease;
+  transition: background .18s ease;
 }
 
-.download-btn:hover {
-  background: #126be8;
-  transform: translateY(-1px);
+.download-button:hover {
+  background: #1473e6;
 }
 
-.download-btn svg {
-  width: 14px;
-  height: 14px;
-
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
+.download-button span {
+  font-size: 12px;
 }
 
 
-/* =========================
-   NO RESULTS
-========================= */
-
-.no-results {
-  padding: 45px 20px;
-
-  text-align: center;
-
-  border: 1px solid #e4ebf4;
-  border-radius: 18px;
-
-  background: white;
-}
-
-.no-results > div {
-  font-size: 32px;
-  color: #126be8;
-}
-
-.no-results h3 {
-  margin: 10px 0 5px;
-
-  font-size: 17px;
-}
-
-.no-results p {
-  margin: 0;
-
-  color: #71839a;
-
-  font-size: 11px;
-}
-
-.no-results button {
-  margin-top: 15px;
-
-  padding: 9px 16px;
-
-  border: 0;
-  border-radius: 999px;
-
-  background: #126be8;
-  color: white;
-
-  font-size: 10px;
-  font-weight: 800;
-}
-
-
-/* =========================
-   LOAD MORE
-========================= */
+/* LOAD MORE */
 
 .load-more-wrap {
   display: flex;
   justify-content: center;
 
-  margin-top: 24px;
+  margin-top: 25px;
 }
 
 .load-more {
-  min-width: 235px;
-  height: 49px;
+  height: 44px;
 
-  padding: 0 22px;
+  padding: 0 20px;
 
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 9px;
+  gap: 10px;
 
-  border: 0;
-  border-radius: 999px;
+  border: 1px solid #dce5ef;
+  border-radius: 10px;
 
-  background: #126be8;
-  color: white;
+  background: white;
+
+  color: #263850;
 
   font-size: 11px;
-  font-weight: 800;
+  font-weight: 700;
 
-  box-shadow:
-    0 10px 25px rgba(18, 107, 232, .19);
+  box-shadow: 0 5px 16px rgba(20,50,80,.04);
+}
 
-  transition:
-    transform .2s ease,
-    background .2s ease;
+.load-more span {
+  color: #1473e6;
+  font-size: 17px;
 }
 
 .load-more:hover {
-  transform: translateY(-2px);
-  background: #075bd3;
-}
-
-.load-more svg {
-  width: 15px;
-  height: 15px;
-
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
+  border-color: #b9d4f2;
+  color: #1473e6;
 }
 
 
@@ -1195,33 +759,30 @@ a {
 ========================= */
 
 .trust-bar {
-  width: min(1180px, calc(100% - 40px));
+  width: min(1160px, calc(100% - 40px));
+  margin: 0 auto 42px;
 
-  min-height: 70px;
-
-  margin: 0 auto 20px;
-
-  padding: 8px 20px;
+  padding: 5px;
 
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 
   background: white;
 
-  border: 1px solid #e3eaf3;
-  border-radius: 17px;
-
-  box-shadow:
-    0 7px 24px rgba(20, 62, 105, .04);
+  border: 1px solid #e6ebf1;
+  border-radius: 14px;
 }
 
 .trust-item {
+  min-height: 60px;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
 
-  border-right: 1px solid #e5ebf2;
+  gap: 10px;
+
+  border-right: 1px solid #edf0f4;
 }
 
 .trust-item:last-child {
@@ -1229,19 +790,19 @@ a {
 }
 
 .trust-item > span {
-  width: 32px;
-  height: 32px;
+  width: 31px;
+  height: 31px;
 
   display: grid;
   place-items: center;
 
   border-radius: 9px;
 
-  background: #eaf4ff;
-  color: #126be8;
+  background: #edf6ff;
+  color: #1473e6;
 
-  font-size: 17px;
-  font-weight: 900;
+  font-size: 15px;
+  font-weight: 800;
 }
 
 .trust-item b {
@@ -1255,7 +816,7 @@ a {
 
   margin-top: 3px;
 
-  color: #71839a;
+  color: #8491a1;
 
   font-size: 8px;
 }
@@ -1266,128 +827,113 @@ a {
 ========================= */
 
 .footer {
-  margin-top: 20px;
-
-  background: #061326;
+  background: #071426;
   color: white;
 }
 
 .footer-inner {
-  width: min(1180px, calc(100% - 40px));
-
-  min-height: 170px;
+  width: min(1160px, calc(100% - 40px));
+  min-height: 175px;
 
   margin: auto;
-  padding: 38px 0 32px;
+  padding: 38px 0;
 
   display: grid;
-
   grid-template-columns: 1.5fr 1fr 1fr;
 
   gap: 50px;
 }
 
-.footer-logo {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-
-  font-size: 23px;
-  font-weight: 900;
+.footer-brand-area .brand-name {
+  color: white;
 }
 
-.footer-logo .logo-symbol {
-  width: 39px;
-  height: 39px;
-
-  border-radius: 11px;
-
-  font-size: 21px;
-}
-
-.footer-logo > span:last-child span {
-  color: #2185ff;
-}
-
-.footer-brand p {
-  max-width: 300px;
+.footer-brand-area p {
+  max-width: 260px;
 
   margin: 11px 0 0;
 
-  color: #8da2bd;
+  color: #8292a9;
 
   font-size: 10px;
   line-height: 1.6;
 }
 
-.footer-column {
+.footer-brand-logo .brand-mark {
+  background: #1473e6;
+}
+
+.footer-links,
+.footer-social {
   display: flex;
   flex-direction: column;
   gap: 9px;
 }
 
-.footer-column h4 {
-  margin: 0 0 6px;
+.footer-links h4,
+.footer-social h4 {
+  margin: 0 0 5px;
+
+  color: white;
 
   font-size: 11px;
 }
 
-.footer-column a {
-  color: #91a4bc;
+.footer-links a {
+  color: #8d9caf;
 
   font-size: 10px;
 }
 
-.footer-column a:hover {
+.footer-links a:hover {
   color: white;
 }
 
-
-/* SOCIAL */
-
-.socials {
+.social-links {
   display: flex;
   gap: 8px;
 }
 
-.socials a {
-  width: 36px;
-  height: 36px;
+.social-links a {
+  width: 34px;
+  height: 34px;
 
   display: grid;
   place-items: center;
 
-  border-radius: 50%;
+  border: 1px solid #1d314a;
+  border-radius: 9px;
 
-  background: #12243c;
+  background: #0d1d32;
+
   color: white;
 
-  font-size: 13px;
-  font-weight: 800;
+  font-size: 14px;
 }
 
-.socials a:hover {
-  background: #126be8;
+.social-links a:hover {
+  background: #1473e6;
+  border-color: #1473e6;
 }
-
-
-/* FOOTER BOTTOM */
 
 .footer-bottom {
-  width: min(1180px, calc(100% - 40px));
+  width: min(1160px, calc(100% - 40px));
 
   margin: auto;
   padding: 16px 0;
 
   display: flex;
-  align-items: center;
   justify-content: space-between;
 
-  border-top: 1px solid rgba(255,255,255,.09);
+  border-top: 1px solid rgba(255,255,255,.08);
 
-  color: #72869e;
+  color: #697b91;
 
   font-size: 9px;
+}
+
+.footer-bottom b {
+  color: #ff4770;
 }
 
 
@@ -1397,283 +943,180 @@ a {
 
 @media (max-width: 760px) {
 
-  /* HEADER */
-
   .header {
     height: 64px;
+
+    background: rgba(255,255,255,.96);
+  }
+
+  .header:hover {
+    background: rgba(255,255,255,.90);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
   }
 
   .header-inner {
-    width: calc(100% - 18px);
-    gap: 6px;
+    width: calc(100% - 20px);
   }
 
   .menu-btn {
     display: flex;
   }
 
-  .logo {
+  .brand {
     gap: 7px;
-    font-size: 24px;
   }
 
-  .logo-symbol {
+  .brand-mark {
     width: 37px;
     height: 37px;
 
-    border-radius: 11px;
+    border-radius: 10px;
 
-    font-size: 21px;
+    font-size: 19px;
+  }
+
+  .brand-name {
+    font-size: 24px;
+    letter-spacing: -1.3px;
   }
 
   .desktop-nav {
     display: none;
   }
 
-  .icon-btn {
-    width: 37px;
-    height: 37px;
+  .header-search {
+    width: 38px;
+    height: 38px;
 
     border-radius: 11px;
 
-    padding: 9px;
+    font-size: 23px;
   }
 
 
   /* HERO */
 
   .hero-section {
-    padding: 10px 0 22px;
+    padding: 12px 0 15px;
   }
 
   .hero {
-    width: calc(100% - 14px);
+    width: calc(100% - 20px);
 
-    min-height: auto;
+    padding: 25px 17px 20px;
 
-    display: block;
-
-    border-radius: 18px;
+    border-radius: 19px;
   }
 
-  .hero-content {
-    width: 100%;
+  .hero::after {
+    width: 220px;
+    height: 220px;
 
-    padding: 22px 15px 14px;
+    right: -100px;
+    bottom: -150px;
   }
 
-  .platform-badge {
+  .hero-label {
     padding: 6px 9px;
 
     font-size: 9px;
   }
 
+  .label-dot {
+    width: 7px;
+    height: 7px;
+  }
+
   .hero h1 {
-    margin: 12px 0 9px;
+    margin: 15px 0 9px;
 
-    font-size: 30px;
-
+    font-size: 32px;
     line-height: 1.08;
 
-    letter-spacing: -1.5px;
+    letter-spacing: -1.7px;
   }
 
-  .hero-content > p {
+  .hero p {
     font-size: 11px;
-    line-height: 1.55;
+    line-height: 1.6;
   }
 
-  .hero-search {
-    height: 48px;
+  .search-box {
+    height: 49px;
 
-    margin-top: 15px;
+    margin-top: 18px;
 
-    padding-left: 11px;
+    padding-left: 12px;
+
+    border-radius: 12px;
   }
 
-  .hero-search input {
-    padding: 0 8px;
+  .search-icon {
+    font-size: 22px;
+  }
+
+  .search-box input {
+    padding: 0 9px;
 
     font-size: 10px;
   }
 
-  .hero-search button {
-    width: 38px;
-    height: 38px;
+  .search-box button {
+    height: 39px;
 
-    padding: 10px;
-  }
+    padding: 0 12px;
 
-  .popular {
-    margin-top: 10px;
+    border-radius: 9px;
 
-    gap: 4px;
-  }
-
-  .popular strong {
-    font-size: 8px;
-  }
-
-  .popular button {
-    padding: 5px 8px;
-
-    font-size: 8px;
-  }
-
-
-  /* PHONE */
-
-  .hero-visual {
-    width: 100%;
-    height: 230px;
-
-    position: relative;
-
-    top: auto;
-    right: auto;
-  }
-
-  .phone {
-    width: 125px;
-    height: 218px;
-
-    border-width: 5px;
-
-    border-radius: 22px;
-  }
-
-  .phone-notch {
-    width: 47px;
-    height: 12px;
-
-    border-radius: 0 0 8px 8px;
-  }
-
-  .phone-screen {
-    padding: 29px 8px 8px;
-
-    border-radius: 16px;
-  }
-
-  .phone-logo {
     font-size: 9px;
   }
 
-  .mini-n {
-    width: 17px;
-    height: 17px;
-
-    border-radius: 5px;
-
-    font-size: 8px;
-  }
-
-  .phone-search {
-    height: 20px;
-
+  .popular-row {
     margin-top: 11px;
 
-    padding: 6px 7px;
+    gap: 5px;
   }
 
-  .phone-search span {
-    height: 4px;
+  .popular-row > span {
+    font-size: 9px;
   }
 
-  .phone-card {
-    margin-top: 8px;
-
-    padding: 5px;
+  .popular-row a {
+    padding: 5px 8px;
 
     border-radius: 7px;
-  }
-
-  .mini-icon {
-    width: 23px;
-    height: 23px;
-
-    border-radius: 6px;
 
     font-size: 8px;
   }
 
-  .phone-card b {
-    font-size: 6px;
-  }
 
-  .phone-card small {
-    font-size: 5px;
-  }
+  /* APPS */
 
-  .phone-download {
-    height: 25px;
+  .apps-section {
+    width: calc(100% - 20px);
 
-    margin-top: 8px;
-
-    font-size: 6px;
-  }
-
-  .phone-download svg {
-    width: 9px;
-    height: 9px;
-  }
-
-  .floating-app {
-    width: 41px;
-    height: 41px;
-
-    border-radius: 12px;
-
-    font-size: 17px;
-  }
-
-  .floating-one {
-    top: 37px;
-    left: 16%;
-  }
-
-  .floating-two {
-    top: 99px;
-    left: 8%;
-  }
-
-  .floating-three {
-    right: 12%;
-    bottom: 28px;
-  }
-
-
-  /* APK SECTION */
-
-  .featured-section {
-    width: calc(100% - 14px);
-
-    padding-bottom: 25px;
+    padding: 20px 0 28px;
   }
 
   .section-heading {
     margin-bottom: 12px;
   }
 
-  .section-title {
-    gap: 7px;
-  }
-
-  .section-icon {
-    width: 31px;
-    height: 31px;
-
-    border-radius: 9px;
-
-    font-size: 15px;
-  }
-
-  .section-title h2 {
-    font-size: 20px;
-  }
-
-  .section-title p {
+  .section-kicker {
     font-size: 8px;
+  }
+
+  .section-heading h2 {
+    margin-top: 2px;
+
+    font-size: 22px;
+    letter-spacing: -1px;
+  }
+
+  .section-heading p {
+    font-size: 9px;
   }
 
   .view-all {
@@ -1681,204 +1124,184 @@ a {
   }
 
   .view-all span {
-    font-size: 14px;
+    font-size: 15px;
   }
 
 
-  /* TWO CARDS PER ROW */
+  /* TWO COLUMN MOBILE */
 
   .apk-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-
-    gap: 8px;
+    gap: 9px;
   }
 
   .apk-card {
-    padding: 9px;
+    padding: 10px;
 
-    border-radius: 14px;
+    border-radius: 13px;
   }
 
-  .apk-main {
-    display: block;
+  .card-top {
+    gap: 9px;
+    align-items: flex-start;
   }
-
-
-  /* ICON */
 
   .app-icon {
-    width: 56px;
-    height: 56px;
+    width: 52px;
+    height: 52px;
 
-    margin-bottom: 8px;
+    flex: 0 0 52px;
 
-    border-radius: 14px;
+    border-radius: 13px;
 
-    font-size: 22px;
+    font-size: 20px;
   }
 
-
-  /* INFO */
-
-  .apk-info {
-    padding-right: 0;
+  .app-details {
+    padding-right: 23px;
   }
 
-  .apk-name-row {
+  .app-title-row {
     display: block;
   }
 
-  .apk-name-row h3 {
-    margin-bottom: 4px;
+  .app-title-row h3 {
+    max-width: 100%;
 
     font-size: 11px;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    line-height: 1.3;
   }
 
-  .apk-badge {
+  .badge {
     display: inline-block;
 
-    padding: 3px 5px;
+    margin-top: 4px;
+
+    padding: 2px 5px;
 
     font-size: 6px;
   }
 
-  .apk-version {
+  .app-meta {
     margin-top: 5px;
 
     font-size: 7px;
   }
 
-  .apk-version span {
+  .app-meta span {
     margin: 0 3px;
   }
 
-  .apk-info p {
-    margin-top: 6px;
+  .arrow {
+    width: 24px;
+    height: 24px;
 
-    font-size: 7px;
+    border-radius: 7px;
 
-    line-height: 1.4;
-
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-
-    overflow: hidden;
+    font-size: 12px;
   }
 
-
-  /* CARD ARROW */
-
-  .card-arrow {
-    width: 23px;
-    height: 23px;
-
-    top: 0;
-    right: 0;
-  }
-
-  .card-arrow svg {
-    width: 11px;
-    height: 11px;
-  }
-
-
-  /* CARD BOTTOM */
-
-  .apk-bottom {
-    display: block;
+  .app-description {
+    height: 28px;
 
     margin-top: 9px;
-    padding-top: 9px;
+
+    overflow: hidden;
+
+    font-size: 7px;
+    line-height: 1.4;
   }
 
-  .apk-stats {
+  .card-footer {
+    margin-top: 9px;
+    padding-top: 9px;
+
+    display: block;
+  }
+
+  .stats {
+    width: 100%;
+
     justify-content: space-between;
 
     gap: 2px;
 
-    font-size: 6px;
+    font-size: 7px;
   }
 
-  .apk-stats b {
+  .stats b {
     margin-right: 2px;
 
     font-size: 9px;
   }
 
-  .download-btn {
+  .download-button {
     width: 100%;
 
-    min-height: 32px;
+    min-height: 31px;
 
-    margin-top: 7px;
+    margin-top: 8px;
 
-    font-size: 7px;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    font-size: 8px;
   }
 
-  .download-btn svg {
-    width: 11px;
-    height: 11px;
+  .download-button span {
+    font-size: 10px;
   }
 
 
   /* LOAD MORE */
 
   .load-more-wrap {
-    margin-top: 19px;
+    margin-top: 18px;
   }
 
   .load-more {
-    min-width: 215px;
-    height: 44px;
+    height: 40px;
 
-    font-size: 10px;
+    padding: 0 17px;
+
+    border-radius: 9px;
+
+    font-size: 9px;
   }
 
 
   /* TRUST */
 
   .trust-bar {
-    width: calc(100% - 14px);
+    width: calc(100% - 20px);
 
-    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 28px;
 
-    padding: 6px;
+    grid-template-columns: repeat(3, 1fr);
 
-    gap: 2px;
-
-    border-radius: 14px;
+    border-radius: 12px;
   }
 
   .trust-item {
-    min-height: 48px;
+    min-height: 57px;
 
-    justify-content: flex-start;
+    gap: 5px;
 
-    padding-left: 7px;
-
-    border-right: 0;
-  }
-
-  .trust-item:nth-child(-n + 2) {
-    border-bottom: 1px solid #e8edf4;
+    padding: 4px;
   }
 
   .trust-item > span {
-    width: 27px;
-    height: 27px;
+    width: 26px;
+    height: 26px;
 
-    border-radius: 8px;
+    border-radius: 7px;
 
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .trust-item b {
-    font-size: 8px;
+    font-size: 7px;
   }
 
   .trust-item small {
@@ -1889,61 +1312,65 @@ a {
   /* FOOTER */
 
   .footer-inner {
-    width: calc(100% - 26px);
+    width: calc(100% - 28px);
 
-    padding: 30px 0 25px;
+    padding: 28px 0;
 
     grid-template-columns: 1fr 1fr;
 
     gap: 25px;
   }
 
-  .footer-brand {
+  .footer-brand-area {
     grid-column: 1 / -1;
   }
 
-  .footer-logo {
+  .footer-brand-area p {
+    font-size: 9px;
+  }
+
+  .footer-brand-area .brand-name {
     font-size: 21px;
   }
 
-  .footer-logo .logo-symbol {
-    width: 36px;
-    height: 36px;
+  .footer-brand-area .brand-mark {
+    width: 34px;
+    height: 34px;
+
+    font-size: 17px;
   }
 
-  .footer-brand p {
+  .footer-links h4,
+  .footer-social h4 {
     font-size: 9px;
   }
 
-  .footer-column h4 {
-    font-size: 10px;
+  .footer-links a {
+    font-size: 8px;
   }
 
-  .footer-column a {
-    font-size: 9px;
-  }
-
-  .socials {
+  .social-links {
     gap: 6px;
   }
 
-  .socials a {
-    width: 32px;
-    height: 32px;
+  .social-links a {
+    width: 31px;
+    height: 31px;
 
-    font-size: 11px;
+    border-radius: 8px;
+
+    font-size: 12px;
   }
 
   .footer-bottom {
-    width: calc(100% - 26px);
+    width: calc(100% - 28px);
 
     display: block;
 
-    padding: 14px 0;
+    padding: 13px 0;
 
-    line-height: 1.9;
-
-    font-size: 8px;
+    font-size: 7px;
+    line-height: 2;
   }
 
   .footer-bottom span {
@@ -1953,17 +1380,21 @@ a {
 
 
 /* =========================
-   SMALL PHONES
+   VERY SMALL PHONES
 ========================= */
 
-@media (max-width: 380px) {
+@media (max-width: 360px) {
+
+  .brand-name {
+    font-size: 22px;
+  }
 
   .hero h1 {
-    font-size: 27px;
+    font-size: 29px;
   }
 
   .apk-grid {
-    gap: 6px;
+    gap: 7px;
   }
 
   .apk-card {
@@ -1971,15 +1402,12 @@ a {
   }
 
   .app-icon {
-    width: 52px;
-    height: 52px;
+    width: 47px;
+    height: 47px;
+    flex-basis: 47px;
   }
 
-  .apk-stats {
-    font-size: 5.5px;
-  }
-
-  .download-btn {
-    font-size: 6.5px;
+  .stats {
+    font-size: 6px;
   }
 }
