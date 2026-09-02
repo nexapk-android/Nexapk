@@ -1,4 +1,3 @@
-
 export type AppData = {
   slug: string
   name: string
