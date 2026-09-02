@@ -27,7 +27,7 @@ const apps: App[] = [
     rating: "4.8",
     downloads: "2.4M",
     badge: "MOD",
-    description: "Enhanced messaging experience with extra customization options.",
+    description: "More customization and extra features for your messaging experience.",
     icon: "W",
     updated: "Today",
   },
@@ -40,7 +40,7 @@ const apps: App[] = [
     rating: "4.7",
     downloads: "1.8M",
     badge: "PRO",
-    description: "A feature-rich Instagram experience with additional options.",
+    description: "A cleaner social experience with additional customization options.",
     icon: "I",
     updated: "Today",
   },
@@ -53,7 +53,7 @@ const apps: App[] = [
     rating: "4.9",
     downloads: "8.7M",
     badge: "HOT",
-    description: "Battle royale gaming with intense multiplayer action.",
+    description: "Experience intense battle royale action with your squad.",
     icon: "B",
     updated: "Yesterday",
   },
@@ -66,7 +66,7 @@ const apps: App[] = [
     rating: "4.8",
     downloads: "3.2M",
     badge: "PREMIUM",
-    description: "Discover music, podcasts and personalized playlists.",
+    description: "Music, podcasts and personalized playlists in one place.",
     icon: "S",
     updated: "Yesterday",
   },
@@ -79,7 +79,7 @@ const apps: App[] = [
     rating: "4.8",
     downloads: "4.5M",
     badge: "PRO",
-    description: "Powerful video editing tools for creating professional content.",
+    description: "Create polished videos with powerful editing tools.",
     icon: "C",
     updated: "2 days ago",
   },
@@ -92,7 +92,7 @@ const apps: App[] = [
     rating: "4.6",
     downloads: "5.1M",
     badge: "MOD",
-    description: "A customized video watching experience with additional controls.",
+    description: "A customized video viewing experience with extra controls.",
     icon: "Y",
     updated: "2 days ago",
   },
@@ -107,9 +107,12 @@ export default function LatestPage() {
 
   const filteredApps = useMemo(() => {
     let result = apps.filter((app) => {
+      const query = search.toLowerCase().trim();
+
       const matchesSearch =
-        app.name.toLowerCase().includes(search.toLowerCase()) ||
-        app.category.toLowerCase().includes(search.toLowerCase());
+        !query ||
+        app.name.toLowerCase().includes(query) ||
+        app.category.toLowerCase().includes(query);
 
       const matchesCategory =
         category === "All" || app.category === category;
@@ -134,102 +137,104 @@ export default function LatestPage() {
   }, [search, category, sort]);
 
   return (
-    <main className="latest-page">
+    <main className="nex-latest">
       {/* HEADER */}
-      <header className="latest-header">
-        <div className="latest-container header-inner">
-          <Link href="/" className="brand">
+      <header className="nl-header">
+        <div className="nl-container nl-header-inner">
+          <Link href="/" className="nl-logo">
             <img
               src="/nexapk-header.png"
               alt="NexAPK"
             />
           </Link>
 
-          <nav className="desktop-nav">
+          <nav className="nl-nav">
             <Link href="/">Home</Link>
-            <Link href="/latest" className="active">
+            <Link href="/latest" className="current">
               Latest
             </Link>
           </nav>
 
-          <div className="header-actions">
-            <Link href="/" className="mobile-home">
-              Home
-            </Link>
-
+          <div className="nl-header-right">
             <button
-              className="theme-button"
               type="button"
+              className="nl-theme"
               aria-label="Toggle theme"
               onClick={() => {
                 document.documentElement.classList.toggle("dark");
               }}
             >
-              ◐
+              <span>◐</span>
             </button>
           </div>
         </div>
       </header>
 
       {/* HERO */}
-      <section className="latest-hero">
-        <div className="latest-container">
-          <div className="hero-content">
-            <span className="eyebrow">NEXAPK LIBRARY</span>
+      <section className="nl-hero">
+        <div className="nl-container">
+          <div className="nl-hero-inner">
+            <div className="nl-kicker">
+              <span className="nl-kicker-dot" />
+              UPDATED REGULARLY
+            </div>
 
             <h1>
-              Discover the
-              <span> latest APKs.</span>
+              Latest apps.
+              <br />
+              <span>Freshly discovered.</span>
             </h1>
 
             <p>
-              Find the latest apps, games and tools in one clean
-              place.
+              Explore the newest apps, games and tools
+              available on NexAPK.
             </p>
 
-            <div className="search-box">
-              <span className="search-icon">⌕</span>
+            <div className="nl-search">
+              <span className="nl-search-icon">⌕</span>
 
               <input
                 type="text"
-                placeholder="Search apps, games or tools..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search apps, games and tools..."
               />
 
               {search && (
                 <button
-                  className="clear-search"
-                  onClick={() => setSearch("")}
                   type="button"
+                  className="nl-search-clear"
+                  onClick={() => setSearch("")}
                 >
                   ×
                 </button>
               )}
+
+              <span className="nl-search-key">/</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CONTENT */}
-      <section className="latest-content">
-        <div className="latest-container">
-          {/* TOP BAR */}
-          <div className="results-top">
+      {/* MAIN */}
+      <section className="nl-main">
+        <div className="nl-container">
+          {/* SECTION TOP */}
+          <div className="nl-section-head">
             <div>
-              <span className="small-label">
-                EXPLORE LIBRARY
+              <span className="nl-section-label">
+                EXPLORE
               </span>
 
               <h2>
                 {search
-                  ? `Results for "${search}"`
-                  : "Latest APKs"}
+                  ? `Search results`
+                  : "Latest releases"}
               </h2>
             </div>
 
-            <div className="sort-box">
-              <span>Sort:</span>
+            <div className="nl-sort">
+              <span>Sort by</span>
 
               <select
                 value={sort}
@@ -237,85 +242,106 @@ export default function LatestPage() {
               >
                 <option value="Latest">Latest</option>
                 <option value="Rating">Top Rated</option>
-                <option value="Downloads">Most Downloaded</option>
+                <option value="Downloads">
+                  Most Downloaded
+                </option>
               </select>
             </div>
           </div>
 
-          {/* CATEGORIES */}
-          <div className="categories">
-            {categories.map((item) => (
-              <button
-                key={item}
-                type="button"
-                className={
-                  category === item ? "category active" : "category"
-                }
-                onClick={() => setCategory(item)}
-              >
-                {item}
-              </button>
-            ))}
+          {/* FILTERS */}
+          <div className="nl-filter-row">
+            <div className="nl-filters">
+              {categories.map((item) => (
+                <button
+                  key={item}
+                  type="button"
+                  className={
+                    category === item
+                      ? "nl-filter active"
+                      : "nl-filter"
+                  }
+                  onClick={() => setCategory(item)}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+
+            <span className="nl-count">
+              {filteredApps.length} apps
+            </span>
           </div>
 
-          {/* GRID */}
+          {/* CARDS */}
           {filteredApps.length > 0 ? (
-            <div className="apk-grid">
+            <div className="nl-grid">
               {filteredApps.map((app) => (
                 <Link
-                  href={`/apk/${app.slug}`}
-                  className="apk-card"
                   key={app.slug}
+                  href={`/apk/${app.slug}`}
+                  className="nl-card"
                 >
-                  <div className="card-top">
-                    <div className="app-icon">
+                  <div className="nl-card-main">
+                    <div className="nl-icon">
                       {app.icon}
                     </div>
 
-                    {app.badge && (
-                      <span className="app-badge">
-                        {app.badge}
+                    <div className="nl-card-content">
+                      <div className="nl-card-title-row">
+                        <h3>{app.name}</h3>
+
+                        {app.badge && (
+                          <span className="nl-badge">
+                            {app.badge}
+                          </span>
+                        )}
+                      </div>
+
+                      <span className="nl-card-category">
+                        {app.category}
                       </span>
-                    )}
+
+                      <p>{app.description}</p>
+                    </div>
                   </div>
 
-                  <div className="card-info">
-                    <span className="app-category">
-                      {app.category}
-                    </span>
-
-                    <h3>{app.name}</h3>
-
-                    <p>{app.description}</p>
-                  </div>
-
-                  <div className="app-meta">
-                    <span>★ {app.rating}</span>
-                    <span>{app.size}</span>
-                    <span>{app.downloads} downloads</span>
-                  </div>
-
-                  <div className="card-bottom">
+                  <div className="nl-card-data">
                     <span>
-                      {app.version}
+                      <b>★</b> {app.rating}
                     </span>
 
-                    <span className="view-button">
-                      View APK →
+                    <span>{app.size}</span>
+
+                    <span>{app.version}</span>
+
+                    <span className="nl-updated">
+                      {app.updated}
+                    </span>
+                  </div>
+
+                  <div className="nl-card-footer">
+                    <span>
+                      {app.downloads} downloads
+                    </span>
+
+                    <span className="nl-open">
+                      View details
+                      <b>→</b>
                     </span>
                   </div>
                 </Link>
               ))}
             </div>
           ) : (
-            <div className="no-results">
-              <div className="no-results-icon">⌕</div>
+            <div className="nl-empty">
+              <div className="nl-empty-icon">⌕</div>
 
-              <h3>No APKs found</h3>
+              <h3>No results found</h3>
 
               <p>
-                We couldn't find anything matching
-                <strong> "{search}"</strong>.
+                Nothing matched your search. Try another
+                app or category.
               </p>
 
               <button
@@ -325,65 +351,76 @@ export default function LatestPage() {
                   setCategory("All");
                 }}
               >
-                Clear Search
+                Reset search
               </button>
             </div>
           )}
 
-          {/* BOTTOM CTA */}
-          <div className="latest-cta">
-            <div>
-              <span className="cta-label">NEXAPK</span>
+          {/* BOTTOM FEATURE */}
+          <div className="nl-discover">
+            <div className="nl-discover-copy">
+              <span>THE NEXAPK LIBRARY</span>
 
               <h2>
-                Looking for something specific?
+                One place for
+                <br />
+                everything you need.
               </h2>
 
               <p>
-                Search our growing APK library and discover
-                something new.
+                Discover apps and games without the clutter.
+                Simple, fast and built for discovery.
               </p>
             </div>
 
-            <button
-              type="button"
-              onClick={() => {
-                window.scrollTo({
-                  top: 0,
-                  behavior: "smooth",
-                });
-              }}
-            >
-              Search APKs ↑
-            </button>
+            <div className="nl-discover-stats">
+              <div>
+                <strong>06</strong>
+                <span>Apps listed</span>
+              </div>
+
+              <div>
+                <strong>24/7</strong>
+                <span>Discovery</span>
+              </div>
+
+              <div>
+                <strong>01</strong>
+                <span>Simple place</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer className="latest-footer">
-        <div className="latest-container footer-inner">
-          <div className="footer-brand">
-            <img
-              src="/nexapk-footer.png"
-              alt="NexAPK Apps Games Tools"
-            />
+      <footer className="nl-footer">
+        <div className="nl-container">
+          <div className="nl-footer-top">
+            <div>
+              <img
+                src="/nexapk-footer.png"
+                alt="NexAPK"
+                className="nl-footer-logo"
+              />
 
-            <p>
-              Discover apps, games and tools with NexAPK.
-            </p>
+              <p>
+                Apps, games and tools. All in one place.
+              </p>
+            </div>
+
+            <div className="nl-footer-links">
+              <Link href="/">Home</Link>
+              <Link href="/latest">Latest</Link>
+              <Link href="/terms">Terms</Link>
+              <Link href="/privacy">Privacy</Link>
+            </div>
           </div>
 
-          <div className="footer-links">
-            <Link href="/">Home</Link>
-            <Link href="/latest">Latest</Link>
-            <Link href="/terms">Terms</Link>
-            <Link href="/privacy">Privacy</Link>
+          <div className="nl-footer-bottom">
+            <span>© 2026 NexAPK</span>
+            <span>Built for discovery.</span>
           </div>
-        </div>
-
-        <div className="copyright">
-          © 2026 NexAPK. All rights reserved.
         </div>
       </footer>
     </main>
