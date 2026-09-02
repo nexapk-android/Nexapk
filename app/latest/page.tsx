@@ -2,7 +2,87 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { apps } from "@/lib/apps";
+
+const apps = [
+  {
+    slug: "whatsapp-plus",
+    name: "WhatsApp Plus",
+    category: "Social",
+    version: "v2.25.10",
+    size: "78 MB",
+    rating: "4.8",
+    downloads: "8.7M",
+    badge: "Popular",
+    description:
+      "Advanced messaging experience with privacy and customization options.",
+    icon: "W",
+  },
+  {
+    slug: "instagram-pro",
+    name: "Instagram Pro",
+    category: "Social",
+    version: "v385.0.0",
+    size: "92 MB",
+    rating: "4.7",
+    downloads: "5.4M",
+    badge: "Trending",
+    description:
+      "Enhanced social media experience with additional privacy and customization.",
+    icon: "I",
+  },
+  {
+    slug: "bgmi",
+    name: "BGMI",
+    category: "Games",
+    version: "v3.9.0",
+    size: "1.2 GB",
+    rating: "4.9",
+    downloads: "12.8M",
+    badge: "Popular",
+    description:
+      "Immersive battle royale experience with multiplayer gameplay.",
+    icon: "B",
+  },
+  {
+    slug: "spotify-premium",
+    name: "Spotify Premium",
+    category: "Music",
+    version: "v9.0.48",
+    size: "85 MB",
+    rating: "4.8",
+    downloads: "9.2M",
+    badge: "Premium",
+    description:
+      "Listen to music and podcasts with a smooth audio experience.",
+    icon: "S",
+  },
+  {
+    slug: "capcut-pro",
+    name: "CapCut Pro",
+    category: "Video",
+    version: "v14.5.0",
+    size: "240 MB",
+    rating: "4.7",
+    downloads: "6.8M",
+    badge: "Editor",
+    description:
+      "Powerful video editing tools, effects, transitions and templates.",
+    icon: "C",
+  },
+  {
+    slug: "youtube-vanced",
+    name: "YouTube Vanced",
+    category: "Video",
+    version: "v19.20.35",
+    size: "110 MB",
+    rating: "4.6",
+    downloads: "4.1M",
+    badge: "Featured",
+    description:
+      "Enhanced YouTube viewing experience with additional controls.",
+    icon: "Y",
+  },
+];
 
 const categories = ["All", "Social", "Games", "Music", "Video"];
 
@@ -23,39 +103,37 @@ export default function LatestPage() {
     if (search.trim()) {
       const query = search.toLowerCase().trim();
 
-      result = result.filter((app) => {
-        return (
+      result = result.filter(
+        (app) =>
           app.name.toLowerCase().includes(query) ||
           app.category.toLowerCase().includes(query) ||
           app.description.toLowerCase().includes(query)
-        );
-      });
+      );
     }
 
     if (sort === "Top Rated") {
-      result.sort((a, b) => {
-        return Number(b.rating) - Number(a.rating);
-      });
+      result.sort((a, b) => Number(b.rating) - Number(a.rating));
     }
 
     if (sort === "Most Downloaded") {
-      result.sort((a, b) => {
-        return getDownloadNumber(b.downloads) - getDownloadNumber(a.downloads);
-      });
+      result.sort(
+        (a, b) =>
+          parseDownloads(b.downloads) - parseDownloads(a.downloads)
+      );
     }
 
     return result;
   }, [search, category, sort]);
 
-  function toggleTheme() {
-    document.documentElement.classList.toggle("dark");
-  }
-
-  function resetFilters() {
+  const resetFilters = () => {
     setSearch("");
     setCategory("All");
     setSort("Latest");
-  }
+  };
+
+  const toggleTheme = () => {
+    document.documentElement.classList.toggle("dark");
+  };
 
   return (
     <main className="nl-page">
@@ -116,13 +194,12 @@ export default function LatestPage() {
 
               <input
                 type="search"
-                value={search}
-                onChange={(event) => setSearch(event.target.value)}
                 placeholder="Search apps, games..."
-                aria-label="Search apps"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
               />
 
-              {search.length > 0 && (
+              {search && (
                 <button
                   type="button"
                   className="nl-search-clear"
@@ -137,10 +214,9 @@ export default function LatestPage() {
         </div>
       </section>
 
-      {/* MAIN CONTENT */}
+      {/* CONTENT */}
       <section className="nl-content">
         <div className="nl-container">
-          {/* FILTER BAR */}
           <div className="nl-toolbar">
             <div className="nl-categories">
               {categories.map((item) => (
@@ -163,7 +239,7 @@ export default function LatestPage() {
               <select
                 id="app-sort"
                 value={sort}
-                onChange={(event) => setSort(event.target.value)}
+                onChange={(e) => setSort(e.target.value)}
               >
                 <option value="Latest">Latest</option>
                 <option value="Top Rated">Top Rated</option>
@@ -174,7 +250,6 @@ export default function LatestPage() {
             </div>
           </div>
 
-          {/* RESULT HEADER */}
           <div className="nl-result-row">
             <div>
               <h2>Latest Apps</h2>
@@ -185,7 +260,7 @@ export default function LatestPage() {
               </p>
             </div>
 
-            {(search.length > 0 || category !== "All" || sort !== "Latest") && (
+            {(search || category !== "All" || sort !== "Latest") && (
               <button
                 type="button"
                 className="nl-reset"
@@ -206,15 +281,13 @@ export default function LatestPage() {
                   className="nl-card"
                 >
                   <div className="nl-card-top">
-                    <div className="nl-app-icon">
-                      {app.icon}
-                    </div>
+                    <div className="nl-app-icon">{app.icon}</div>
 
-                    {app.badge ? (
+                    {app.badge && (
                       <span className="nl-badge">
                         {app.badge}
                       </span>
-                    ) : null}
+                    )}
                   </div>
 
                   <div className="nl-card-body">
@@ -252,10 +325,7 @@ export default function LatestPage() {
                 Try another keyword or category.
               </p>
 
-              <button
-                type="button"
-                onClick={resetFilters}
-              >
+              <button type="button" onClick={resetFilters}>
                 Clear filters
               </button>
             </div>
@@ -273,8 +343,8 @@ export default function LatestPage() {
               </h2>
 
               <p>
-                New apps and updates are added regularly to the
-                NexAPK library.
+                New apps and updates are added regularly to the NexAPK
+                library.
               </p>
             </div>
 
@@ -306,14 +376,12 @@ export default function LatestPage() {
             <div className="nl-footer-links">
               <div>
                 <h4>Explore</h4>
-
                 <Link href="/">Home</Link>
                 <Link href="/latest">Latest</Link>
               </div>
 
               <div>
                 <h4>Legal</h4>
-
                 <Link href="/terms">Terms</Link>
                 <Link href="/privacy">Privacy</Link>
               </div>
@@ -341,10 +409,7 @@ export default function LatestPage() {
           </div>
 
           <div className="nl-footer-bottom">
-            <span>
-              © {new Date().getFullYear()} NexAPK
-            </span>
-
+            <span>© {new Date().getFullYear()} NexAPK</span>
             <span>Made for Android users</span>
           </div>
         </div>
@@ -353,24 +418,24 @@ export default function LatestPage() {
   );
 }
 
-function getDownloadNumber(value: string): number {
+function parseDownloads(value: string): number {
   const number = Number.parseFloat(value);
 
   if (Number.isNaN(number)) {
     return 0;
   }
 
-  const lowerValue = value.toLowerCase();
+  const text = value.toLowerCase();
 
-  if (lowerValue.includes("b")) {
+  if (text.includes("b")) {
     return number * 1000;
   }
 
-  if (lowerValue.includes("m")) {
+  if (text.includes("m")) {
     return number;
   }
 
-  if (lowerValue.includes("k")) {
+  if (text.includes("k")) {
     return number / 1000;
   }
 
