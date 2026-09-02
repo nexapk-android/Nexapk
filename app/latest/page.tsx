@@ -1,49 +1,61 @@
-"use client"
+"use client";
 
-import { useMemo, useState } from "react"
-import Link from "next/link"
-import { apps } from "@/lib/apps"
+import Link from "next/link";
+import { useMemo, useState } from "react";
+import { apps } from "@/lib/apps";
 
-const categories = ["All", "Social", "Games", "Music", "Video"]
+const categories = ["All", "Social", "Games", "Music", "Video"];
 
 export default function LatestPage() {
-  const [search, setSearch] = useState("")
-  const [category, setCategory] = useState("All")
-  const [sort, setSort] = useState("Latest")
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("All");
+  const [sort, setSort] = useState("Latest");
 
   const filteredApps = useMemo(() => {
-    let result = [...apps]
+    let result = [...apps];
 
     if (category !== "All") {
       result = result.filter(
         (app) => app.category.toLowerCase() === category.toLowerCase()
-      )
+      );
     }
 
     if (search.trim()) {
-      const query = search.toLowerCase().trim()
+      const query = search.toLowerCase().trim();
 
-      result = result.filter(
-        (app) =>
+      result = result.filter((app) => {
+        return (
           app.name.toLowerCase().includes(query) ||
           app.category.toLowerCase().includes(query) ||
           app.description.toLowerCase().includes(query)
-      )
+        );
+      });
     }
 
     if (sort === "Top Rated") {
-      result.sort((a, b) => Number(b.rating) - Number(a.rating))
+      result.sort((a, b) => {
+        return Number(b.rating) - Number(a.rating);
+      });
     }
 
     if (sort === "Most Downloaded") {
-      result.sort(
-        (a, b) =>
-          parseDownloads(b.downloads) - parseDownloads(a.downloads)
-      )
+      result.sort((a, b) => {
+        return getDownloadNumber(b.downloads) - getDownloadNumber(a.downloads);
+      });
     }
 
-    return result
-  }, [search, category, sort])
+    return result;
+  }, [search, category, sort]);
+
+  function toggleTheme() {
+    document.documentElement.classList.toggle("dark");
+  }
+
+  function resetFilters() {
+    setSearch("");
+    setCategory("All");
+    setSort("Latest");
+  }
 
   return (
     <main className="nl-page">
@@ -72,10 +84,8 @@ export default function LatestPage() {
             <button
               type="button"
               className="nl-icon-btn"
+              onClick={toggleTheme}
               aria-label="Toggle theme"
-              onClick={() => {
-                document.documentElement.classList.toggle("dark")
-              }}
             >
               <span className="nl-theme-sun">☀</span>
               <span className="nl-theme-moon">☾</span>
@@ -105,13 +115,14 @@ export default function LatestPage() {
               <span className="nl-search-icon">⌕</span>
 
               <input
-                type="text"
-                placeholder="Search apps, games..."
+                type="search"
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(event) => setSearch(event.target.value)}
+                placeholder="Search apps, games..."
+                aria-label="Search apps"
               />
 
-              {search && (
+              {search.length > 0 && (
                 <button
                   type="button"
                   className="nl-search-clear"
@@ -126,10 +137,10 @@ export default function LatestPage() {
         </div>
       </section>
 
-      {/* CONTENT */}
+      {/* MAIN CONTENT */}
       <section className="nl-content">
         <div className="nl-container">
-          {/* TOP BAR */}
+          {/* FILTER BAR */}
           <div className="nl-toolbar">
             <div className="nl-categories">
               {categories.map((item) => (
@@ -147,21 +158,23 @@ export default function LatestPage() {
             </div>
 
             <div className="nl-sort">
-              <label htmlFor="sort">Sort</label>
+              <label htmlFor="app-sort">Sort</label>
 
               <select
-                id="sort"
+                id="app-sort"
                 value={sort}
-                onChange={(e) => setSort(e.target.value)}
+                onChange={(event) => setSort(event.target.value)}
               >
-                <option>Latest</option>
-                <option>Top Rated</option>
-                <option>Most Downloaded</option>
+                <option value="Latest">Latest</option>
+                <option value="Top Rated">Top Rated</option>
+                <option value="Most Downloaded">
+                  Most Downloaded
+                </option>
               </select>
             </div>
           </div>
 
-          {/* RESULT INFO */}
+          {/* RESULT HEADER */}
           <div className="nl-result-row">
             <div>
               <h2>Latest Apps</h2>
@@ -172,15 +185,11 @@ export default function LatestPage() {
               </p>
             </div>
 
-            {(search || category !== "All") && (
+            {(search.length > 0 || category !== "All" || sort !== "Latest") && (
               <button
                 type="button"
                 className="nl-reset"
-                onClick={() => {
-                  setSearch("")
-                  setCategory("All")
-                  setSort("Latest")
-                }}
+                onClick={resetFilters}
               >
                 Reset filters
               </button>
@@ -192,18 +201,20 @@ export default function LatestPage() {
             <div className="nl-grid">
               {filteredApps.map((app) => (
                 <Link
+                  key={app.slug}
                   href={`/apk/${app.slug}`}
                   className="nl-card"
-                  key={app.slug}
                 >
                   <div className="nl-card-top">
                     <div className="nl-app-icon">
                       {app.icon}
                     </div>
 
-                    {app.badge && (
-                      <span className="nl-badge">{app.badge}</span>
-                    )}
+                    {app.badge ? (
+                      <span className="nl-badge">
+                        {app.badge}
+                      </span>
+                    ) : null}
                   </div>
 
                   <div className="nl-card-body">
@@ -225,9 +236,7 @@ export default function LatestPage() {
                   <div className="nl-card-bottom">
                     <span>{app.downloads} downloads</span>
 
-                    <span className="nl-arrow">
-                      →
-                    </span>
+                    <span className="nl-arrow">→</span>
                   </div>
                 </Link>
               ))}
@@ -239,24 +248,20 @@ export default function LatestPage() {
               <h3>No apps found</h3>
 
               <p>
-                We couldn't find anything matching your search.
+                We couldn&apos;t find anything matching your search.
                 Try another keyword or category.
               </p>
 
               <button
                 type="button"
-                onClick={() => {
-                  setSearch("")
-                  setCategory("All")
-                  setSort("Latest")
-                }}
+                onClick={resetFilters}
               >
                 Clear filters
               </button>
             </div>
           )}
 
-          {/* DISCOVER SECTION */}
+          {/* DISCOVER */}
           <section className="nl-discover">
             <div>
               <span className="nl-eyebrow">DISCOVER MORE</span>
@@ -264,12 +269,12 @@ export default function LatestPage() {
               <h2>
                 Find something
                 <br />
-                <span>you'll love.</span>
+                <span>you&apos;ll love.</span>
               </h2>
 
               <p>
-                New apps and updates are added regularly to the NexAPK
-                library.
+                New apps and updates are added regularly to the
+                NexAPK library.
               </p>
             </div>
 
@@ -293,26 +298,29 @@ export default function LatestPage() {
               />
 
               <p>
-                Your destination for discovering apps, games and digital
-                tools.
+                Your destination for discovering apps, games and
+                digital tools.
               </p>
             </div>
 
             <div className="nl-footer-links">
               <div>
                 <h4>Explore</h4>
+
                 <Link href="/">Home</Link>
                 <Link href="/latest">Latest</Link>
               </div>
 
               <div>
                 <h4>Legal</h4>
+
                 <Link href="/terms">Terms</Link>
                 <Link href="/privacy">Privacy</Link>
               </div>
 
               <div>
                 <h4>Social</h4>
+
                 <a
                   href="https://instagram.com/"
                   target="_blank"
@@ -333,29 +341,38 @@ export default function LatestPage() {
           </div>
 
           <div className="nl-footer-bottom">
-            <span>© {new Date().getFullYear()} NexAPK</span>
+            <span>
+              © {new Date().getFullYear()} NexAPK
+            </span>
+
             <span>Made for Android users</span>
           </div>
         </div>
       </footer>
     </main>
-  )
+  );
 }
 
-function parseDownloads(value: string) {
-  const number = parseFloat(value)
+function getDownloadNumber(value: string): number {
+  const number = Number.parseFloat(value);
 
-  if (value.toLowerCase().includes("b")) {
-    return number * 1000
+  if (Number.isNaN(number)) {
+    return 0;
   }
 
-  if (value.toLowerCase().includes("m")) {
-    return number
+  const lowerValue = value.toLowerCase();
+
+  if (lowerValue.includes("b")) {
+    return number * 1000;
   }
 
-  if (value.toLowerCase().includes("k")) {
-    return number / 1000
+  if (lowerValue.includes("m")) {
+    return number;
   }
 
-  return number
+  if (lowerValue.includes("k")) {
+    return number / 1000;
+  }
+
+  return number;
 }
